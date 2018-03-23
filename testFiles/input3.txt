@@ -1,4 +1,19 @@
-/* Example 3 */
-x = 4.0e-2; 
--y = 100 * x * x + 7 * x + .3; 
-print(-y/2.0);
+/*
+* Sample program 3
+*/
+int sum(int i) {
+	if (i <= 0) {
+		return 0;
+	}
+	return i + sum(i-1);
+}
+
+void main() {
+	char [] msg = "1+2+...+100=";
+	int total;
+	total = sum(100);
+	print(msg);
+	print(total);
+	print('\n');
+	return;
+}
