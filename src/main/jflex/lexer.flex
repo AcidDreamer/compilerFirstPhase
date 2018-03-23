@@ -69,7 +69,7 @@ CharacterLiteral    = "'" {CharacterAcceptable}   "'"
     "+"                            { out.println("PLUS"); }
     ";"                            { out.println("SEMICOLON"); }
     "=="                         { out.println("EQUALS"); } 
-    "−"                             { out.println("MINUS"); } 
+    "-"                             { out.println("MINUS"); } 
     "("                             { out.println("LEFT_PARENTHESIS"); } 
     ")"                             { out.println("RIGHT_PARENTHESIS"); } 
     ","                                { out.println("COMMA"); } 
