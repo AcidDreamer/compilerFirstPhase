@@ -1,0 +1,4 @@
+float 2.34;
+int 5;
+char 'a';
+char 'aa';
