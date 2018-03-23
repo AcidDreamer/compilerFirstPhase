@@ -58,7 +58,11 @@ CharacterLiteral    = "'" {CharacterAcceptable}   "'"
     {Identifier}                   { out.println("id:" + yytext()); }
 
     /* literals */
-    {IntegerLiteral}               { out.println("integer:" + yytext()); }
+    {IntegerLiteral}               { if(yytext().length() <= 10 ) {
+                                        out.println("integer:" + yytext());
+                                    }else{
+                                        throw new RuntimeException("IntegerSizeException " + (yyline+1) + ":" + (yycolumn+1) + ": integers should not be longer than 10 digits");
+                                    } }
     {CharacterLiteral}             {  if(yytext().length() == 3 ){
                                         out.println("character:" + yytext().charAt(1));
                                        }else{ 
@@ -117,4 +121,4 @@ CharacterLiteral    = "'" {CharacterAcceptable}   "'"
 
 
 /* error fallback */
-[^]                                { throw new RuntimeException((yyline+1) + ":" + (yycolumn+1) + ": illegal character <"+ yytext()+">"); }
+[^]                                { throw new RuntimeException("IllegalCharacterException "+(yyline+1) + ":" + (yycolumn+1) + ": illegal character <"+ yytext()+">"); }

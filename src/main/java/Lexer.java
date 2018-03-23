@@ -828,7 +828,7 @@ public final class Lexer {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
-            { throw new RuntimeException((yyline+1) + ":" + (yycolumn+1) + ": illegal character <"+ yytext()+">");
+            { throw new RuntimeException("IllegalCharacterException "+(yyline+1) + ":" + (yycolumn+1) + ": illegal character <"+ yytext()+">");
             }
           case 51: break;
           case 2: 
@@ -848,7 +848,11 @@ public final class Lexer {
             }
           case 55: break;
           case 6: 
-            { out.println("integer:" + yytext());
+            { if(yytext().length() <= 10 ) {
+                                        out.println("integer:" + yytext());
+                                    }else{
+                                        throw new RuntimeException("IntegerSizeException " + (yyline+1) + ":" + (yycolumn+1) + ": integers should not be longer than 10 digits");
+                                    }
             }
           case 56: break;
           case 7: 
