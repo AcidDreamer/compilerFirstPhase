@@ -1,7 +1,6 @@
 package com.compilers.proj;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 /**
  * This code is part of the lab exercises for the Compilers course at Harokopio
  * University of Athens, Dept. of Informatics and Telematics.

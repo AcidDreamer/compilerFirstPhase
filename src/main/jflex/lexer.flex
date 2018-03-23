@@ -28,7 +28,7 @@ Comment             = "/*" [^*] ~"*/" | "/*" "*"+ "/" | "//"  ~{LineTerminator}
 
 Identifier          = [:jletter:] [:jletterdigit:]* 
 IntegerLiteral      = 0 | [1-9][0-9]*
-FloatLiteral        = [0-9]*.[0-9]+|[0-9]+
+FloatLiteral        = "[0-9]*.[0-9]+|[0-9]+"
 CharacterAcceptable = [:jletterdigit:] | "\\n" | "\\t" | "\\0"
 CharacterLiteral    = "'" {CharacterAcceptable}   "'" 
 
@@ -59,8 +59,9 @@ CharacterLiteral    = "'" {CharacterAcceptable}   "'"
 
     /* literals */
     {IntegerLiteral}               { out.println("integer:" + yytext()); }
-    {FloatLiteral}                 { out.println("FLOAT: " + yytext()); }
     {CharacterLiteral}             { out.println("CHARACTER:" + yytext()); }
+    {FloatLiteral}                 { out.println("FLOAT: " + yytext()); }
+
     \"                             { sb.setLength(0); yybegin(STRING); }
 
     /* operators */
