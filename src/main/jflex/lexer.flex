@@ -31,32 +31,20 @@ IntegerLiteral      = 0 | [1-9][0-9]*
 FloatLiteral        = {IntegerLiteral} \. {IntegerLiteral}
 CharacterAcceptable = [:jletterdigit:] | "\\n" | "\\t" | "\\0"
 CharacterLiteral    = "'" {CharacterAcceptable}   "'" 
-
+KeywordsFirstPart   = "int" | "float" | "char" | "while" | "if" | "else" 
+KeywordsSecondPart  = "return" | "break" | "continue" |"new" |"delete" |"void" | "print"
 
 
 %state STRING
 
 %%
-
 <YYINITIAL> {
     /* reserved keywords */
-     "int"                         { out.println("INT"); }
-    "float"                       { out.println("FLOAT"); }
-    "char"                        { out.println("CHAR"); }
-    "while"                       { out.println("WHILE"); }
-    "if"                          { out.println("IF"); }
-    "else"                        { out.println("ELSE"); }
-    "return"                      { out.println("RETURN"); }
-    "break"                       { out.println("BREAK"); }
-    "continue"                    { out.println("CONTINUE"); }
-    "new"                         { out.println("NEW"); }
-    "delete"                      { out.println("DELETE"); }
-    "void"                        { out.println("VOID"); }
-    "print"                       { out.println("PRINT"); }
+    {KeywordsFirstPart}                     { out.println("Keyword:" + yytext());}
+    {KeywordsSecondPart}                    { out.println("Keyword:" + yytext());}
     
     /* identifiers */ 
     {Identifier}                   { out.println("id:" + yytext()); }
-
     /* literals */
     {IntegerLiteral}               { if(yytext().length() <= 10 ) {
                                         out.println("integer:" + yytext());

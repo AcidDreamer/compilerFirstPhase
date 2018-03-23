@@ -199,12 +199,10 @@ public final class Lexer {
     "\1\25\1\26\2\1\1\27\1\30\1\31\3\0\1\5"+
     "\2\0\1\5\1\32\12\5\1\33\1\34\1\35\1\36"+
     "\1\37\1\40\1\41\1\42\1\43\1\44\2\0\2\45"+
-    "\1\46\1\47\1\50\12\5\1\0\2\5\1\51\2\5"+
-    "\1\52\2\5\1\53\1\5\1\54\2\5\1\55\1\56"+
-    "\1\5\1\57\1\5\1\60\1\61\1\5\1\62";
+    "\1\46\12\5\1\0\7\5";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[111];
+    int [] result = new int[94];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -238,14 +236,12 @@ public final class Lexer {
     "\0\u0672\0\u06a4\0\372\0\u06d6\0\u0708\0\u073a\0\u076c\0\u079e"+
     "\0\u07d0\0\u0802\0\u0834\0\u0866\0\u0898\0\144\0\144\0\144"+
     "\0\144\0\144\0\144\0\144\0\144\0\144\0\144\0\u08ca"+
-    "\0\u08fc\0\144\0\u092e\0\372\0\144\0\372\0\u0960\0\u0992"+
-    "\0\u09c4\0\u09f6\0\u0a28\0\u0a5a\0\u0a8c\0\u0abe\0\u0af0\0\u0b22"+
-    "\0\u0b54\0\u0b86\0\u0bb8\0\372\0\u0bea\0\u0c1c\0\372\0\u0c4e"+
-    "\0\u0c80\0\372\0\u0cb2\0\372\0\u0ce4\0\u0d16\0\372\0\372"+
-    "\0\u0d48\0\372\0\u0d7a\0\372\0\372\0\u0dac\0\372";
+    "\0\u08fc\0\144\0\u092e\0\144\0\u0960\0\u0992\0\u09c4\0\u09f6"+
+    "\0\u0a28\0\u0a5a\0\u0a8c\0\u0abe\0\u0af0\0\u0b22\0\u0b54\0\u0b86"+
+    "\0\u0bb8\0\u0bea\0\u0c1c\0\u0c4e\0\u0c80\0\u0cb2";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[111];
+    int [] result = new int[94];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -294,44 +290,39 @@ public final class Lexer {
     "\21\51\14\0\1\104\1\105\10\0\1\106\11\0\1\107"+
     "\21\0\1\54\1\4\1\5\57\54\5\110\1\111\54\110"+
     "\10\0\1\112\1\113\56\0\4\10\2\0\2\10\1\0"+
-    "\10\10\1\114\10\10\40\0\1\115\53\0\1\60\3\0"+
-    "\2\60\52\0\4\10\2\0\1\10\1\116\1\0\21\10"+
-    "\30\0\4\10\2\0\2\10\1\0\3\10\1\117\15\10"+
-    "\30\0\4\10\2\0\1\120\1\10\1\0\21\10\30\0"+
-    "\4\10\2\0\2\10\1\0\4\10\1\121\14\10\30\0"+
-    "\4\10\2\0\1\10\1\122\1\0\21\10\30\0\4\10"+
-    "\2\0\2\10\1\0\1\123\20\10\30\0\4\10\2\0"+
-    "\2\10\1\0\12\10\1\124\6\10\30\0\4\10\2\0"+
-    "\2\10\1\0\11\10\1\125\7\10\30\0\4\10\2\0"+
-    "\2\10\1\0\2\10\1\126\16\10\30\0\4\10\2\0"+
-    "\2\10\1\0\1\127\20\10\30\0\4\10\2\0\2\10"+
-    "\1\0\1\130\20\10\22\0\5\110\1\131\54\110\4\0"+
+    "\10\10\1\63\10\10\40\0\1\114\53\0\1\60\3\0"+
+    "\2\60\52\0\4\10\2\0\1\10\1\63\1\0\21\10"+
+    "\30\0\4\10\2\0\2\10\1\0\3\10\1\115\15\10"+
+    "\30\0\4\10\2\0\1\116\1\10\1\0\21\10\30\0"+
+    "\4\10\2\0\2\10\1\0\4\10\1\117\14\10\30\0"+
+    "\4\10\2\0\1\10\1\120\1\0\21\10\30\0\4\10"+
+    "\2\0\2\10\1\0\1\121\20\10\30\0\4\10\2\0"+
+    "\2\10\1\0\12\10\1\122\6\10\30\0\4\10\2\0"+
+    "\2\10\1\0\11\10\1\123\7\10\30\0\4\10\2\0"+
+    "\2\10\1\0\2\10\1\124\16\10\30\0\4\10\2\0"+
+    "\2\10\1\0\1\125\20\10\30\0\4\10\2\0\2\10"+
+    "\1\0\1\126\20\10\22\0\5\110\1\127\54\110\4\0"+
     "\1\5\1\111\64\0\2\113\56\0\4\10\2\0\2\10"+
-    "\1\0\4\10\1\132\14\10\30\0\4\10\2\0\1\10"+
-    "\1\133\1\0\21\10\30\0\4\10\2\0\2\10\1\0"+
-    "\7\10\1\134\11\10\30\0\4\10\2\0\2\10\1\0"+
-    "\13\10\1\135\5\10\30\0\4\10\2\0\2\10\1\0"+
-    "\2\10\1\136\16\10\30\0\4\10\2\0\2\10\1\0"+
-    "\11\10\1\137\7\10\30\0\4\10\2\0\2\10\1\0"+
-    "\4\10\1\140\14\10\30\0\4\10\2\0\2\10\1\0"+
-    "\11\10\1\141\7\10\30\0\4\10\2\0\2\10\1\0"+
-    "\16\10\1\142\2\10\30\0\4\10\2\0\1\143\1\10"+
-    "\1\0\21\10\22\0\4\110\1\5\1\131\54\110\6\0"+
-    "\4\10\2\0\1\10\1\144\1\0\21\10\30\0\4\10"+
-    "\2\0\2\10\1\0\1\145\20\10\30\0\4\10\2\0"+
-    "\2\10\1\0\7\10\1\146\11\10\30\0\4\10\2\0"+
-    "\2\10\1\0\11\10\1\147\7\10\30\0\4\10\2\0"+
-    "\2\10\1\0\15\10\1\150\3\10\30\0\4\10\2\0"+
-    "\1\10\1\151\1\0\21\10\30\0\4\10\2\0\1\10"+
-    "\1\152\1\0\21\10\30\0\4\10\2\0\1\153\1\10"+
-    "\1\0\21\10\30\0\4\10\2\0\1\154\1\10\1\0"+
-    "\21\10\30\0\4\10\2\0\2\10\1\0\11\10\1\155"+
-    "\7\10\30\0\4\10\2\0\2\10\1\0\13\10\1\156"+
-    "\5\10\30\0\4\10\2\0\2\10\1\0\11\10\1\157"+
-    "\7\10\22\0";
+    "\1\0\4\10\1\62\14\10\30\0\4\10\2\0\1\10"+
+    "\1\130\1\0\21\10\30\0\4\10\2\0\2\10\1\0"+
+    "\7\10\1\63\11\10\30\0\4\10\2\0\2\10\1\0"+
+    "\13\10\1\131\5\10\30\0\4\10\2\0\2\10\1\0"+
+    "\2\10\1\122\16\10\30\0\4\10\2\0\2\10\1\0"+
+    "\11\10\1\63\7\10\30\0\4\10\2\0\2\10\1\0"+
+    "\4\10\1\132\14\10\30\0\4\10\2\0\2\10\1\0"+
+    "\11\10\1\133\7\10\30\0\4\10\2\0\2\10\1\0"+
+    "\16\10\1\63\2\10\30\0\4\10\2\0\1\62\1\10"+
+    "\1\0\21\10\22\0\4\110\1\5\1\127\54\110\6\0"+
+    "\4\10\2\0\2\10\1\0\1\134\20\10\30\0\4\10"+
+    "\2\0\2\10\1\0\7\10\1\135\11\10\30\0\4\10"+
+    "\2\0\2\10\1\0\15\10\1\63\3\10\30\0\4\10"+
+    "\2\0\1\10\1\122\1\0\21\10\30\0\4\10\2\0"+
+    "\1\136\1\10\1\0\21\10\30\0\4\10\2\0\1\63"+
+    "\1\10\1\0\21\10\30\0\4\10\2\0\2\10\1\0"+
+    "\13\10\1\122\5\10\22\0";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[3550];
+    int [] result = new int[3300];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -371,11 +362,11 @@ public final class Lexer {
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
     "\2\0\1\11\1\1\1\11\1\1\1\11\17\1\1\11"+
     "\1\1\12\11\3\1\1\11\4\1\1\11\3\0\1\1"+
-    "\2\0\14\1\12\11\2\0\1\11\2\1\1\11\13\1"+
-    "\1\0\26\1";
+    "\2\0\14\1\12\11\2\0\1\11\1\1\1\11\12\1"+
+    "\1\0\7\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[111];
+    int [] result = new int[94];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -830,23 +821,23 @@ public final class Lexer {
           case 1: 
             { throw new RuntimeException("IllegalCharacterException "+(yyline+1) + ":" + (yycolumn+1) + ": illegal character <"+ yytext()+">");
             }
-          case 51: break;
+          case 39: break;
           case 2: 
             { /* ignore */
             }
-          case 52: break;
+          case 40: break;
           case 3: 
             { out.println("DIVISION");
             }
-          case 53: break;
+          case 41: break;
           case 4: 
             { out.println("STAR");
             }
-          case 54: break;
+          case 42: break;
           case 5: 
             { out.println("id:" + yytext());
             }
-          case 55: break;
+          case 43: break;
           case 6: 
             { if(yytext().length() <= 10 ) {
                                         out.println("integer:" + yytext());
@@ -854,188 +845,140 @@ public final class Lexer {
                                         throw new RuntimeException("IntegerSizeException " + (yyline+1) + ":" + (yycolumn+1) + ": integers should not be longer than 10 digits");
                                     }
             }
-          case 56: break;
+          case 44: break;
           case 7: 
             { sb.setLength(0); yybegin(STRING);
             }
-          case 57: break;
+          case 45: break;
           case 8: 
             { out.println("ASSIGN");
             }
-          case 58: break;
+          case 46: break;
           case 9: 
             { out.println("PLUS");
             }
-          case 59: break;
+          case 47: break;
           case 10: 
             { out.println("SEMICOLON");
             }
-          case 60: break;
+          case 48: break;
           case 11: 
             { out.println("MINUS");
             }
-          case 61: break;
+          case 49: break;
           case 12: 
             { out.println("LEFT_PARENTHESIS");
             }
-          case 62: break;
+          case 50: break;
           case 13: 
             { out.println("RIGHT_PARENTHESIS");
             }
-          case 63: break;
+          case 51: break;
           case 14: 
             { out.println("COMMA");
             }
-          case 64: break;
+          case 52: break;
           case 15: 
             { out.println("LEFT_SQUARE_BRACKET");
             }
-          case 65: break;
+          case 53: break;
           case 16: 
             { out.println("RIGHT_SQUARE_BRACKET");
             }
-          case 66: break;
+          case 54: break;
           case 17: 
             { out.println("LEFT_CURLY_BRACKET");
             }
-          case 67: break;
+          case 55: break;
           case 18: 
             { out.println("RIGHT_CURLY_BRACKET");
             }
-          case 68: break;
+          case 56: break;
           case 19: 
             { out.println("GREATER THAN");
             }
-          case 69: break;
+          case 57: break;
           case 20: 
             { out.println("LESS THAN");
             }
-          case 70: break;
+          case 58: break;
           case 21: 
             { out.println("NOT");
             }
-          case 71: break;
+          case 59: break;
           case 22: 
             { out.println("MOD");
             }
-          case 72: break;
+          case 60: break;
           case 23: 
             { sb.append(yytext());
             }
-          case 73: break;
+          case 61: break;
           case 24: 
             { sb.append('\\');
             }
-          case 74: break;
+          case 62: break;
           case 25: 
             { yybegin(YYINITIAL);
                                      out.println("string:" + sb.toString());
             }
-          case 75: break;
+          case 63: break;
           case 26: 
-            { out.println("IF");
+            { out.println("Keyword:" + yytext());
             }
-          case 76: break;
+          case 64: break;
           case 27: 
             { out.println("EQUALS");
             }
-          case 77: break;
+          case 65: break;
           case 28: 
             { out.println("EQUAL OR GREATER THAN");
             }
-          case 78: break;
+          case 66: break;
           case 29: 
             { out.println("EQUAL OR LESS THAN");
             }
-          case 79: break;
+          case 67: break;
           case 30: 
             { out.println("NOT EQUAL");
             }
-          case 80: break;
+          case 68: break;
           case 31: 
             { out.println("AND");
             }
-          case 81: break;
+          case 69: break;
           case 32: 
             { out.println("OR");
             }
-          case 82: break;
+          case 70: break;
           case 33: 
             { sb.append('\n');
             }
-          case 83: break;
+          case 71: break;
           case 34: 
             { sb.append('\t');
             }
-          case 84: break;
+          case 72: break;
           case 35: 
             { sb.append('\r');
             }
-          case 85: break;
+          case 73: break;
           case 36: 
             { sb.append('\"');
             }
-          case 86: break;
+          case 74: break;
           case 37: 
             { out.println("float: " + yytext());
             }
-          case 87: break;
+          case 75: break;
           case 38: 
-            { out.println("NEW");
-            }
-          case 88: break;
-          case 39: 
             { if(yytext().length() == 3 ){
                                         out.println("character:" + yytext().charAt(1));
                                        }else{ 
                                         out.println("character:" + yytext().charAt(1) + yytext().charAt(2)); 
                                     }
             }
-          case 89: break;
-          case 40: 
-            { out.println("INT");
-            }
-          case 90: break;
-          case 41: 
-            { out.println("CHAR");
-            }
-          case 91: break;
-          case 42: 
-            { out.println("ELSE");
-            }
-          case 92: break;
-          case 43: 
-            { out.println("VOID");
-            }
-          case 93: break;
-          case 44: 
-            { out.println("FLOAT");
-            }
-          case 94: break;
-          case 45: 
-            { out.println("WHILE");
-            }
-          case 95: break;
-          case 46: 
-            { out.println("BREAK");
-            }
-          case 96: break;
-          case 47: 
-            { out.println("PRINT");
-            }
-          case 97: break;
-          case 48: 
-            { out.println("RETURN");
-            }
-          case 98: break;
-          case 49: 
-            { out.println("DELETE");
-            }
-          case 99: break;
-          case 50: 
-            { out.println("CONTINUE");
-            }
-          case 100: break;
+          case 76: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }
