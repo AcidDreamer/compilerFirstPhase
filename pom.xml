@@ -107,7 +107,7 @@
                                 <transformer
                                     implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <manifestEntries>
-                                        <Main-Class>com.compilers.proj.Compiler</Main-Class>
+                                        <Main-Class>Compiler</Main-Class>
                                         <Class-Path>.</Class-Path>
                                     </manifestEntries>
                                 </transformer>
