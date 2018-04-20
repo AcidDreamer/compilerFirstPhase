@@ -109,7 +109,7 @@ KeywordsSecondPart  = "return" | "break" | "continue" |"new" |"delete" |"void" |
     "="                            { return createSymbol(sym.ASSIGN); } //FIX
     "+"                            { return createSymbol(sym.PLUS); }
     ";"                            { return createSymbol(sym.SEMICOLON); }
-    "=="                         { return createSymbol(sym.EQ); } 
+    "=="                         { return createSymbol(sym.EQUAL); } 
     "-"                             { return createSymbol(sym.MINUS); } 
     "("                             { return createSymbol(sym.LPAREN); } 
     ")"                             { return createSymbol(sym.RPAREN);} 

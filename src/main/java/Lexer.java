@@ -1004,7 +1004,7 @@ public final class Lexer implements java_cup.runtime.Scanner {
             }
           case 64: break;
           case 27: 
-            { return createSymbol(sym.EQ);
+            { return createSymbol(sym.EQUAL);
             }
           case 65: break;
           case 28: 
