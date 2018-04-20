@@ -98,7 +98,7 @@ start with CompilationUnit;
 | ”int”
 | ”float”
 | ”void”
-1
+
 <VariableDefinition> ::= <TypeSpecifier> <Identifier> ”;”
 | <TypeSpecifier> ”[” ”]” <Identifier> ”;”
 <Statement> ::= ”while” ”(” <Expr> ”)” <Statement>
