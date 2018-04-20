@@ -38,7 +38,7 @@ import java_cup.runtime.Symbol;
     }
     private int switchKeywords(Object forValue){
         if (forValue.equals("int")){
-            return  sym.INTEGER_LITERAL;
+            return  sym.INTEGER_KEYWORD;
         }else if (forValue.equals("float")){
             return  sym.FLOAT_KEYWORD;
         }else if (forValue.equals("char")){
