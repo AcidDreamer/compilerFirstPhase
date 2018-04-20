@@ -454,37 +454,37 @@ public final class Lexer implements java_cup.runtime.Scanner {
   private int zzFinalHighSurrogate = 0;
 
   /* user code: */
-    private int switchKeywords(String value){
-        switch (forValue){
-            case "int"  :
+    private int switchKeywords(String forValue){
+            if (forValue.equals("int")){
                 return  sym.INT_LITERAL;
-            case "float":
+            }else if (forValue.equals("float")){
                 return  sym.FLOAT_KEYWORD;
-            case "char" :
+            }else if (forValue.equals("char")){
                 return  sym.FLOAT_KEYWORD;
-            case "while":
+            }else if (forValue.equals("while")){
                 return  sym.WHILE_KEYWORD;
-            case "if"   :
+            }else if (forValue.equals("if")){
                 return  sym.IF_KEYWORD;
-            case "else" :
+            }else if (forValue.equals("else")){
                 return  sym.ELSE_KEYWORD;
-            case "return":
+            }else if (forValue.equals("return")){
                 return  sym.RETURN_KEYWORD;
-            case "break":
+            }else if (forValue.equals("break")){
                 return  sym.BREAK_KEYWORD;
-            case "continue":
+            }else if (forValue.equals("continue")){
                 return  sym.CONTINUE_KEYWORD;
-            case "new" :
+            }else if (forValue.equals("new")){
                 return  sym.NEW_KEYWORD;
-            case "delete" :
+            }else if (forValue.equals("delete")){
                 return  sym.DELETE_KEYWORD;
-            case "void"  :
+            }else if (forValue.equals("void")){
                 return  sym.VOID_KEYWORD;
-            case "print" :
+            }else if (forValue.equals("print")){
                 return  sym.PRINT_KEYWORD;
-            default :
+            }else{
                 return sym.MISSING_KEYWORD;
-        }
+            }
+        
     }
     private StringBuffer sb = new StringBuffer();
 
@@ -496,11 +496,10 @@ public final class Lexer implements java_cup.runtime.Scanner {
         return new Symbol(type, yyline+1, yycolumn+1, value);
     }
 
-    private Symbol createSymbol(int type, String forValue  ){
+    private Symbol createSymbol(String forValue ){
         int typeOf = switchKeywords(forValue);
         return new Symbol( typeOf , yyline+1, yycolumn+1, value);
     }
-
 
 
 
@@ -994,7 +993,7 @@ public final class Lexer implements java_cup.runtime.Scanner {
             }
           case 63: break;
           case 26: 
-            { out.println("Keyword:" + yytext());
+            { return createSymbol( yytext());
             }
           case 64: break;
           case 27: 
@@ -1042,7 +1041,7 @@ public final class Lexer implements java_cup.runtime.Scanner {
             }
           case 75: break;
           case 38: 
-            { return createSymbol(sym.CHARACTER_LITERAL, Character.valueOf(yytext()));
+            { return createSymbol(sym.CHARACTER_LITERAL, String.valueOf(yytext()));
             }
           case 76: break;
           default:

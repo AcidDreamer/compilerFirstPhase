@@ -22,38 +22,6 @@ import java_cup.runtime.Symbol;
 %eofval}
 
 %{
-    private int switchKeywords(String value){
-        switch (forValue){
-            case "int"  :
-                return  sym.INT_LITERAL;
-            case "float":
-                return  sym.FLOAT_KEYWORD;
-            case "char" :
-                return  sym.FLOAT_KEYWORD;
-            case "while":
-                return  sym.WHILE_KEYWORD;
-            case "if"   :
-                return  sym.IF_KEYWORD;
-            case "else" :
-                return  sym.ELSE_KEYWORD;
-            case "return":
-                return  sym.RETURN_KEYWORD;
-            case "break":
-                return  sym.BREAK_KEYWORD;
-            case "continue":
-                return  sym.CONTINUE_KEYWORD;
-            case "new" :
-                return  sym.NEW_KEYWORD;
-            case "delete" :
-                return  sym.DELETE_KEYWORD;
-            case "void"  :
-                return  sym.VOID_KEYWORD;
-            case "print" :
-                return  sym.PRINT_KEYWORD;
-            default :
-                return sym.MISSING_KEYWORD;
-        }
-    }
     private StringBuffer sb = new StringBuffer();
 
     private Symbol createSymbol(int type) {
@@ -64,12 +32,41 @@ import java_cup.runtime.Symbol;
         return new Symbol(type, yyline+1, yycolumn+1, value);
     }
 
-    private Symbol createSymbol(int type, String forValue  ){
+    private Symbol createSymbol(String forValue ){
         int typeOf = switchKeywords(forValue);
         return new Symbol( typeOf , yyline+1, yycolumn+1, value);
     }
-
-
+    private int switchKeywords(String forValue){
+        if (forValue.equals("int")){
+            return  sym.INT_LITERAL;
+        }else if (forValue.equals("float")){
+            return  sym.FLOAT_KEYWORD;
+        }else if (forValue.equals("char")){
+            return  sym.FLOAT_KEYWORD;
+        }else if (forValue.equals("while")){
+            return  sym.WHILE_KEYWORD;
+        }else if (forValue.equals("if")){
+            return  sym.IF_KEYWORD;
+        }else if (forValue.equals("else")){
+            return  sym.ELSE_KEYWORD;
+        }else if (forValue.equals("return")){
+            return  sym.RETURN_KEYWORD;
+        }else if (forValue.equals("break")){
+            return  sym.BREAK_KEYWORD;
+        }else if (forValue.equals("continue")){
+            return  sym.CONTINUE_KEYWORD;
+        }else if (forValue.equals("new")){
+            return  sym.NEW_KEYWORD;
+        }else if (forValue.equals("delete")){
+            return  sym.DELETE_KEYWORD;
+        }else if (forValue.equals("void")){
+            return  sym.VOID_KEYWORD;
+        }else if (forValue.equals("print")){
+            return  sym.PRINT_KEYWORD;
+        }else{
+            return sym.MISSING_KEYWORD;
+        }   
+    }
 %}
 
 LineTerminator      = \r|\n|\r\n
@@ -84,14 +81,13 @@ CharacterLiteral    = "'" {CharacterAcceptable}   "'"
 KeywordsFirstPart   = "int" | "float" | "char" | "while" | "if" | "else" 
 KeywordsSecondPart  = "return" | "break" | "continue" |"new" |"delete" |"void" | "print"
 
-
 %state STRING
 
 %%
 <YYINITIAL> {
     /* reserved keywords */
-    {KeywordsFirstPart}                     { out.println("Keyword:" + yytext());}
-    {KeywordsSecondPart}                    { out.println("Keyword:" + yytext());}
+    {KeywordsFirstPart}                     { return createSymbol( yytext());}
+    {KeywordsSecondPart}                    { return createSymbol( yytext());}
     
     /* identifiers */ 
     {Identifier}                   { return createSymbol(sym.IDENTIFIER, yytext()); }
@@ -101,7 +97,7 @@ KeywordsSecondPart  = "return" | "break" | "continue" |"new" |"delete" |"void" |
                                     }else{
                                         throw new RuntimeException("IntegerSizeException " + (yyline+1) + ":" + (yycolumn+1) + ": integers should not be longer than 10 digits");
                                     } }
-    {CharacterLiteral}             {  return createSymbol(sym.CHARACTER_LITERAL, Character.valueOf(yytext())); }
+    {CharacterLiteral}             {  return createSymbol(sym.CHARACTER_LITERAL, String.valueOf(yytext())); }
 
     {FloatLiteral}                 { return createSymbol(sym.DOUBLE_LITERAL, Double.valueOf(yytext())); }
 

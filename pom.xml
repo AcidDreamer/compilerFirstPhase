@@ -4,14 +4,14 @@
 
   <groupId>com.compilers.project</groupId>
   <artifactId>compiler</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
   <packaging>jar</packaging>
 
   <name>compiler</name>
   <url>https://github.com/AcidDreamer/compilerFirstPhase</url>
 
   <properties>
-     <java.version>1.6</java.version>
+        <java.version>1.6</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <org.apache.commons-io.version>1.4</org.apache.commons-io.version>
         <org.apache.commons-dbcp.version>1.4</org.apache.commons-dbcp.version>
@@ -23,9 +23,10 @@
         <org.slf4j.version>1.6.4</org.slf4j.version>
         <logback.version>1.0.1</logback.version>
         <junit.version>4.8.2</junit.version>
-  </properties>
-  <dependencies>
-         <!-- Logging -->
+    </properties>
+
+    <dependencies>
+        <!-- Logging -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -72,7 +73,7 @@
             <scope>compile</scope>
         </dependency>
     </dependencies>
-<build>
+    <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

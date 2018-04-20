@@ -57,9 +57,8 @@ parser code
 :};
 
 terminal java.lang.String IDENTIFIER;       // name
-terminal PRINT;
+terminal MISSING;
 terminal ASSIGN,COMA,AND,OR,MOD,NOT,LBRAC,RBRACK;
-terminal WHILE,DO;
 terminal LPAREN, RPAREN,LCURLY,RCURLY, SEMICOLON;
 terminal EQ;
 terminal TIMES, DIVISION;
@@ -101,12 +100,12 @@ CompStmt ::= LCURLY RCURLY
         | LCURLY StmtList RCURLY
         ;
 
-Stmt ::= PRINT LPAREN Expr RPAREN SEMICOLON
-       | IDENTIFIER EQ Expr SEMICOLON
-       | CompStmt
-       | WHILE LPAREN Expr RPAREN Stmt
-       | DO Stmt WHILE LPAREN Expr RPAREN SEMICOLON
-       ;
+// Stmt ::= PRINT LPAREN Expr RPAREN SEMICOLON
+//        | IDENTIFIER EQ Expr SEMICOLON
+//        | CompStmt
+//        | WHILE LPAREN Expr RPAREN Stmt
+//        | DO Stmt WHILE LPAREN Expr RPAREN SEMICOLON
+//        ;
 
 Expr ::= INTEGER_LITERAL
        | DOUBLE_LITERAL
