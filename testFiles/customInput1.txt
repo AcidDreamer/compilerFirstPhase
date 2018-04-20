@@ -1,4 +1,4 @@
-float 2.34; floatAsda while continue return
+float 2.34;
 int 5;
 char 'a';
 char '\n';

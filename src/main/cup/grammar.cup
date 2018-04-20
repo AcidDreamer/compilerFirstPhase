@@ -56,7 +56,7 @@ parser code
     }
 :};
 
-terminal java.lang.String IDENTIFIER;       // name
+terminal java.lang.String   IDENTIFIER;       // name
 terminal MISSING_KEYWORD;
 terminal ASSIGN,COMA,AND,OR,MOD,NOT,LBRAC,RBRAC;
 terminal LPAREN, RPAREN,LCURLY,RCURLY, SEMICOLON;
@@ -70,81 +70,99 @@ terminal RETURN_KEYWORD , BREAK_KEYWORD , CONTINUE_KEYWORD , NEW_KEYWORD , DELET
 terminal VOID_KEYWORD , PRINT_KEYWORD;
 
 terminal java.lang.Integer INTEGER_LITERAL;
-terminal java.lang.Double  DOUBLE_LITERAL;
+terminal java.lang.Float  FLOAT_LITERAL;
 terminal java.lang.String  STRING_LITERAL;
 terminal java.lang.Char    CHARACTER_LITERAL;
 
 non terminal Expr;
-non terminal Stmt;
+non terminal ExprList;
+non terminal Statement;
 non terminal StmtList;
-non terminal CompUnit;
-non terminal CompStmt;
+non terminal CompilationUnit;
+non terminal FunctionDefinition;
+non terminal VariableDefinition;
+non terminal TypeSpecifier;
+non terminal ParameterDeclaration;
+non terminal ParameterList;
+non terminal FunVarList;
+
 
 precedence left EQUAL,NOT_EQUAL;
 precedence left LESS_THAN,LESS_OR_EQUAL,GREATER_OR_EQUAL,GREATER_THAN;
 precedence left PLUS, MINUS;
-precedence left TIMES, DIVISION;
+precedence left TIMES, DIVISION,MOD,NOT,AND,OR;
 precedence right UMINUS;
 precedence right EQ;
 start with CompilationUnit;
 
-<CompilationUnit> ::= (<VariableDefinition> | <FunctionDefinition>)*
-<FunctionDefinition> ::= <TypeSpecifier> <Identifier> LPAREN <ParameterList>? RPAREN LCURLY <Statement>* RCURLY
-<ParameterList> ::= <ParameterDeclaration>
-    | <ParameterList> COMA <ParameterDeclaration>
-<ParameterDeclaration> ::= <TypeSpecifier> <Identifier>
-    | <TypeSpecifier> LBRAC RBRAC <Identifier>
-<TypeSpecifier> ::= CHAR_KEYWORD
+CompilationUnit ::= FunVarList ;
+
+FunVarList ::= VariableDefinition
+           | FunVarList VariableDefinition
+           | FunctionDefinition
+           | FunVarList FunctionDefinition
+           ;               
+
+
+FunctionDefinition ::= TypeSpecifier IDENTIFIER LPAREN  RPAREN LCURLY StmtList RCURLY
+    | TypeSpecifier   IDENTIFIER LPAREN ParameterList RPAREN LCURLY StmtList RCURLY;
+
+ParameterList ::= ParameterDeclaration
+    | ParameterList COMA ParameterDeclaration
+    ;
+ ParameterDeclaration  ::= TypeSpecifier   IDENTIFIER
+    |  TypeSpecifier LBRAC RBRAC    IDENTIFIER 
+    ;
+ TypeSpecifier  ::= CHAR_KEYWORD
     | INT_KEYWORD
     | FLOAT_KEYWORD
     | VOID_KEYWORD
+    ;
+ VariableDefinition  ::=  TypeSpecifier     IDENTIFIER  SEMICOLON
+    |  TypeSpecifier  LBRAC RBRAC    IDENTIFIER  SEMICOLON
+    ;
+ StmtList ::= Statement
+           | StmtList Statement
+           ;              
 
-<VariableDefinition> ::= <TypeSpecifier> <Identifier> SEMICOLON
-    | <TypeSpecifier> LBRAC RBRAC <Identifier> SEMICOLON
-<Statement> ::= WHILE  LPAREN <Expr> RPAREN <Statement>
-    | IF_KEYWORD <Expr> RPAREN <Statement>
-    | IF_KEYWORD LPAREN <Expr> RPAREN <Statement> ELSE_KEYWORD <Statement>
-    | <Expr> ASSIGN <Expr> SEMICOLON
-    | <Expr> SEMICOLON
-    | RETURN_KEYWORD <Expr>? SEMICOLON
+ Statement  ::= WHILE_KEYWORD  LPAREN  Expr  RPAREN  Statement 
+    | IF_KEYWORD  Expr  RPAREN  Statement 
+    | IF_KEYWORD LPAREN  Expr  RPAREN  Statement  ELSE_KEYWORD  Statement 
+    |  Expr  ASSIGN  Expr  SEMICOLON
+    |  Expr  SEMICOLON
+    | RETURN_KEYWORD  ExprList SEMICOLON
     | BREAK_KEYWORD SEMICOLON
     | CONTINUE_KEYWORD SEMICOLON
-    | LCURLY <Statement>* RCURLY
-    | <VariableDefinition>
-<Statement> ::= WHILE  LPAREN <Expr> RPAREN <Statement>
-    | IF_KEYWORD <Expr> RPAREN <Statement>
-    | IF_KEYWORD LPAREN <Expr> RPAREN <Statement> ELSE_KEYWORD <Statement>
-    | <Expr> ASSIGN <Expr> SEMICOLON
-    | <Expr> SEMICOLON
-    | RETURN_KEYWORD <Expr>? SEMICOLON
-    | BREAK_KEYWORD SEMICOLON
-    | CONTINUE_KEYWORD SEMICOLON
-    | LCURLY <Statement>* RCURLY
-    | <VariableDefinition>
+    | LCURLY StmtList RCURLY
+    |  VariableDefinition 
+    ;
 
-<Expr> ::= <IntegerLiteral>
-    | <FloatLiteral>
-    | <StringLiteral>
-    | <CharacterLiteral>
-    | <Identifier>
-    | <Identifier> LPAREN <ExprList>? RPAREN
-    | NEW_KEYWORD <TypeSpecifier> LBRAC IntegerLiteral RBRAC
-    | <Identifier> LBRAC <Expr> RBRAC
-    | LPAREN <Expr> RPAREN
-    | <Expr> PLUS <Expr>
-    | <Expr> MINUS <Expr>
-    | <Expr> TIMES <Expr>
-    | <Expr> MOD <Expr>
-    | <Expr> DIVISION <Expr>
-    | UMINUS <Expr>
-    | <Expr> AND <Expr>
-    | <Expr> OR <Expr>
-    | NOT <Expr>
-    | <Expr> EQUAL <Expr>
-    | <Expr> NOT_EQUAL <Expr>
-    | <Expr> GREATER_OR_EQUAL <Expr>
-    | <Expr> GREATER_THAN <Expr>
-    | <Expr> LESS_THAN <Expr>
-    | <Expr> LESS_OR_EQUAL <Expr>
-    <ExprList> ::= <Expr>
-    | <ExprList> COMA <Expr>
+ Expr  ::=  INTEGER_LITERAL 
+    | FLOAT_LITERAL 
+    | STRING_LITERAL 
+    | CHARACTER_LITERAL 
+    | IDENTIFIER 
+    | IDENTIFIER  LPAREN  ExprList RPAREN
+    | NEW_KEYWORD  TypeSpecifier  LBRAC INTEGER_LITERAL RBRAC
+    | IDENTIFIER  LBRAC  Expr  RBRAC
+    | LPAREN  Expr  RPAREN
+    |  Expr  PLUS  Expr 
+    |  Expr  MINUS  Expr 
+    |  Expr  TIMES  Expr 
+    |  Expr  MOD  Expr 
+    |  Expr  DIVISION  Expr 
+    |  UMINUS  Expr 
+    |  Expr  AND  Expr 
+    |  Expr  OR  Expr 
+    |  NOT  Expr 
+    |  Expr  EQUAL  Expr 
+    |  Expr  NOT_EQUAL  Expr 
+    |  Expr  GREATER_OR_EQUAL  Expr 
+    |  Expr  GREATER_THAN  Expr 
+    |  Expr  LESS_THAN  Expr 
+    |  Expr  LESS_OR_EQUAL  Expr 
+    ;
+ 
+ ExprList  ::=  Expr 
+    |  ExprList  COMA  Expr 
+    ;
