@@ -88,46 +88,43 @@ KeywordsSecondPart  = "return" | "break" | "continue" |"new" |"delete" |"void" |
     {KeywordsSecondPart}                    { out.println("Keyword:" + yytext());}
     
     /* identifiers */ 
-    {Identifier}                   { out.println("id:" + yytext()); }
+    {Identifier}                   { return createSymbol(sym.IDENTIFIER, yytext()); }
     /* literals */
     {IntegerLiteral}               { if(yytext().length() <= 10 ) {
-                                        out.println("integer:" + yytext());
+                                        return createSymbol(sym.INTEGER_LITERAL, Integer.valueOf(yytext()));
                                     }else{
                                         throw new RuntimeException("IntegerSizeException " + (yyline+1) + ":" + (yycolumn+1) + ": integers should not be longer than 10 digits");
                                     } }
-    {CharacterLiteral}             {  if(yytext().length() == 3 ){
-                                        out.println("character:" + yytext().charAt(1));
-                                       }else{ 
-                                        out.println("character:" + yytext().charAt(1) + yytext().charAt(2)); 
-                                    } }
-    {FloatLiteral}                 { out.println("float: " + yytext()); }
+    {CharacterLiteral}             {  return createSymbol(sym.CHARACTER_LITERAL, Character.valueOf(yytext())); }
+
+    {FloatLiteral}                 { return createSymbol(sym.DOUBLE_LITERAL, Double.valueOf(yytext())); }
 
     \"                             { sb.setLength(0); yybegin(STRING); }
 
     /* operators */
-    "="                            { out.println("ASSIGN"); }
-    "+"                            { out.println("PLUS"); }
-    ";"                            { out.println("SEMICOLON"); }
-    "=="                         { out.println("EQUALS"); } 
-    "-"                             { out.println("MINUS"); } 
-    "("                             { out.println("LEFT_PARENTHESIS"); } 
-    ")"                             { out.println("RIGHT_PARENTHESIS"); } 
-    ","                                { out.println("COMMA"); } 
-    "*"                             { out.println("STAR"); } 
-    "["                                { out.println("LEFT_SQUARE_BRACKET"); } 
-    "]"                                 { out.println("RIGHT_SQUARE_BRACKET"); } 
-    "{"                             { out.println("LEFT_CURLY_BRACKET"); } 
-    "}"                             { out.println("RIGHT_CURLY_BRACKET"); }
-    ">"                            { out.println("GREATER THAN");}
-    "<"                            {out.println("LESS THAN");} 
-    "<="                           {out.println("EQUAL OR LESS THAN");}   
-    ">="                           {out.println("EQUAL OR GREATER THAN");}
-    "!="                           {out.println("NOT EQUAL");}
-    "/"                            {out.println("DIVISION");}
-    "%"                            {out.println("MOD");}
-    "&&"                           {out.println("AND");} 
-    "||"                           {out.println("OR");} 
-    "!"                            {out.println("NOT");}
+    "="                            { return createSymbol(sym.ASSIGN); } //FIX
+    "+"                            { return createSymbol(sym.PLUS); }
+    ";"                            { return createSymbol(sym.SEMICOLON); }
+    "=="                         { return createSymbol(sym.EQ); } 
+    "-"                             { return createSymbol(sym.MINUS); } 
+    "("                             { return createSymbol(sym.LPAREN); } 
+    ")"                             { return createSymbol(sym.RPAREN);} 
+    ","                                { return createSymbol(sym.COMA); } //FIX
+    "*"                             { return createSymbol(sym.TIMES); } 
+    "["                                { return createSymbol(sym.LBRAC); } 
+    "]"                                 { return createSymbol(sym.RBRAC); } 
+    "{"                             { return createSymbol(sym.LCURLY); } 
+    "}"                             { return createSymbol(sym.RCURLY); }
+    ">"                            {return createSymbol(sym.GREATER_THAN);}
+    "<"                            {return createSymbol(sym.LESS_THAN);} 
+    "<="                           {return createSymbol(sym.LESS_OR_EQUAL);}   
+    ">="                           {return createSymbol(sym.GREATER_OR_EQUAL);}
+    "!="                           {return createSymbol(sym.NOT_EQUAL);}
+    "/"                            {return createSymbol(sym.DIVISION);}
+    "%"                            {return createSymbol(sym.MOD);} //FIX
+    "&&"                           {return createSymbol(sym.AND);} //FIX
+    "||"                           {return createSymbol(sym.OR);} //FIX
+    "!"                            {return createSymbol(sym.NOT);} //FIX
 
 
     /* comments */
@@ -139,7 +136,7 @@ KeywordsSecondPart  = "return" | "break" | "continue" |"new" |"delete" |"void" |
 
 <STRING> {
     \"                             { yybegin(YYINITIAL);
-                                     out.println("string:" + sb.toString()); 
+                                     return createSymbol(sym.STRING_LITERAL, sb.toString());
                                    }
 
     [^\n\r\"\\]+                   { sb.append(yytext()); }
