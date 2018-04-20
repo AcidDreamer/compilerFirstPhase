@@ -89,29 +89,38 @@ precedence right EQ;
 start with CompilationUnit;
 
 <CompilationUnit> ::= (<VariableDefinition> | <FunctionDefinition>)*
-<FunctionDefinition> ::= <TypeSpecifier> <Identifier> ”(” <ParameterList>? ”)” ”{” <Statement>* ”}”
+<FunctionDefinition> ::= <TypeSpecifier> <Identifier> LPAREN <ParameterList>? RPAREN LCURLY <Statement>* RCURLY
 <ParameterList> ::= <ParameterDeclaration>
-| <ParameterList> ”,” <ParameterDeclaration>
+    | <ParameterList> COMA <ParameterDeclaration>
 <ParameterDeclaration> ::= <TypeSpecifier> <Identifier>
-| <TypeSpecifier> ”[” ”]” <Identifier>
-<TypeSpecifier> ::= ”char”
-| ”int”
-| ”float”
-| ”void”
+    | <TypeSpecifier> LBRAC RBRAC <Identifier>
+<TypeSpecifier> ::= CHAR_KEYWORD
+    | INT_KEYWORD
+    | FLOAT_KEYWORD
+    | VOID_KEYWORD
 
-<VariableDefinition> ::= <TypeSpecifier> <Identifier> ”;”
-| <TypeSpecifier> ”[” ”]” <Identifier> ”;”
-
+<VariableDefinition> ::= <TypeSpecifier> <Identifier> SEMICOLON
+    | <TypeSpecifier> LBRAC RBRAC <Identifier> SEMICOLON
 <Statement> ::= WHILE  LPAREN <Expr> RPAREN <Statement>
-| IF_KEYWORD <Expr> RPAREN <Statement>
-| IF_KEYWORD LPAREN <Expr> RPAREN <Statement> ELSE_KEYWORD <Statement>
-| <Expr> ASSIGN <Expr> SEMICOLON
-| <Expr> SEMICOLON
-| RETURN_KEYWORD <Expr>? SEMICOLON
-| BREAK_KEYWORD SEMICOLON
-| CONTINUE_KEYWORD SEMICOLON
-| LCURLY <Statement>* RCURLY
-| <VariableDefinition>
+    | IF_KEYWORD <Expr> RPAREN <Statement>
+    | IF_KEYWORD LPAREN <Expr> RPAREN <Statement> ELSE_KEYWORD <Statement>
+    | <Expr> ASSIGN <Expr> SEMICOLON
+    | <Expr> SEMICOLON
+    | RETURN_KEYWORD <Expr>? SEMICOLON
+    | BREAK_KEYWORD SEMICOLON
+    | CONTINUE_KEYWORD SEMICOLON
+    | LCURLY <Statement>* RCURLY
+    | <VariableDefinition>
+<Statement> ::= WHILE  LPAREN <Expr> RPAREN <Statement>
+    | IF_KEYWORD <Expr> RPAREN <Statement>
+    | IF_KEYWORD LPAREN <Expr> RPAREN <Statement> ELSE_KEYWORD <Statement>
+    | <Expr> ASSIGN <Expr> SEMICOLON
+    | <Expr> SEMICOLON
+    | RETURN_KEYWORD <Expr>? SEMICOLON
+    | BREAK_KEYWORD SEMICOLON
+    | CONTINUE_KEYWORD SEMICOLON
+    | LCURLY <Statement>* RCURLY
+    | <VariableDefinition>
 
 <Expr> ::= <IntegerLiteral>
     | <FloatLiteral>
