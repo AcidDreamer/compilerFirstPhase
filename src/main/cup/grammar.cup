@@ -86,43 +86,54 @@ precedence left PLUS, MINUS;
 precedence left TIMES, DIVISION;
 precedence right UMINUS;
 precedence right EQ;
-start with CompUnit;
+start with CompilationUnit;
 
-CompUnit ::= 
-           | StmtList
-           ;
-
-StmtList ::= Stmt
-           | StmtList Stmt
-           ;              
-
-CompStmt ::= LCURLY RCURLY 
-        | LCURLY StmtList RCURLY
-        ;
-
-// Stmt ::= PRINT LPAREN Expr RPAREN SEMICOLON
-//        | IDENTIFIER EQ Expr SEMICOLON
-//        | CompStmt
-//        | WHILE LPAREN Expr RPAREN Stmt
-//        | DO Stmt WHILE LPAREN Expr RPAREN SEMICOLON
-//        ;
-
-Expr ::= INTEGER_LITERAL
-       | DOUBLE_LITERAL
-       | STRING_LITERAL
-       | IDENTIFIER
-       | LPAREN Expr RPAREN
-       | LCURLY Expr RCURLY
-       | Expr LESS_OR_EQUAL Expr
-       | Expr GREATER_OR_EQUAL Expr
-       | Expr LESS_THAN Expr
-       | Expr GREATER_THAN Expr
-       | Expr EQUAL Expr
-       | Expr NOT_EQUAL Expr
-       | Expr PLUS Expr
-       | Expr MINUS Expr
-       | Expr TIMES Expr
-       | Expr DIVISION Expr
-       | MINUS Expr %prec UMINUS
-       | Expr EQ Expr
-       ;
+<CompilationUnit> ::= (<VariableDefinition> | <FunctionDefinition>)*
+<FunctionDefinition> ::= <TypeSpecifier> <Identifier> ”(” <ParameterList>? ”)” ”{” <Statement>* ”}”
+<ParameterList> ::= <ParameterDeclaration>
+| <ParameterList> ”,” <ParameterDeclaration>
+<ParameterDeclaration> ::= <TypeSpecifier> <Identifier>
+| <TypeSpecifier> ”[” ”]” <Identifier>
+<TypeSpecifier> ::= ”char”
+| ”int”
+| ”float”
+| ”void”
+1
+<VariableDefinition> ::= <TypeSpecifier> <Identifier> ”;”
+| <TypeSpecifier> ”[” ”]” <Identifier> ”;”
+<Statement> ::= ”while” ”(” <Expr> ”)” <Statement>
+| ”if” ”(” <Expr> ”)” <Statement>
+| ”if” ”(” <Expr> ”)” <Statement> ”else” <Statement>
+| <Expr> ”=” <Expr> ”;”
+| <Expr> ”;”
+| ”return” <Expr>? ”;”
+| ”break” ”;”
+| ”continue” ”;”
+| ”{” <Statement>* ”}”
+| <VariableDefinition>
+<Expr> ::= <IntegerLiteral>
+| <FloatLiteral>
+| <StringLiteral>
+| <CharacterLiteral>
+| <Identifier>
+| <Identifier> ”(” <ExprList>? ”)”
+| ”new” <TypeSpecifier> ”[” IntegerLiteral ”]”
+| <Identifier> ”[” <Expr> ”]”
+| ”(” <Expr> ”)”
+| <Expr> ”+” <Expr>
+| <Expr> ”-” <Expr>
+| <Expr> ”*” <Expr>
+| <Expr> ”%” <Expr>
+| <Expr> ”/” <Expr>
+| ”-” <Expr>
+| <Expr> ”&&” <Expr>
+| <Expr> ”||” <Expr>
+| ”!” <Expr>
+| <Expr> ”==” <Expr>
+| <Expr> ”!=” <Expr>
+| <Expr> ”>=” <Expr>
+| <Expr> ”>” <Expr>
+| <Expr> ”<” <Expr>
+| <Expr> ”<=” <Expr>
+<ExprList> ::= <Expr>
+| <ExprList> ”,” <Expr>
