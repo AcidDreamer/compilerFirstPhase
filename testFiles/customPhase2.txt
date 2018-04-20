@@ -12,9 +12,18 @@ float katiAllo(String kati ){
 }
 
 void checkIf(int kati){
-    if ( bool == kati )
+    if ( bool == kati ){
         x = 2;
-    else
+    }else{
         x = 2;
-    
+    }
+}
+
+void checkWhile(int katiAllo){
+    while ( katiAllo == 5 ){
+        x = 5;
+    }
+    while( x == 1 ){
+        x=5;
+    }
 }

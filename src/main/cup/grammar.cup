@@ -83,6 +83,7 @@ non terminal FunctionDefinition;
 non terminal VariableDefinition;
 non terminal TypeSpecifier;
 non terminal ParameterDeclaration;
+non terminal CurlyStmt;
 non terminal ParameterList;
 non terminal FunVarList;
 
@@ -125,10 +126,11 @@ ParameterList ::= ParameterDeclaration
  StmtList ::= Statement
            | StmtList Statement
            ;              
-
- Statement  ::= WHILE_KEYWORD  LPAREN  Expr  RPAREN  Statement 
-    | IF_KEYWORD LPAREN Expr  RPAREN  Statement 
-    | IF_KEYWORD LPAREN  Expr  RPAREN  Statement  ELSE_KEYWORD  Statement 
+ CurlyStmt ::= LCURLY StmtList RCURLY 
+    ;
+ Statement  ::= WHILE_KEYWORD  LPAREN  Expr  RPAREN  CurlyStmt 
+    | IF_KEYWORD LPAREN Expr  RPAREN  CurlyStmt 
+    | IF_KEYWORD LPAREN  Expr  RPAREN  CurlyStmt  ELSE_KEYWORD  CurlyStmt 
     |  Expr  ASSIGN  Expr  SEMICOLON
     |  Expr  SEMICOLON
     | PRINT_KEYWORD LPAREN Expr RPAREN SEMICOLON
