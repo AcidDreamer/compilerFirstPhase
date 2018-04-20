@@ -897,20 +897,20 @@ public final class Lexer implements java_cup.runtime.Scanner {
             }
           case 40: break;
           case 3: 
-            { out.println("DIVISION");
+            { return createSymbol(sym.DIVISION);
             }
           case 41: break;
           case 4: 
-            { out.println("STAR");
+            { return createSymbol(sym.TIMES);
             }
           case 42: break;
           case 5: 
-            { out.println("id:" + yytext());
+            { return createSymbol(sym.IDENTIFIER, yytext());
             }
           case 43: break;
           case 6: 
             { if(yytext().length() <= 10 ) {
-                                        out.println("integer:" + yytext());
+                                        return createSymbol(sym.INTEGER_LITERAL, Integer.valueOf(yytext()));
                                     }else{
                                         throw new RuntimeException("IntegerSizeException " + (yyline+1) + ":" + (yycolumn+1) + ": integers should not be longer than 10 digits");
                                     }
@@ -921,63 +921,63 @@ public final class Lexer implements java_cup.runtime.Scanner {
             }
           case 45: break;
           case 8: 
-            { out.println("ASSIGN");
+            { return createSymbol(sym.ASSIGN);
             }
           case 46: break;
           case 9: 
-            { out.println("PLUS");
+            { return createSymbol(sym.PLUS);
             }
           case 47: break;
           case 10: 
-            { out.println("SEMICOLON");
+            { return createSymbol(sym.SEMICOLON);
             }
           case 48: break;
           case 11: 
-            { out.println("MINUS");
+            { return createSymbol(sym.MINUS);
             }
           case 49: break;
           case 12: 
-            { out.println("LEFT_PARENTHESIS");
+            { return createSymbol(sym.LPAREN);
             }
           case 50: break;
           case 13: 
-            { out.println("RIGHT_PARENTHESIS");
+            { return createSymbol(sym.RPAREN);
             }
           case 51: break;
           case 14: 
-            { out.println("COMMA");
+            { return createSymbol(sym.COMA);
             }
           case 52: break;
           case 15: 
-            { out.println("LEFT_SQUARE_BRACKET");
+            { return createSymbol(sym.LBRAC);
             }
           case 53: break;
           case 16: 
-            { out.println("RIGHT_SQUARE_BRACKET");
+            { return createSymbol(sym.RBRAC);
             }
           case 54: break;
           case 17: 
-            { out.println("LEFT_CURLY_BRACKET");
+            { return createSymbol(sym.LCURLY);
             }
           case 55: break;
           case 18: 
-            { out.println("RIGHT_CURLY_BRACKET");
+            { return createSymbol(sym.RCURLY);
             }
           case 56: break;
           case 19: 
-            { out.println("GREATER THAN");
+            { return createSymbol(sym.GREATER_THAN);
             }
           case 57: break;
           case 20: 
-            { out.println("LESS THAN");
+            { return createSymbol(sym.LESS_THAN);
             }
           case 58: break;
           case 21: 
-            { out.println("NOT");
+            { return createSymbol(sym.NOT);
             }
           case 59: break;
           case 22: 
-            { out.println("MOD");
+            { return createSymbol(sym.MOD);
             }
           case 60: break;
           case 23: 
@@ -990,7 +990,7 @@ public final class Lexer implements java_cup.runtime.Scanner {
           case 62: break;
           case 25: 
             { yybegin(YYINITIAL);
-                                     out.println("string:" + sb.toString());
+                                     return createSymbol(sym.STRING_LITERAL, sb.toString());
             }
           case 63: break;
           case 26: 
@@ -998,27 +998,27 @@ public final class Lexer implements java_cup.runtime.Scanner {
             }
           case 64: break;
           case 27: 
-            { out.println("EQUALS");
+            { return createSymbol(sym.EQ);
             }
           case 65: break;
           case 28: 
-            { out.println("EQUAL OR GREATER THAN");
+            { return createSymbol(sym.GREATER_OR_EQUAL);
             }
           case 66: break;
           case 29: 
-            { out.println("EQUAL OR LESS THAN");
+            { return createSymbol(sym.LESS_OR_EQUAL);
             }
           case 67: break;
           case 30: 
-            { out.println("NOT EQUAL");
+            { return createSymbol(sym.NOT_EQUAL);
             }
           case 68: break;
           case 31: 
-            { out.println("AND");
+            { return createSymbol(sym.AND);
             }
           case 69: break;
           case 32: 
-            { out.println("OR");
+            { return createSymbol(sym.OR);
             }
           case 70: break;
           case 33: 
@@ -1038,15 +1038,11 @@ public final class Lexer implements java_cup.runtime.Scanner {
             }
           case 74: break;
           case 37: 
-            { out.println("float: " + yytext());
+            { return createSymbol(sym.DOUBLE_LITERAL, Double.valueOf(yytext()));
             }
           case 75: break;
           case 38: 
-            { if(yytext().length() == 3 ){
-                                        out.println("character:" + yytext().charAt(1));
-                                       }else{ 
-                                        out.println("character:" + yytext().charAt(1) + yytext().charAt(2)); 
-                                    }
+            { return createSymbol(sym.CHARACTER_LITERAL, Character.valueOf(yytext()));
             }
           case 76: break;
           default:

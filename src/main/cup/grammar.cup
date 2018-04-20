@@ -58,6 +58,7 @@ parser code
 
 terminal java.lang.String IDENTIFIER;       // name
 terminal PRINT;
+terminal ASSIGN,COMA,AND,OR,MOD,NOT,LBRAC,RBRACK;
 terminal WHILE,DO;
 terminal LPAREN, RPAREN,LCURLY,RCURLY, SEMICOLON;
 terminal EQ;
@@ -72,6 +73,7 @@ terminal VOID_KEYWORD , PRINT_KEYWORD;
 terminal java.lang.Integer INTEGER_LITERAL;
 terminal java.lang.Double  DOUBLE_LITERAL;
 terminal java.lang.String  STRING_LITERAL;
+terminal java.lang.Char    CHARACTER_LITERAL;
 
 non terminal Expr;
 non terminal Stmt;
