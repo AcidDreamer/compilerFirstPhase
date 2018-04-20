@@ -11,8 +11,8 @@ float katiAllo(String kati ){
     AAA = 'a';
 }
 
-void checkIf(int bool){
-    if ( bool )
+void checkIf(int kati){
+    if ( bool == kati )
         x = 2;
     else
         x = 2;

@@ -162,6 +162,8 @@
                 <configuration>
                     <mainClass>java_cup.Main</mainClass>
                     <arguments>
+                        <arguement> -expect </arguement>
+                        <arguement>1</arguement>
                         <argument>-destdir</argument>
                         <argument>${basedir}/src/main/java</argument>
                         <argument>${basedir}/src/main/cup/grammar.cup</argument>
