@@ -13,7 +13,7 @@ import static java.lang.System.out;
  * <a href="http://www.jflex.de/">JFlex</a> 1.6.1
  * from the specification file <tt>C:/Users/Acid/Documents/HUA/compilerFirstPhase/src/main/jflex/lexer.flex</tt>
  */
-public final class Lexer {
+public final class Lexer implements java_cup.runtime.Scanner {
 
   /** This character denotes the end of file */
   public static final int YYEOF = -1;
@@ -453,10 +453,49 @@ public final class Lexer {
   private int zzFinalHighSurrogate = 0;
 
   /* user code: */
-    // user custom code 
+    private StringBuffer sb = new StringBuffer();
 
-    StringBuffer sb = new StringBuffer();
+    private Symbol createSymbol(int type) {
+        return new Symbol(type, yyline+1, yycolumn+1);
+    }
 
+    private Symbol createSymbol(int type, Object value) {
+        return new Symbol(type, yyline+1, yycolumn+1, value);
+    }
+
+    private Symbol createSymbol(int type, String forValue  ){
+        return new Symbol(Symbol.switchKeywords(forValue), yyline+1, yycolumn+1, value);
+    }
+    private int switchKeywords(String value){
+        switch (forValue){
+            case "int"  :
+                return  sym.INT_LITERAL;
+            case "float":
+            return  sym.FLOAT_KEYWORD;
+            case "char" :
+            return  sym.FLOAT_KEYWORD;
+            case "while":
+            return  sym.WHILE_KEYWORD;
+            case "if"   :
+            return  sym.IF_KEYWORD;
+            case "else" :
+            return  sym.ELSE_KEYWORD;
+            case "return":
+            return  sym.RETURN_KEYWORD;
+            case "break":
+            return  sym.BREAK_KEYWORD;
+            case "continue":
+            return  sym.CONTINUE_KEYWORD;
+            case "new" :
+            return  sym.NEW_KEYWORD;
+            case "delete" :
+            return  sym.DELETE_KEYWORD;
+            case "void"  :
+            return  sym.VOID_KEYWORD;
+            case "print" :
+            return  sym.PRINT_KEYWORD;
+        }
+  }
 
 
   /**
@@ -683,13 +722,25 @@ public final class Lexer {
 
 
   /**
+   * Contains user EOF-code, which will be executed exactly once,
+   * when the end of file is reached
+   */
+  private void zzDoEOF() throws java.io.IOException {
+    if (!zzEOFDone) {
+      zzEOFDone = true;
+      yyclose();
+    }
+  }
+
+
+  /**
    * Resumes scanning until the next regular expression is matched,
    * the end of input is encountered or an I/O-Error occurs.
    *
    * @return      the next token
    * @exception   java.io.IOException  if any I/O-Error occurs
    */
-  public int yylex() throws java.io.IOException {
+  public java_cup.runtime.Symbol next_token() throws java.io.IOException {
     int zzInput;
     int zzAction;
 
@@ -825,7 +876,9 @@ public final class Lexer {
 
       if (zzInput == YYEOF && zzStartRead == zzCurrentPos) {
         zzAtEOF = true;
-        return YYEOF;
+            zzDoEOF();
+          {     return createSymbol(sym.EOF);
+ }
       }
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {

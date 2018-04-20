@@ -65,33 +65,10 @@ terminal TIMES, DIVISION;
 terminal PLUS, MINUS, UMINUS;
 terminal LESS_THAN,GREATER_THAN,GREATER_OR_EQUAL,LESS_OR_EQUAL;
 terminal EQUAL,NOT_EQUAL;
-terminal java.lang.Integer INTEGER_LITERAL;
-terminal java.lang.Double  DOUBLE_LITERAL;
-terminal java.lang.String  STRING_LITERAL;
+terminal INT_KEYWORD,FLOAT_KEYWORD,CHAR_KEYWORD,WHILE_KEYWORD,IF_KEYWORD,ELSE_KEYWORD;
+terminal RETURN_KEYWORD , BREAK_KEYWORD , CONTINUE_KEYWORD , NEW_KEYWORD , DELETE_KEYWORD;
+terminal VOID_KEYWORD , PRINT_KEYWORD;
 
-non terminal Expr;
-non terminal Stmt;
-non terminal StmtList;
-non terminal CompUnit;
-non terminal CompStmt;
-
-precedence left EQUAL,NOT_EQUAL;
-precedence left LESS_THAN,LESS_OR_EQUAL,GREATER_OR_EQUAL,GREATER_THAN;
-precedence left PLUS, MINUS;
-precedence left TIMES, DIVISION;
-precedence right UMINUS;
-precedence right EQ;
-start with CompUnit;
-
-terminal java.lang.String IDENTIFIER;       // name
-terminal PRINT;
-terminal WHILE,DO;
-terminal LPAREN, RPAREN,LCURLY,RCURLY, SEMICOLON;
-terminal EQ;
-terminal TIMES, DIVISION;
-terminal PLUS, MINUS, UMINUS;
-terminal LESS_THAN,GREATER_THAN,GREATER_OR_EQUAL,LESS_OR_EQUAL;
-terminal EQUAL,NOT_EQUAL;
 terminal java.lang.Integer INTEGER_LITERAL;
 terminal java.lang.Double  DOUBLE_LITERAL;
 terminal java.lang.String  STRING_LITERAL;
