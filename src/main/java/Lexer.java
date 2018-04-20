@@ -466,7 +466,7 @@ public final class Lexer implements java_cup.runtime.Scanner {
 
     private Symbol createSymbol(Object forValue ){
         int typeOf = switchKeywords(forValue);
-        return new Symbol( typeOf , yyline+1, yycolumn+1, value);
+        return new Symbol(typeOf, yyline+1, yycolumn+1);
     }
     private int switchKeywords(Object forValue){
         if (forValue.equals("int")){

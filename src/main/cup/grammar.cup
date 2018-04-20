@@ -101,39 +101,41 @@ start with CompilationUnit;
 
 <VariableDefinition> ::= <TypeSpecifier> <Identifier> ”;”
 | <TypeSpecifier> ”[” ”]” <Identifier> ”;”
-<Statement> ::= ”while” ”(” <Expr> ”)” <Statement>
-| ”if” ”(” <Expr> ”)” <Statement>
-| ”if” ”(” <Expr> ”)” <Statement> ”else” <Statement>
-| <Expr> ”=” <Expr> ”;”
-| <Expr> ”;”
-| ”return” <Expr>? ”;”
-| ”break” ”;”
-| ”continue” ”;”
-| ”{” <Statement>* ”}”
+
+<Statement> ::= WHILE  LPAREN <Expr> RPAREN <Statement>
+| IF_KEYWORD <Expr> RPAREN <Statement>
+| IF_KEYWORD LPAREN <Expr> RPAREN <Statement> ELSE_KEYWORD <Statement>
+| <Expr> ASSIGN <Expr> SEMICOLON
+| <Expr> SEMICOLON
+| RETURN_KEYWORD <Expr>? SEMICOLON
+| BREAK_KEYWORD SEMICOLON
+| CONTINUE_KEYWORD SEMICOLON
+| LCURLY <Statement>* RCURLY
 | <VariableDefinition>
+
 <Expr> ::= <IntegerLiteral>
-| <FloatLiteral>
-| <StringLiteral>
-| <CharacterLiteral>
-| <Identifier>
-| <Identifier> ”(” <ExprList>? ”)”
-| ”new” <TypeSpecifier> ”[” IntegerLiteral ”]”
-| <Identifier> ”[” <Expr> ”]”
-| ”(” <Expr> ”)”
-| <Expr> ”+” <Expr>
-| <Expr> ”-” <Expr>
-| <Expr> ”*” <Expr>
-| <Expr> ”%” <Expr>
-| <Expr> ”/” <Expr>
-| ”-” <Expr>
-| <Expr> ”&&” <Expr>
-| <Expr> ”||” <Expr>
-| ”!” <Expr>
-| <Expr> ”==” <Expr>
-| <Expr> ”!=” <Expr>
-| <Expr> ”>=” <Expr>
-| <Expr> ”>” <Expr>
-| <Expr> ”<” <Expr>
-| <Expr> ”<=” <Expr>
-<ExprList> ::= <Expr>
-| <ExprList> ”,” <Expr>
+    | <FloatLiteral>
+    | <StringLiteral>
+    | <CharacterLiteral>
+    | <Identifier>
+    | <Identifier> LPAREN <ExprList>? RPAREN
+    | NEW_KEYWORD <TypeSpecifier> LBRAC IntegerLiteral RBRAC
+    | <Identifier> LBRAC <Expr> RBRAC
+    | LPAREN <Expr> RPAREN
+    | <Expr> PLUS <Expr>
+    | <Expr> MINUS <Expr>
+    | <Expr> TIMES <Expr>
+    | <Expr> MOD <Expr>
+    | <Expr> DIVISION <Expr>
+    | UMINUS <Expr>
+    | <Expr> AND <Expr>
+    | <Expr> OR <Expr>
+    | NOT <Expr>
+    | <Expr> EQUAL <Expr>
+    | <Expr> NOT_EQUAL <Expr>
+    | <Expr> GREATER_OR_EQUAL <Expr>
+    | <Expr> GREATER_THAN <Expr>
+    | <Expr> LESS_THAN <Expr>
+    | <Expr> LESS_OR_EQUAL <Expr>
+    <ExprList> ::= <Expr>
+    | <ExprList> COMA <Expr>
