@@ -454,38 +454,6 @@ public final class Lexer implements java_cup.runtime.Scanner {
   private int zzFinalHighSurrogate = 0;
 
   /* user code: */
-    private int switchKeywords(String forValue){
-            if (forValue.equals("int")){
-                return  sym.INT_LITERAL;
-            }else if (forValue.equals("float")){
-                return  sym.FLOAT_KEYWORD;
-            }else if (forValue.equals("char")){
-                return  sym.FLOAT_KEYWORD;
-            }else if (forValue.equals("while")){
-                return  sym.WHILE_KEYWORD;
-            }else if (forValue.equals("if")){
-                return  sym.IF_KEYWORD;
-            }else if (forValue.equals("else")){
-                return  sym.ELSE_KEYWORD;
-            }else if (forValue.equals("return")){
-                return  sym.RETURN_KEYWORD;
-            }else if (forValue.equals("break")){
-                return  sym.BREAK_KEYWORD;
-            }else if (forValue.equals("continue")){
-                return  sym.CONTINUE_KEYWORD;
-            }else if (forValue.equals("new")){
-                return  sym.NEW_KEYWORD;
-            }else if (forValue.equals("delete")){
-                return  sym.DELETE_KEYWORD;
-            }else if (forValue.equals("void")){
-                return  sym.VOID_KEYWORD;
-            }else if (forValue.equals("print")){
-                return  sym.PRINT_KEYWORD;
-            }else{
-                return sym.MISSING_KEYWORD;
-            }
-        
-    }
     private StringBuffer sb = new StringBuffer();
 
     private Symbol createSymbol(int type) {
@@ -496,11 +464,41 @@ public final class Lexer implements java_cup.runtime.Scanner {
         return new Symbol(type, yyline+1, yycolumn+1, value);
     }
 
-    private Symbol createSymbol(String forValue ){
+    private Symbol createSymbol(Object forValue ){
         int typeOf = switchKeywords(forValue);
         return new Symbol( typeOf , yyline+1, yycolumn+1, value);
     }
-
+    private int switchKeywords(Object forValue){
+        if (forValue.equals("int")){
+            return  sym.INTEGER_LITERAL;
+        }else if (forValue.equals("float")){
+            return  sym.FLOAT_KEYWORD;
+        }else if (forValue.equals("char")){
+            return  sym.CHAR_KEYWORD;
+        }else if (forValue.equals("while")){
+            return  sym.WHILE_KEYWORD;
+        }else if (forValue.equals("if")){
+            return  sym.IF_KEYWORD;
+        }else if (forValue.equals("else")){
+            return  sym.ELSE_KEYWORD;
+        }else if (forValue.equals("return")){
+            return  sym.RETURN_KEYWORD;
+        }else if (forValue.equals("break")){
+            return  sym.BREAK_KEYWORD;
+        }else if (forValue.equals("continue")){
+            return  sym.CONTINUE_KEYWORD;
+        }else if (forValue.equals("new")){
+            return  sym.NEW_KEYWORD;
+        }else if (forValue.equals("delete")){
+            return  sym.DELETE_KEYWORD;
+        }else if (forValue.equals("void")){
+            return  sym.VOID_KEYWORD;
+        }else if (forValue.equals("print")){
+            return  sym.PRINT_KEYWORD;
+        }else{
+            return sym.MISSING_KEYWORD;
+        }   
+    }
 
 
   /**

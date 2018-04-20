@@ -57,8 +57,8 @@ parser code
 :};
 
 terminal java.lang.String IDENTIFIER;       // name
-terminal MISSING;
-terminal ASSIGN,COMA,AND,OR,MOD,NOT,LBRAC,RBRACK;
+terminal MISSING_KEYWORD;
+terminal ASSIGN,COMA,AND,OR,MOD,NOT,LBRAC,RBRAC;
 terminal LPAREN, RPAREN,LCURLY,RCURLY, SEMICOLON;
 terminal EQ;
 terminal TIMES, DIVISION;

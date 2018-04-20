@@ -32,17 +32,17 @@ import java_cup.runtime.Symbol;
         return new Symbol(type, yyline+1, yycolumn+1, value);
     }
 
-    private Symbol createSymbol(String forValue ){
+    private Symbol createSymbol(Object forValue ){
         int typeOf = switchKeywords(forValue);
         return new Symbol( typeOf , yyline+1, yycolumn+1, value);
     }
-    private int switchKeywords(String forValue){
+    private int switchKeywords(Object forValue){
         if (forValue.equals("int")){
-            return  sym.INT_LITERAL;
+            return  sym.INTEGER_LITERAL;
         }else if (forValue.equals("float")){
             return  sym.FLOAT_KEYWORD;
         }else if (forValue.equals("char")){
-            return  sym.FLOAT_KEYWORD;
+            return  sym.CHAR_KEYWORD;
         }else if (forValue.equals("while")){
             return  sym.WHILE_KEYWORD;
         }else if (forValue.equals("if")){
@@ -111,7 +111,7 @@ KeywordsSecondPart  = "return" | "break" | "continue" |"new" |"delete" |"void" |
     "-"                             { return createSymbol(sym.MINUS); } 
     "("                             { return createSymbol(sym.LPAREN); } 
     ")"                             { return createSymbol(sym.RPAREN);} 
-    ","                                { return createSymbol(sym.COMA); } //FIX
+    ","                             { return createSymbol(sym.COMA); } //FIX
     "*"                             { return createSymbol(sym.TIMES); } 
     "["                                { return createSymbol(sym.LBRAC); } 
     "]"                                 { return createSymbol(sym.RBRAC); } 
