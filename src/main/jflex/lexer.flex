@@ -38,7 +38,7 @@ import java_cup.runtime.Symbol;
     }
     private int switchKeywords(Object forValue){
         if (forValue.equals("int")){
-            return  sym.INTEGER_KEYWORD;
+            return  sym.INT_KEYWORD;
         }else if (forValue.equals("float")){
             return  sym.FLOAT_KEYWORD;
         }else if (forValue.equals("char")){
@@ -63,6 +63,8 @@ import java_cup.runtime.Symbol;
             return  sym.VOID_KEYWORD;
         }else if (forValue.equals("print")){
             return  sym.PRINT_KEYWORD;
+        }else if (forValue.equals("String")){
+            return sym.STRING_KEYWORD;
         }else{
             return sym.MISSING_KEYWORD;
         }   
@@ -78,7 +80,7 @@ IntegerLiteral      = 0 | [1-9][0-9]*
 FloatLiteral        = {IntegerLiteral} \. {IntegerLiteral}
 CharacterAcceptable = [a-zA-Z0-9] | "\\n" | "\\t" | "\\0"
 CharacterLiteral    = "'" {CharacterAcceptable}   "'" 
-KeywordsFirstPart   = "int" | "float" | "char" | "while" | "if" | "else" 
+KeywordsFirstPart   = "int" | "float" | "char" | "while" | "if" | "else" | "String"
 KeywordsSecondPart  = "return" | "break" | "continue" |"new" |"delete" |"void" | "print"
 
 %state STRING
@@ -99,7 +101,7 @@ KeywordsSecondPart  = "return" | "break" | "continue" |"new" |"delete" |"void" |
                                     } }
     {CharacterLiteral}             {  return createSymbol(sym.CHARACTER_LITERAL, String.valueOf(yytext())); }
 
-    {FloatLiteral}                 { return createSymbol(sym.DOUBLE_LITERAL, Double.valueOf(yytext())); }
+    {FloatLiteral}                 { return createSymbol(sym.FLOAT_LITERAL, Float.valueOf(yytext())); }
 
     \"                             { sb.setLength(0); yybegin(STRING); }
 
