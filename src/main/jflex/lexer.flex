@@ -14,14 +14,23 @@ import static java.lang.System.out;
 %integer
 %line
 %column
+%cup 
+
+%eofval{
+    return createSymbol(sym.EOF);
+%eofval}
 
 %{
-    // user custom code 
+    private StringBuffer sb = new StringBuffer();
 
-    StringBuffer sb = new StringBuffer();
+    private Symbol createSymbol(int type) {
+        return new Symbol(type, yyline+1, yycolumn+1);
+    }
 
+    private Symbol createSymbol(int type, Object value) {
+        return new Symbol(type, yyline+1, yycolumn+1, value);
+    }
 %}
-
 LineTerminator      = \r|\n|\r\n
 WhiteSpace          = {LineTerminator} | [ \t\f] 
 Comment             = "/*" [^*] ~"*/" | "/*" "*"+ "/" | "//"  ~{LineTerminator}
