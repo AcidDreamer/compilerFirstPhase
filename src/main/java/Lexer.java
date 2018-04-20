@@ -6,6 +6,7 @@
  */
 
 import static java.lang.System.out;
+import java_cup.runtime.Symbol;
 
 
 /**
@@ -453,6 +454,38 @@ public final class Lexer implements java_cup.runtime.Scanner {
   private int zzFinalHighSurrogate = 0;
 
   /* user code: */
+    private int switchKeywords(String value){
+        switch (forValue){
+            case "int"  :
+                return  sym.INT_LITERAL;
+            case "float":
+                return  sym.FLOAT_KEYWORD;
+            case "char" :
+                return  sym.FLOAT_KEYWORD;
+            case "while":
+                return  sym.WHILE_KEYWORD;
+            case "if"   :
+                return  sym.IF_KEYWORD;
+            case "else" :
+                return  sym.ELSE_KEYWORD;
+            case "return":
+                return  sym.RETURN_KEYWORD;
+            case "break":
+                return  sym.BREAK_KEYWORD;
+            case "continue":
+                return  sym.CONTINUE_KEYWORD;
+            case "new" :
+                return  sym.NEW_KEYWORD;
+            case "delete" :
+                return  sym.DELETE_KEYWORD;
+            case "void"  :
+                return  sym.VOID_KEYWORD;
+            case "print" :
+                return  sym.PRINT_KEYWORD;
+            default :
+                return sym.MISSING_KEYWORD;
+        }
+    }
     private StringBuffer sb = new StringBuffer();
 
     private Symbol createSymbol(int type) {
@@ -464,38 +497,11 @@ public final class Lexer implements java_cup.runtime.Scanner {
     }
 
     private Symbol createSymbol(int type, String forValue  ){
-        return new Symbol(Symbol.switchKeywords(forValue), yyline+1, yycolumn+1, value);
+        int typeOf = switchKeywords(forValue);
+        return new Symbol( typeOf , yyline+1, yycolumn+1, value);
     }
-    private int switchKeywords(String value){
-        switch (forValue){
-            case "int"  :
-                return  sym.INT_LITERAL;
-            case "float":
-            return  sym.FLOAT_KEYWORD;
-            case "char" :
-            return  sym.FLOAT_KEYWORD;
-            case "while":
-            return  sym.WHILE_KEYWORD;
-            case "if"   :
-            return  sym.IF_KEYWORD;
-            case "else" :
-            return  sym.ELSE_KEYWORD;
-            case "return":
-            return  sym.RETURN_KEYWORD;
-            case "break":
-            return  sym.BREAK_KEYWORD;
-            case "continue":
-            return  sym.CONTINUE_KEYWORD;
-            case "new" :
-            return  sym.NEW_KEYWORD;
-            case "delete" :
-            return  sym.DELETE_KEYWORD;
-            case "void"  :
-            return  sym.VOID_KEYWORD;
-            case "print" :
-            return  sym.PRINT_KEYWORD;
-        }
-  }
+
+
 
 
   /**
