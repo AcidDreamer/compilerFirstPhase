@@ -60,7 +60,6 @@ terminal java.lang.String   IDENTIFIER;       // name
 terminal MISSING_KEYWORD;
 terminal ASSIGN,COMA,AND,OR,MOD,NOT,LBRAC,RBRAC;
 terminal LPAREN, RPAREN,LCURLY,RCURLY, SEMICOLON;
-terminal EQ;
 terminal TIMES, DIVISION;
 terminal PLUS, MINUS, UMINUS;
 terminal LESS_THAN,GREATER_THAN,GREATER_OR_EQUAL,LESS_OR_EQUAL;
@@ -93,7 +92,7 @@ precedence left LESS_THAN,LESS_OR_EQUAL,GREATER_OR_EQUAL,GREATER_THAN;
 precedence left PLUS, MINUS;
 precedence left TIMES, DIVISION,MOD,NOT,AND,OR;
 precedence right UMINUS;
-precedence right EQ;
+precedence right ASSIGN;
 start with CompilationUnit;
 
 CompilationUnit ::= FunVarList ;

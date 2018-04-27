@@ -14,6 +14,7 @@ float katiAllo(String kati ){
 void checkIf(int kati){
     if ( bool == kati ){
         x = 2;
+        print(x);
     }else{
         x = 2;
     }
