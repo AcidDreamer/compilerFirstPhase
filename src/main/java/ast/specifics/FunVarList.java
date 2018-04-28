@@ -7,16 +7,14 @@ import ast.interfaces.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompUnit extends ASTNode {
-
+public class FunVarList extends ASTNode {
     private FunVarList funVarList;
-
-    public VariableDefinition(FunVarList funVarList) {
+    private VariableDefinition variableDefinition
+    private FunctionDefinition functionDefinition;
+    public FunVarList(FunVarList funVarList,VariableDefinition variableDefinition,FunctionDefinition functionDefinition) {
         this.funVarList = funVarList;
-    }
-
-    public VariableDefinition(FunVarList funVarList) {
-        this.funVarList = funVarList;
+        this.variableDefinition = variableDefinition;
+        this.functionDefinition = functionDefinition;
     }
 
     public FunVarList getFunVarList() {
@@ -26,6 +24,15 @@ public class CompUnit extends ASTNode {
     public void setFunVarList(FunVarList funVarList) {
         this.funVarList = funVarList;
     }
+    
+    public VariableDefinition getVariableDefinition() {
+        return variableDefinition;
+    }
+
+    public void setVariableDefinition(VariableDefinition variableDefinition) {
+        this.variableDefinition = variableDefinition;
+    }
+
 
     @Override
     public void accept(ASTVisitor visitor) throws ASTVisitorException {

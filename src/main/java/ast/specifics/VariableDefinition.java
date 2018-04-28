@@ -7,7 +7,7 @@ import ast.interfaces.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompUnit extends ASTNode {
+public class VariableDefinition extends ASTNode {
 
     private FunVarList funVarList;
 
@@ -15,16 +15,16 @@ public class CompUnit extends ASTNode {
         this.funVarList = funVarList;
     }
 
-    public VariableDefinition(FunVarList funVarList) {
-        this.funVarList = funVarList;
+    public VariableDefinition(List<FunVarList> statements) {
+        this.funVarList = statements;
     }
 
-    public FunVarList getFunVarList() {
+    public List<FunVarList> getStatements() {
         return funVarList;
     }
 
-    public void setFunVarList(FunVarList funVarList) {
-        this.funVarList = funVarList;
+    public void setStatements(List<FunVarList> statements) {
+        this.funVarList = statements;
     }
 
     @Override
