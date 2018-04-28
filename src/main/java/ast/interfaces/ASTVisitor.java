@@ -8,6 +8,16 @@ import ast.specifics.*;
 /**
  * Abstract syntax tree visitor.
  */
+       /**
+ * This code is part of the lab exercises for the Compilers course at Harokopio
+ * University of Athens, Dept. of Informatics and Telematics.
+ */
+package ast.interfaces;
+import ast.specifics.*;
+
+/**
+ * Abstract syntax tree visitor.
+ */
 public interface ASTVisitor {
 
     void visit(CompUnit node) throws ASTVisitorException;
@@ -39,4 +49,10 @@ public interface ASTVisitor {
     void visit(IfStatement node) throws ASTVisitorException;
 
     void visit(IfThenElseStatement node) throws ASTVisitorException;
+    
+    void visit(FunVarList node) throws ASTVisitorException;
+    
+    void visit(FunctionDefinition node) throws ASTVisitorException;
+    
+    void visit(VariableDefinition node) throws ASTVisitorException;
 }
