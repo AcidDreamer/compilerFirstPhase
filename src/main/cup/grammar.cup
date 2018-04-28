@@ -237,9 +237,9 @@ ParameterList ::= ParameterDeclaration:pd{:
              RESULT.setLine(idleft);
              RESULT.setColumn(idright);
          :}
-       | WHILE_KEYWORD:w LPAREN Expr:e RPAREN Statement:stmt
+       | WHILE_KEYWORD:w LPAREN Expr:e RPAREN CurlyStmt:c 
          {:
-            RESULT = new WhileStatement(e,stmt);
+            RESULT = new WhileStatement(e,c);
             RESULT.setLine(wleft);
             RESULT.setColumn(wright);
          :}
@@ -255,19 +255,46 @@ ParameterList ::= ParameterDeclaration:pd{:
              RESULT.setLine(lbleft);
              RESULT.setColumn(lbright);
          :}
-        |IF_KEYWORD:ifs LPAREN Expr:e RPAREN CurlyStmt:stmt
+        |IF_KEYWORD:ifs LPAREN Expr:e RPAREN CurlyStmt:c 
         {:
-             RESULT = new IfStatement(e,stmt);
+             RESULT = new IfStatement(e,c);
              RESULT.setLine(ifsleft);
              RESULT.setColumn(ifsright);
         :}
-      |IF_KEYWORD:ifs LPAREN Expr:e RPAREN Statement:stmt ELSE_KEYWORD Statement:stmt2
+      |IF_KEYWORD:ifs LPAREN Expr:e RPAREN CurlyStmt:c1  ELSE_KEYWORD CurlyStmt:c2 
         {:
-             RESULT = new IfThenElseStatement(e,stmt,stmt2);
+             RESULT = new IfThenElseStatement(e,c1,c2);
              RESULT.setLine(ifsleft);
              RESULT.setColumn(ifsright);
         :}
-
+      |BREAK_KEYWORD:b SEMICOLON
+        {:
+            RESULT = new break(b);
+            RESULT.setLine(bleft);
+            RESULT.setColumn(bright);
+        :}
+      
+      |RETURN_KEYWORD:r ExprList:el SEMICOLON
+        {:
+            RESULT=new return(r,el);
+            RESULT.setLine(rleft);
+            RESULT.setColumn(rright);
+        :}
+       |CONTINUE_KEYWORD:c SEMICOLON
+        {:
+            RESULT =new continue(c);
+            RESULT.setLine(cleft);
+            RESULT.setColumn(cright);
+        :}
+        |IDENTIFIER:id ASSIGN Expr:e SEMICOLON
+            {:
+                RESULT= new AssignmentStatement(id,e);
+                RESULT.setLine(idleft);
+                RESULT.setColumn(idright);
+            :}
+        |Expr
+        |VariableDefinition
+        |CurlyStmt
        ;
 
  Expr ::= INTEGER_LITERAL:l
@@ -288,12 +315,36 @@ ParameterList ::= ParameterDeclaration:pd{:
              RESULT.setLine(sleft);
              RESULT.setColumn(sright);
          :}
+       | CHARACTER_LITERAL:c
+         {:
+            RESULT= new CharacterLiteralExpression(c);
+            RESULT.setLine(cleft);
+            RESULT.setColumn(cright);
+         :}
        | IDENTIFIER:id
          {:
              RESULT = new IdentifierExpression(id);
              RESULT.setLine(idleft);
              RESULT.setColumn(idright);
          :}
+       |IDENTIFIER:id LPAREN  ExprList:el RPAREN
+        {:
+            RESULT = new IdentifierExpression2(id,el);
+            RESULT.setLine(idleft);
+            RESULT.setColumn(idright);
+        :}
+       |NEW_KEYWORD TypeSpecifier:t LBRAC INTEGER_LITERAL:l RBRAC
+          {:
+            RESULT=new New(t,l);
+            RESULT.setLine(tleft);
+            RESULT.setColumn(tright);
+          :}
+       |IDENTIFIER:id  LBRAC  Expr:e  RBRAC
+          {:
+                RESULT = new IdentifierExpression3(id,e);
+                RESULT.setLine(idleft);
+                RESULT.setColumn(idright);
+          :}
        | LPAREN:lp Expr:e RPAREN
          {:
              RESULT = new ParenthesisExpression(e);
@@ -324,6 +375,30 @@ ParameterList ::= ParameterDeclaration:pd{:
              RESULT.setLine(e1left);
              RESULT.setColumn(e1right);
          :}
+       | Expr:e1 MOD Expr:e2
+         {: 
+            RESULT = new BinaryExpression(Operator.MOD,e1,e2);
+            RESULT.setLine(e1left);
+            RESULT.setColumn(e1right);
+         :}
+       |NOT Expr:e
+         {: 
+            RESULT = new BinaryExpression(Operator.NOT,e);
+            RESULT.setLine(eleft);
+            RESULT.setColumn(eright);
+         :}
+       |Expr:e1 AND Expr:e2
+        {:
+             RESULT = new BinaryExpression(Operator.AND, e1, e2);
+             RESULT.setLine(e1left);
+             RESULT.setColumn(e1right);
+         :}
+       |Expr:e1 OR Expr:e2
+        {:
+             RESULT = new BinaryExpression(Operator.OR, e1, e2);
+             RESULT.setLine(e1left);
+             RESULT.setColumn(e1right);
+         :}  
        | Expr:e1 EQUAL Expr:e2
          {:
              RESULT = new BinaryExpression(Operator.EQUAL, e1, e2);
