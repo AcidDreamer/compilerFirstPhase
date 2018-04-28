@@ -8,9 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-//FunctionDefinition ::= TypeSpecifier IDENTIFIER LPAREN  RPAREN LCURLY StmtList RCURLY
-//    | TypeSpecifier   IDENTIFIER LPAREN ParameterList RPAREN LCURLY StmtList RCURLY;
-
 public class FunctionDefinition extends ASTNode {
     private TypeSpecifier typeSpecifier;
     private String identifier;
