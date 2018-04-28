@@ -7,24 +7,22 @@ import ast.interfaces.*;
 import java.util.ArrayList;
 import java.util.List;
 
-//  VariableDefinition  ::=  TypeSpecifier     IDENTIFIER  SEMICOLON
-// |  TypeSpecifier  LBRAC RBRAC IDENTIFIER  SEMICOLON
 
 public class VariableDefinition extends ASTNode {
-    private TypeSpecifier typeSpecifier;
+    private TypeSpecifierExpression typeSpecifier;
     private String identifier;
 
-    public VariableDefinition(TypeSpecifier typeSpecifier,String identifier ) {
+    public VariableDefinition(TypeSpecifierExpression typeSpecifier,String identifier ) {
         this.identifier = identifier;
         this.typeSpecifier = typeSpecifier;
 
     }
 
-    public TypeSpecifier getTypeSpecifier() {
+    public TypeSpecifierExpression getTypeSpecifier() {
         return typeSpecifier;
     }
 
-    public void setTypeSpecifier(TypeSpecifier typeSpecifier) {
+    public void setTypeSpecifier(TypeSpecifierExpression typeSpecifier) {
         this.typeSpecifier = typeSpecifier;
     }
 

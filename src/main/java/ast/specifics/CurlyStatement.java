@@ -3,25 +3,24 @@
  * University of Athens, Dept. of Informatics and Telematics.
  */
 package ast.specifics;
-
 import ast.interfaces.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompUnit extends ASTNode {
+public class CurlyStatement extends Statement {
 
-    private FunVarList funVarList;
+    private List<Statement> statements;
 
-    public CompUnit(FunVarList funVarList) {
-        this.funVarList = funVarList;
+    public CurlyStatement( List<Statement> statements) {
+        this.statements = statements;
     }
 
-    public FunVarList getFunVarList() {
-        return funVarList;
+    public List<Statement> getStatements() {
+        return statements;
     }
 
-    public void setFunVarList(FunVarList funVarList) {
-        this.funVarList = funVarList;
+    public void setStatements(List<Statement> statements) {
+        this.statements = statements;
     }
 
     @Override

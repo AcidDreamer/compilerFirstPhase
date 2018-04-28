@@ -5,19 +5,19 @@
 package ast.specifics;
 import ast.interfaces.*;
 
-public class DoubleLiteralExpression extends Expression {
+public class FloatLiteralExpression extends Expression {
 
-    private Double literal;
+    private Float literal;
 
-    public DoubleLiteralExpression(Double literal) {
+    public FloatLiteralExpression(Float literal) {
         this.literal = literal;
     }
 
-    public Double getLiteral() {
+    public Float getLiteral() {
         return literal;
     }
 
-    public void setLiteral(Double literal) {
+    public void setLiteral(Float literal) {
         this.literal = literal;
     }
 

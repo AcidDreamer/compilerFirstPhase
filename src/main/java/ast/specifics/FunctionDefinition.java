@@ -9,12 +9,12 @@ import java.util.List;
 
 
 public class FunctionDefinition extends ASTNode {
-    private TypeSpecifier typeSpecifier;
+    private TypeSpecifierExpression typeSpecifier;
     private String identifier;
     private List<Statement> statements;
-    private List<Parameter> parameters;
+    private List<ParameterDeclaration> parameters;
 
-    public FunctionDefinition(TypeSpecifier typeSpecifier,String identifier,List<Statement> statements,List<Parameter> parameters) {
+    public FunctionDefinition(TypeSpecifierExpression typeSpecifier,String identifier,List<Statement> statements,List<ParameterDeclaration> parameters) {
         this.typeSpecifier = typeSpecifier;
         this.identifier = identifier;
         this.statements = statements;
@@ -22,16 +22,16 @@ public class FunctionDefinition extends ASTNode {
     }
 
 
-    public TypeSpecifier getTypeSpecifier() {
+    public TypeSpecifierExpression getTypeSpecifier() {
         return typeSpecifier;
     }
 
-    public void setTypeSpecifier(TypeSpecifier typeSpecifier) {
+    public void setTypeSpecifier(TypeSpecifierExpression typeSpecifier) {
         this.typeSpecifier = typeSpecifier;
     }
     
     public String getIdentifier() {
-        return typeSpecifier;
+        return identifier;
     }
 
     public void setIdentifier(String identifier) {
@@ -46,11 +46,11 @@ public class FunctionDefinition extends ASTNode {
         this.statements = statements;
     }
     
-    public List<Parameter> getParameterList() {
+    public List<ParameterDeclaration> getParameterList() {
         return parameters;
     }
 
-    public void setParameterList(List<Parameter> parameters) {
+    public void setParameterList(List<ParameterDeclaration> parameters) {
         this.parameters = parameters;
     }
 

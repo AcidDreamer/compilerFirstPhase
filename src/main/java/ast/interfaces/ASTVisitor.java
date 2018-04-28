@@ -12,8 +12,6 @@ import ast.specifics.*;
  * This code is part of the lab exercises for the Compilers course at Harokopio
  * University of Athens, Dept. of Informatics and Telematics.
  */
-package ast.interfaces;
-import ast.specifics.*;
 
 /**
  * Abstract syntax tree visitor.
@@ -55,4 +53,13 @@ public interface ASTVisitor {
     void visit(FunctionDefinition node) throws ASTVisitorException;
     
     void visit(VariableDefinition node) throws ASTVisitorException;
+
+    void visit(FloatLiteralExpression node) throws ASTVisitorException;
+
+    void visit(TypeSpecifierExpression node) throws ASTVisitorException;
+
+    void visit(CurlyStatement node) throws ASTVisitorException;
+
+    void visit(ParameterDeclaration node) throws ASTVisitorException;
+
 }

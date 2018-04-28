@@ -9,7 +9,7 @@ import java.util.List;
 
 public class FunVarList extends ASTNode {
     private FunVarList funVarList;
-    private VariableDefinition variableDefinition
+    private VariableDefinition variableDefinition;
     private FunctionDefinition functionDefinition;
     public FunVarList(FunVarList funVarList,VariableDefinition variableDefinition,FunctionDefinition functionDefinition) {
         this.funVarList = funVarList;

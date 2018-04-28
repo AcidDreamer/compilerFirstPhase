@@ -4,8 +4,13 @@
  */
 
 import java_cup.runtime.Symbol;
+import java.util.List;
+import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import ast.specifics.*;
+import ast.interfaces.*;
 
 parser code
 {:
@@ -56,7 +61,7 @@ parser code
     }
 :};
 
-terminal java.lang.String   IDENTIFIER;       // name
+terminal java.lang.String IDENTIFIER;       // name
 terminal MISSING_KEYWORD;
 terminal ASSIGN,COMA,AND,OR,MOD,NOT,LBRAC,RBRAC;
 terminal LPAREN, RPAREN,LCURLY,RCURLY, SEMICOLON;
@@ -74,7 +79,7 @@ terminal java.lang.String  STRING_LITERAL;
 terminal java.lang.Char    CHARACTER_LITERAL;
 
 non terminal Expr;
-non terminal ExprList;
+non terminal List<Expr> ExprList;
 non terminal Statement;
 non terminal List<Statement> StmtList;
 non terminal CompilationUnit;
@@ -145,15 +150,15 @@ FunctionDefinition ::= TypeSpecifier:ts IDENTIFIER:iden LPAREN  RPAREN LCURLY St
 
 ParameterList ::= ParameterDeclaration:pd{:
         RESULT = new ArrayList<ParameterDeclaration>();
-        RESULT.add(pd)    
+        RESULT.add(pd);    
     :}
     | ParameterList:pl COMA ParameterDeclaration:pd{:
-        pl.add(pd)
-        RESULT = pl    
+        pl.add(pd);
+        RESULT = pl;
     :}
     ;
 
- ParameterDeclaration  ::= TypeSpecifier:ts IDENTIFIERR:iden{:
+ ParameterDeclaration  ::= TypeSpecifier:ts IDENTIFIER:iden{:
         RESULT = new ParameterDeclaration(ts,iden);
         RESULT.setLine(tsleft);
         RESULT.setColumn(idenright);
@@ -201,12 +206,12 @@ ParameterList ::= ParameterDeclaration:pd{:
         RESULT.setColumn(idenright);
     :}
     ;
- StmtList ::= Stmt:s
+ StmtList ::= Statement:s
              {:
                  RESULT = new ArrayList<Statement>();
                  RESULT.add(s);
              :}
-           | StmtList:sl Stmt:s
+           | StmtList:sl Statement:s
              {:
                  sl.add(s);
                  RESULT = sl;
@@ -215,53 +220,48 @@ ParameterList ::= ParameterDeclaration:pd{:
               
  CurlyStmt ::= LCURLY StmtList:s RCURLY 
                 {:
-                 RESULT = new CurlyStatement(s)
+                 RESULT = new CurlyStatement(s);
                  RESULT.setLine(sleft);
                  RESULT.setColumn(sright);
+                :}
     ;
- Stmt ::= PRINT:p LPAREN Expr:e RPAREN SEMICOLON
+ Statement ::= PRINT_KEYWORD:p LPAREN Expr:e RPAREN SEMICOLON
          {:
              RESULT = new PrintStatement(e);
              RESULT.setLine(pleft);
              RESULT.setColumn(pright);
          :}
-       | IDENTIFIER:id EQ Expr:e SEMICOLON
+       | IDENTIFIER:id EQUAL Expr:e SEMICOLON
          {:
              RESULT = new AssignmentStatement(id, e);
              RESULT.setLine(idleft);
              RESULT.setColumn(idright);
          :}
-       | WHILE:w LPAREN Expr:e RPAREN Stmt:stmt
+       | WHILE_KEYWORD:w LPAREN Expr:e RPAREN Statement:stmt
          {:
             RESULT = new WhileStatement(e,stmt);
             RESULT.setLine(wleft);
             RESULT.setColumn(wright);
          :}
-       | DO:d Stmt:stmt WHILE LPAREN Expr:e RPAREN SEMICOLON
-         {:
-            RESULT = new DoStatement(e,stmt);
-            RESULT.setLine(dleft);
-            RESULT.setColumn(dright);
-         :}
-       | LBRACKET:lb StmtList:sl RBRACKET
+       | LBRAC:lb Statement:sl RBRAC
          {:
              RESULT = new CompoundStatement(sl);
              RESULT.setLine(lbleft);
              RESULT.setColumn(lbright);
          :}
-       | LBRACKET:lb RBRACKET
+       | LBRAC:lb RBRAC
          {:
              RESULT = new CompoundStatement();
              RESULT.setLine(lbleft);
              RESULT.setColumn(lbright);
          :}
-        |IF:ifs LPAREN Expr:e RPAREN Stmt:stmt
+        |IF_KEYWORD:ifs LPAREN Expr:e RPAREN CurlyStmt:stmt
         {:
              RESULT = new IfStatement(e,stmt);
              RESULT.setLine(ifsleft);
              RESULT.setColumn(ifsright);
         :}
-      |IF:ifs LPAREN Expr:e RPAREN Stmt:stmt ELSE Stmt:stmt2
+      |IF_KEYWORD:ifs LPAREN Expr:e RPAREN Statement:stmt ELSE_KEYWORD Statement:stmt2
         {:
              RESULT = new IfThenElseStatement(e,stmt,stmt2);
              RESULT.setLine(ifsleft);
@@ -276,9 +276,9 @@ ParameterList ::= ParameterDeclaration:pd{:
              RESULT.setLine(lleft);
              RESULT.setColumn(lright);
          :}
-       | DOUBLE_LITERAL:l
+       | FLOAT_LITERAL:f
          {:
-             RESULT = new DoubleLiteralExpression(l);
+             RESULT = new FloatLiteralExpression(l);
              RESULT.setLine(lleft);
              RESULT.setColumn(lright);
          :}
@@ -336,31 +336,31 @@ ParameterList ::= ParameterDeclaration:pd{:
              RESULT.setLine(e1left);
              RESULT.setColumn(e1right);
          :}
-       | Expr:e1 LESS Expr:e2
+       | Expr:e1 LESS_THAN Expr:e2
          {:
              RESULT = new BinaryExpression(Operator.LESS, e1, e2);
              RESULT.setLine(e1left);
              RESULT.setColumn(e1right);
          :}
-       | Expr:e1 LESS_EQ Expr:e2
+       | Expr:e1 LESS_OR_EQUAL Expr:e2
          {:
              RESULT = new BinaryExpression(Operator.LESS_EQ, e1, e2);
              RESULT.setLine(e1left);
              RESULT.setColumn(e1right);
          :}
-       | Expr:e1 GREATER Expr:e2
+       | Expr:e1 GREATER_THAN Expr:e2
          {:
              RESULT = new BinaryExpression(Operator.GREATER, e1, e2);
              RESULT.setLine(e1left);
              RESULT.setColumn(e1right);
          :}
-       | Expr:e1 GREATER_EQ Expr:e2
+       | Expr:e1 GREATER_OR_EQUAL Expr:e2
          {:
              RESULT = new BinaryExpression(Operator.GREATER_EQ, e1, e2);
              RESULT.setLine(e1left);
              RESULT.setColumn(e1right);
          :}
-       | MINUS:m Expr:e 
+       | UMINUS:m Expr:e 
          {:
              RESULT = new UnaryExpression(Operator.MINUS, e);
              RESULT.setLine(mleft);
@@ -380,4 +380,3 @@ ParameterList ::= ParameterDeclaration:pd{:
                  RESULT = el;
              :}
            ;
-    ;
