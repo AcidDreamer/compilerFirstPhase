@@ -5,7 +5,7 @@
 package ast.specifics;
 import ast.interfaces.*;
 
-public class KeywordExpression extends Expression {
+public class KeywordExpression extends Statement {
 
     private Expression expression;
     private String identifier;

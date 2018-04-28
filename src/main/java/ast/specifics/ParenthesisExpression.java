@@ -4,21 +4,23 @@
  */
 package ast.specifics;
 import ast.interfaces.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ParenthesisExpression extends Expression {
 
-    private Expression expression;
+    private List<Expression> expressions;
 
-    public ParenthesisExpression(Expression expression) {
-        this.expression = expression;
+    public ParenthesisExpression(List<Expression> expressions) {
+        this.expressions = expressions;
     }
 
-    public Expression getExpression() {
-        return expression;
+    public List<Expression> getExpression() {
+        return expressions;
     }
 
-    public void setExpression(Expression expression) {
-        this.expression = expression;
+    public void setExpression(List<Expression> expressions) {
+        this.expressions = expressions;
     }
 
     @Override

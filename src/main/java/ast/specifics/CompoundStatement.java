@@ -10,22 +10,21 @@ import java.util.List;
 
 public class CompoundStatement extends Statement {
 
-    private List<Statement> statements;
+    private Statement statement;
 
-    public CompoundStatement() {
-        this.statements = new ArrayList<Statement>();
+    public CompoundStatement(Statement statement) {
+        this.statement = statement;
     }
 
-    public CompoundStatement(List<Statement> statements) {
-        this.statements = statements;
+    public CompoundStatement(){
+        statement = null;
+    }
+    public Statement getStatement() {
+        return statement;
     }
 
-    public List<Statement> getStatements() {
-        return statements;
-    }
-
-    public void setStatements(List<Statement> statements) {
-        this.statements = statements;
+    public void setStatement(Statement statement) {
+        this.statement = statement;
     }
 
     @Override

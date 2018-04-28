@@ -5,20 +5,20 @@
 package ast.specifics;
 import ast.interfaces.*;
 
-public class KeywordLiteral extends Statement {
+public class CharacterLiteralExpression extends Expression {
 
-    private String identifier;
+    private String literal;
 
-    public KeywordLiteral(String identifier) {
-        this.identifier = identifier;
+    public CharacterLiteralExpression(String literal) {
+        this.literal = literal;
     }
 
-    public String getIdentifier() {
-        return identifier;
+    public String getLiteral() {
+        return literal;
     }
 
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
+    public void setLiteral(String literal) {
+        this.literal = literal;
     }
 
     @Override

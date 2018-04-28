@@ -16,6 +16,11 @@ public class CompUnit extends ASTNode {
         this.funVarList = funVarList;
     }
 
+    public CompUnit() {
+
+    }
+
+
     public FunVarList getFunVarList() {
         return funVarList;
     }

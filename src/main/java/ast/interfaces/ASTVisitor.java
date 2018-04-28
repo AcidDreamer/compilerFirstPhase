@@ -66,4 +66,7 @@ public interface ASTVisitor {
 
     void visit(KeywordExpression node) throws ASTVisitorException;
 
+    void visit(NewArraySpecifier node) throws ASTVisitorException;
+
+    void visit(CharacterLiteralExpression node) throws ASTVisitorException;
 }

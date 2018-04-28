@@ -8,18 +8,18 @@ import ast.interfaces.*;
 public class WhileStatement extends Statement {
 
     private Expression expression;
-    private Statement statement;
+    private CurlyStatement statement;
 
-    public WhileStatement( Expression expression , Statement statement) {
+    public WhileStatement( Expression expression , CurlyStatement statement) {
         this.statement = statement;
         this.expression = expression;
     }
 
-    public Statement getStatement() {
+    public CurlyStatement getStatement() {
         return statement;
     }
 
-    public void setStatement(Statement statement) {
+    public void setStatement(CurlyStatement statement) {
         this.statement = statement;
     }
 

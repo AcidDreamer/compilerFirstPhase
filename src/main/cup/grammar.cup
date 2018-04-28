@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.lang.*;
 
 import ast.specifics.*;
 import ast.interfaces.*;
@@ -76,20 +77,20 @@ terminal VOID_KEYWORD , PRINT_KEYWORD;
 terminal java.lang.Integer INTEGER_LITERAL;
 terminal java.lang.Float  FLOAT_LITERAL;
 terminal java.lang.String  STRING_LITERAL;
-terminal java.lang.Char    CHARACTER_LITERAL;
+terminal java.lang.String  CHARACTER_LITERAL;
 
-non terminal Expr;
-non terminal List<Expression> ExprList;
-non terminal Statement;
+non terminal Expression Expr ;
+non terminal ArrayList<Expression> ExprList;
+non terminal Statement Statement;
 non terminal List<Statement> StmtList;
-non terminal CompilationUnit;
-non terminal FunctionDefinition;
-non terminal VariableDefinition;
-non terminal TypeSpecifier;
-non terminal ParameterDeclaration;
-non terminal CurlyStmt;
+non terminal CompUnit CompilationUnit;
+non terminal FunctionDefinition FunctionDefinition;
+non terminal VariableDefinition VariableDefinition;
+non terminal TypeSpecifierExpression TypeSpecifier;
+non terminal ParameterDeclaration ParameterDeclaration;
+non terminal CurlyStatement CurlyStmt;
 non terminal List<ParameterDeclaration> ParameterList;
-non terminal FunVarList;
+non terminal FunVarList FunVarList;
 
 
 precedence left EQUAL,NOT_EQUAL;
@@ -170,27 +171,27 @@ ParameterList ::= ParameterDeclaration:pd{:
     :} 
     ;
  TypeSpecifier  ::= CHAR_KEYWORD:kw{:
-        RESULT = new TypeSpecifier("char");
+        RESULT = new TypeSpecifierExpression("char");
         RESULT.setLine(kwleft);
         RESULT.setColumn(kwright);
      :}
     | INT_KEYWORD:kw{:
-        RESULT = new TypeSpecifier("int");
+        RESULT = new TypeSpecifierExpression("int");
         RESULT.setLine(kwleft);
         RESULT.setColumn(kwright);
      :}
     | FLOAT_KEYWORD:kw{:
-        RESULT = new TypeSpecifier("float");
+        RESULT = new TypeSpecifierExpression("float");
         RESULT.setLine(kwleft);
         RESULT.setColumn(kwright);
      :}
     | VOID_KEYWORD:kw{:
-        RESULT = new TypeSpecifier("void");
+        RESULT = new TypeSpecifierExpression("void");
         RESULT.setLine(kwleft);
         RESULT.setColumn(kwright);
      :}
     | STRING_KEYWORD:kw{:
-        RESULT = new TypeSpecifier("String");
+        RESULT = new TypeSpecifierExpression("String");
         RESULT.setLine(kwleft);
         RESULT.setColumn(kwright);
      :}
@@ -200,7 +201,7 @@ ParameterList ::= ParameterDeclaration:pd{:
         RESULT.setLine(tsleft);
         RESULT.setColumn(idenright);
     :}
-    |  TypeSpecifier  LBRAC RBRAC IDENTIFIER  SEMICOLON{:
+    |  TypeSpecifier:ts  LBRAC RBRAC IDENTIFIER:iden  SEMICOLON{:
         RESULT = new VariableDefinition(ts,iden);
         RESULT.setLine(tsleft);
         RESULT.setColumn(idenright);
@@ -269,20 +270,20 @@ ParameterList ::= ParameterDeclaration:pd{:
         :}
       |BREAK_KEYWORD:b SEMICOLON
         {:
-            RESULT = new KeywordLiteral(b);
+            RESULT = new KeywordLiteral("break");
             RESULT.setLine(bleft);
             RESULT.setColumn(bright);
         :}
       
       |RETURN_KEYWORD:r Expr:e SEMICOLON
         {:
-            RESULT=new KeywordExpression(r,e);
+            RESULT=new KeywordExpression("return",e);
             RESULT.setLine(rleft);
             RESULT.setColumn(rright);
         :}
        |CONTINUE_KEYWORD:c SEMICOLON
         {:
-            RESULT =new KeywordLiteral(c);
+            RESULT =new KeywordLiteral("continue");
             RESULT.setLine(cleft);
             RESULT.setColumn(cright);
         :}
@@ -297,6 +298,21 @@ ParameterList ::= ParameterDeclaration:pd{:
         |CurlyStmt
        ;
 
+
+ 
+ ExprList  ::=  Expr:e
+            {:
+                 RESULT = new ArrayList<Expression>();
+                 RESULT.add(e);
+             :}
+           | ExprList:el COMA Expr:e
+             {:
+                 el.add(e);
+                 RESULT = el;
+             :}
+           ;
+
+
  Expr ::= INTEGER_LITERAL:l
          {:
              RESULT = new IntegerLiteralExpression(l);
@@ -305,9 +321,9 @@ ParameterList ::= ParameterDeclaration:pd{:
          :}
        | FLOAT_LITERAL:f
          {:
-             RESULT = new FloatLiteralExpression(l);
-             RESULT.setLine(lleft);
-             RESULT.setColumn(lright);
+             RESULT = new FloatLiteralExpression(f);
+             RESULT.setLine(fleft);
+             RESULT.setColumn(fright);
          :}
        | STRING_LITERAL:s
          {:
@@ -330,8 +346,8 @@ ParameterList ::= ParameterDeclaration:pd{:
        | LPAREN  ExprList:el RPAREN
         {:
             RESULT = new ParenthesisExpression(el);
-            RESULT.setLine(idleft);
-            RESULT.setColumn(idright);
+            RESULT.setLine(elleft);
+            RESULT.setColumn(elright);
         :}
        |NEW_KEYWORD TypeSpecifier:t LBRAC INTEGER_LITERAL:l RBRAC
           {:
@@ -341,16 +357,16 @@ ParameterList ::= ParameterDeclaration:pd{:
           :}
        |  LBRAC  Expr:e  RBRAC
           {:
-                RESULT = new BracketExpression(id,e);
-                RESULT.setLine(idleft);
-                RESULT.setColumn(idright);
+                RESULT = new BracketExpression(e);
+                RESULT.setLine(eleft);
+                RESULT.setColumn(eright);
           :}
-       | LPAREN:lp Expr:e RPAREN
-         {:
-             RESULT = new ParenthesisExpression(e);
-             RESULT.setLine(lpleft);
-             RESULT.setColumn(lpright);
-         :}
+    //    | LPAREN:lp Expr:e RPAREN
+    //      {:
+    //          RESULT = new ParenthesisExpression(e);
+    //          RESULT.setLine(lpleft);
+    //          RESULT.setColumn(lpright);
+    //      :}
        | Expr:e1 PLUS Expr:e2
          {:
              RESULT = new BinaryExpression(Operator.PLUS, e1, e2);
@@ -383,7 +399,7 @@ ParameterList ::= ParameterDeclaration:pd{:
          :}
        |NOT Expr:e
          {: 
-            RESULT = new BinaryExpression(Operator.NOT,e);
+            RESULT = new UnaryExpression(Operator.NOT,e);
             RESULT.setLine(eleft);
             RESULT.setColumn(eright);
          :}
@@ -443,16 +459,3 @@ ParameterList ::= ParameterDeclaration:pd{:
          :} 
          %prec UMINUS
        ;
-
- 
- ExprList  ::=  Expr:e
-            {:
-                 RESULT = new ArrayList<Expression>();
-                 RESULT.add(e);
-             :}
-           | ExprList:el COMA Expr:e
-             {:
-                 el.add(e);
-                 RESULT = el;
-             :}
-           ;

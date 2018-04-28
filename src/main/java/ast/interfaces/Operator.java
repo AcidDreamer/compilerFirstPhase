@@ -3,7 +3,7 @@
  * University of Athens, Dept. of Informatics and Telematics.
  */
 package ast.interfaces;
-import ast.interfaces.*;
+import ast.specifics.*;
 
 public enum Operator {
 
@@ -13,10 +13,15 @@ public enum Operator {
     DIVISION("/"),
     EQUAL("=="),
     NOT_EQUAL("!="),
+    OR("||"),
+    NOT("!"),
+    MOD("%"),
+    AND("&&"),
     LESS_EQ("<="),
     LESS("<"),
     GREATER(">"),
     GREATER_EQ(">=");
+    
     
     private String type;
 

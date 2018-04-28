@@ -5,12 +5,12 @@
 package ast.specifics;
 import ast.interfaces.*;
 
-public class KeywordExpression extends Expression {
+public class NewArraySpecifier extends Expression {
 
     private int arraysSize;
     private TypeSpecifierExpression identifier;
 
-    public KeywordExpression(TypeSpecifierExpression identifier,int arraysSize) {
+    public NewArraySpecifier(TypeSpecifierExpression identifier,int arraysSize) {
         this.arraysSize = arraysSize;
         this.identifier = identifier;
     }
