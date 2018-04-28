@@ -32,8 +32,6 @@ public interface ASTVisitor {
 
     void visit(IdentifierExpression node) throws ASTVisitorException;
 
-    void visit(DoubleLiteralExpression node) throws ASTVisitorException;
-
     void visit(IntegerLiteralExpression node) throws ASTVisitorException;
 
     void visit(StringLiteralExpression node) throws ASTVisitorException;
@@ -61,5 +59,11 @@ public interface ASTVisitor {
     void visit(CurlyStatement node) throws ASTVisitorException;
 
     void visit(ParameterDeclaration node) throws ASTVisitorException;
+
+    void visit(BracketExpression node) throws ASTVisitorException;
+
+    void visit(KeywordLiteral node) throws ASTVisitorException;
+
+    void visit(KeywordExpression node) throws ASTVisitorException;
 
 }
