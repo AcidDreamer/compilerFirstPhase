@@ -15,11 +15,11 @@ public class ParenthesisExpression extends Expression {
         this.expressions = expressions;
     }
 
-    public List<Expression> getExpression() {
+    public List<Expression> getExpressions() {
         return expressions;
     }
 
-    public void setExpression(List<Expression> expressions) {
+    public void setExpressions(List<Expression> expressions) {
         this.expressions = expressions;
     }
 

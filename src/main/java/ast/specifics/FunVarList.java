@@ -8,31 +8,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FunVarList extends ASTNode {
-    private FunVarList funVarList;
-    private VariableDefinition variableDefinition;
-    private FunctionDefinition functionDefinition;
-    public FunVarList(FunVarList funVarList,VariableDefinition variableDefinition,FunctionDefinition functionDefinition) {
-        this.funVarList = funVarList;
+    private List<VariableDefinition> variableDefinition;
+    private List<FunctionDefinition> functionDefinition;
+    public FunVarList( List<VariableDefinition>  variableDefinition,List<FunctionDefinition> functionDefinition) {
         this.variableDefinition = variableDefinition;
         this.functionDefinition = functionDefinition;
     }
-
-    public FunVarList getFunVarList() {
-        return funVarList;
+    public FunVarList( ) {
+        this.variableDefinition = new ArrayList<VariableDefinition>();
+        this.functionDefinition = new ArrayList<FunctionDefinition>();
     }
 
-    public void setFunVarList(FunVarList funVarList) {
-        this.funVarList = funVarList;
-    }
-    
-    public VariableDefinition getVariableDefinition() {
+    public  List<VariableDefinition>  getVariableDefinition() {
         return variableDefinition;
     }
 
-    public void setVariableDefinition(VariableDefinition variableDefinition) {
+    public void setVariableDefinition( List<VariableDefinition>  variableDefinition) {
         this.variableDefinition = variableDefinition;
     }
 
+    public List<FunctionDefinition> getFunctionDefinition() {
+        return functionDefinition;
+    }
+
+    public void setFunctionDefinition(List<FunctionDefinition> functionDefinition) {
+        this.functionDefinition = functionDefinition;
+    }
 
     @Override
     public void accept(ASTVisitor visitor) throws ASTVisitorException {

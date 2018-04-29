@@ -11,11 +11,11 @@ import java.util.List;
 public class VariableDefinition extends ASTNode {
     private TypeSpecifierExpression typeSpecifier;
     private String identifier;
-
+    private Boolean  isTable ;
     public VariableDefinition(TypeSpecifierExpression typeSpecifier,String identifier ) {
         this.identifier = identifier;
         this.typeSpecifier = typeSpecifier;
-
+        this.isTable = false;
     }
 
     public TypeSpecifierExpression getTypeSpecifier() {
@@ -34,6 +34,14 @@ public class VariableDefinition extends ASTNode {
         this.identifier = identifier;
     }
 
+
+    public Boolean isTable() {
+        return isTable;
+    }
+
+    public void setIsTable(Boolean isTable) {
+        this.isTable = isTable;
+    }
 
     @Override
     public void accept(ASTVisitor visitor) throws ASTVisitorException {

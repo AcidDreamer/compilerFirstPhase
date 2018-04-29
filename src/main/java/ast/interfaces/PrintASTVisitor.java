@@ -2,18 +2,17 @@
  * This code is part of the lab exercises for the Compilers course at Harokopio
  * University of Athens, Dept. of Informatics and Telematics.
  */
-import ast.interfaces.*;
-import ast.specifics.*;
+package ast.interfaces;
 
-// import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
+
+import ast.specifics.*;
 
 public class PrintASTVisitor implements ASTVisitor {
 
     @Override
     public void visit(CompUnit node) throws ASTVisitorException {
-        // for (Statement s : node.getStatements()) {
-        //     s.accept(this);
-        // }
+        node.getFunVarList().accept(this);
     }
 
     @Override
@@ -59,34 +58,39 @@ public class PrintASTVisitor implements ASTVisitor {
     
     @Override
     public void visit(StringLiteralExpression node) throws ASTVisitorException {
-        // System.out.print("\"");
-        // System.out.print(StringEscapeUtils.escapeJava(node.getLiteral()));
-        // System.out.print("\"");
+        System.out.print("\"");
+        System.out.print(StringEscapeUtils.escapeJava(node.getLiteral()));
+        System.out.print("\"");
     }
 
     @Override
     public void visit(ParenthesisExpression node) throws ASTVisitorException {
-        // System.out.print("( ");
-        // node.getExpressions().accept(this);
-        // System.out.print(" )");
+        System.out.print("( ");
+        if (node.getExpressions().size() == 0 || node.getExpressions().size() == 1 ){
+            for ( Expression e : node.getExpressions()){ e.accept(this);}
+        }else{
+            for (Expression e : node.getExpressions()){
+                e.accept(this);
+                System.out.print(",");
+            }
+        }
+        System.out.print(" )");
     }
 
     @Override
     public void visit(CompoundStatement node) throws ASTVisitorException {
-        // System.out.println(" { ");
-        // for(Statement st: node.getStatements()) { 
-        //     st.accept(this);
-        // }
-        // System.out.println(" } ");
+        System.out.println(" { ");
+        node.getStatement().accept(this);
+        System.out.println(" } ");
     }
 
     @Override
     public void visit(WhileStatement node ) throws ASTVisitorException{
-        // System.out.print("while(");
-        // node.getExpression().accept(this);
-        // System.out.print(")\n");
-        // node.getStatement().accept(this);
-        // System.out.println("");
+        System.out.print("while(");
+        node.getExpression().accept(this);
+        System.out.print(")\n");
+        node.getStatement().accept(this);
+        System.out.println("");
     }
 
     @Override
@@ -120,17 +124,37 @@ public class PrintASTVisitor implements ASTVisitor {
 
     @Override
     public void visit(FunVarList node) throws ASTVisitorException{
-        System.out.println("");
+        for (VariableDefinition s : node.getVariableDefinition()){
+            s.accept(this);
+        }
+        System.out.println("\n\n");
+        for (FunctionDefinition s : node.getFunctionDefinition()){
+            s.accept(this);
+        }
     }
     
     @Override
     public void visit(FunctionDefinition node) throws ASTVisitorException{
-        System.out.println("");
+        node.getTypeSpecifier().accept(this);
+        System.out.print(" " + node.getIdentifier());
+        for (ParameterDeclaration s : node.getParameterList()){
+            s.accept(this);
+        }
+        System.out.println("{");
+        for (Statement s : node.getStatementList()){
+            s.accept(this);
+        }
+        System.out.println("}");
+
     }
     
     @Override
     public void visit(VariableDefinition node) throws ASTVisitorException{
-        System.out.println("");
+        node.getTypeSpecifier().accept(this);
+        if (node.isTable())
+            System.out.println("[] " + node.getIdentifier() + " ;");
+        else    
+            System.out.println(" " + node.getIdentifier() + " ;");
     }
 
     @Override

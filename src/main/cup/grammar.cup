@@ -115,22 +115,26 @@ CompilationUnit ::= /* empty */
             :} ;
 
 FunVarList ::= VariableDefinition:vd {:
-                RESULT = new FunVarList(null,vd,null);
+                RESULT = new FunVarList();
+                RESULT.getVariableDefinition().add(vd);
                 RESULT.setLine(vdleft);
                 RESULT.setColumn(vdright);
             :}
            | FunVarList:fvl VariableDefinition:vd{:
-                RESULT = new FunVarList(fvl,vd,null);
+                fvl.getVariableDefinition().add(vd);
+                RESULT = fvl;
                 RESULT.setLine(fvlleft);
                 RESULT.setColumn(fvlright);
             :}
            | FunctionDefinition:fd{:
-                RESULT = new FunVarList(null,null,fd);
+                RESULT = new FunVarList();
+                RESULT.getFunctionDefinition().add(fd);
                 RESULT.setLine(fdleft);
                 RESULT.setColumn(fdright);
             :}
            | FunVarList:fvl FunctionDefinition:fd{:
-                RESULT = new FunVarList(fvl,null,fd);
+                fvl.getFunctionDefinition().add(fd);
+                RESULT = fvl;
                 RESULT.setLine(fvlleft);
                 RESULT.setColumn(fvlright);
             :}
@@ -203,6 +207,7 @@ ParameterList ::= ParameterDeclaration:pd{:
     :}
     |  TypeSpecifier:ts  LBRAC RBRAC IDENTIFIER:iden  SEMICOLON{:
         RESULT = new VariableDefinition(ts,iden);
+        RESULT.setIsTable(true);
         RESULT.setLine(tsleft);
         RESULT.setColumn(idenright);
     :}
