@@ -205,9 +205,7 @@ public class PrintASTVisitor implements ASTVisitor {
 
     @Override
     public void visit(CharacterLiteralExpression node) throws ASTVisitorException{
-        System.out.print("\"");
         System.out.print(StringEscapeUtils.escapeJava(node.getLiteral()));
-        System.out.print("\"");
     }
     @Override
     public void visit(NewArraySpecifier node) throws ASTVisitorException{

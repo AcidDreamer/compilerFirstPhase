@@ -1,6 +1,7 @@
 
 import ast.interfaces.ASTNode;
 import ast.interfaces.ASTVisitor;
+import ast.interfaces.PrintASTVisitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
