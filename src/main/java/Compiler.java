@@ -1,4 +1,6 @@
 
+import ast.interfaces.ASTNode;
+import ast.interfaces.ASTVisitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,8 +35,17 @@ public class Compiler {
                     LOGGER.info("Scanning file " + args[i]);
                     java.io.Reader reader = new java.io.InputStreamReader(stream, encodingName);
                     scanner = new Lexer(reader);
+                    
+                    // parse
                     parser p = new parser(scanner);
-                    Object result = p.parse().value;
+                    ASTNode compUnit = (ASTNode) p.parse().value;
+                    LOGGER.info("Constructed AST");
+                    
+                    // print program
+                    LOGGER.info("Input:");
+                    ASTVisitor printVisitor = new PrintASTVisitor();
+                    compUnit.accept(printVisitor);
+                    
                     LOGGER.info("Compilation done");
                 } catch (java.io.FileNotFoundException e) {
                     LOGGER.error("File not found : \"" + args[i] + "\"");
