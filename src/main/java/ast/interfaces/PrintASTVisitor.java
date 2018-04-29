@@ -159,46 +159,61 @@ public class PrintASTVisitor implements ASTVisitor {
 
     @Override
     public void visit(FloatLiteralExpression node) throws ASTVisitorException{
-        System.out.println("");
+        System.out.print(node.getLiteral() + "");
     }
     
     @Override
     public void visit(TypeSpecifierExpression node) throws ASTVisitorException{
-        System.out.println("");
+        System.out.print(node.getTypeSpecifier());
     }
 
     @Override
     public void visit(CurlyStatement node) throws ASTVisitorException{
-        System.out.println("");
+        System.out.println("{");
+        for (Statement s : node.getStatements()){
+            s.accept(this);
+        }
+        System.out.println("}");
     }
 
     @Override
     public void visit(ParameterDeclaration node) throws ASTVisitorException{
-        System.out.println("");
+        System.out.print("(");
+        node.getTypeSpecifier().accept(this);
+        System.out.print(" " + node.getIdentifier() + ")");
     }
 
     @Override
     public void visit(BracketExpression node) throws ASTVisitorException{
-        System.out.println("");
+        System.out.print("[" );
+        node.getExpression().accept(this);
+        System.out.println("]");
     }
     
     @Override
     public void visit(KeywordLiteral node) throws ASTVisitorException{
-        System.out.println("");
+        System.out.println(node.getIdentifier() + " ;");
     }
 
     @Override
     public void visit(KeywordExpression node) throws ASTVisitorException{
-        System.out.println("");
+        System.out.print(node.getIdentifier() + " ");
+        node.getExpression().accept(this);
+        System.out.println(";");
+
     }
 
     @Override
     public void visit(CharacterLiteralExpression node) throws ASTVisitorException{
-        System.out.println("");
+        System.out.print("\"");
+        System.out.print(StringEscapeUtils.escapeJava(node.getLiteral()));
+        System.out.print("\"");
     }
     @Override
     public void visit(NewArraySpecifier node) throws ASTVisitorException{
-        System.out.println("");
+        System.out.print("new ");
+        node.getIdentifier().accept(this);
+        System.out.println(" [" + node.getExpression() + "]");
     }
 
 }
