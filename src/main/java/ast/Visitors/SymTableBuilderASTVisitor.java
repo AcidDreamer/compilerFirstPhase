@@ -139,58 +139,74 @@ public class SymTableBuilderASTVisitor implements ASTVisitor {
    
     @Override
     public void visit(FunVarList node) throws ASTVisitorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         ASTUtils.setEnv(node, env.element());
+         
     }
 
     @Override
     public void visit(FunctionDefinition node) throws ASTVisitorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ASTUtils.setEnv(node, env.element());
+        for (Statement s : node.getStatementList()) {
+            s.accept(this);
+        }
+        node.getTypeSpecifier().accept(this);
+        
     }
 
     @Override
     public void visit(VariableDefinition node) throws ASTVisitorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ASTUtils.setEnv(node, env.element());
+        node.getTypeSpecifier().accept(this);
     }
 
 
     @Override
     public void visit(TypeSpecifierExpression node) throws ASTVisitorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ASTUtils.setEnv(node, env.element());
     }
 
     @Override
     public void visit(CurlyStatement node) throws ASTVisitorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        pushEnvironment();
+        ASTUtils.setEnv(node, env.element());
+        for (Statement s : node.getStatements()) {
+            s.accept(this);
+        }
+        popEnvironment();
     }
 
     @Override
     public void visit(ParameterDeclaration node) throws ASTVisitorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ASTUtils.setEnv(node, env.element());
+        node.getTypeSpecifier().accept(this);
     }
 
     @Override
     public void visit(BracketExpression node) throws ASTVisitorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ASTUtils.setEnv(node, env.element());
+        node.getExpression().accept(this);
     }
 
     @Override
     public void visit(KeywordLiteral node) throws ASTVisitorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ASTUtils.setEnv(node, env.element());
     }
 
     @Override
     public void visit(KeywordExpression node) throws ASTVisitorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ASTUtils.setEnv(node, env.element());
+        node.getExpression().accept(this);
     }
 
     @Override
     public void visit(NewArraySpecifier node) throws ASTVisitorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ASTUtils.setEnv(node, env.element());
+        node.getIdentifier().accept(this);
     }
 
     @Override
     public void visit(CharacterLiteralExpression node) throws ASTVisitorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ASTUtils.setEnv(node, env.element());
     }
 
     
