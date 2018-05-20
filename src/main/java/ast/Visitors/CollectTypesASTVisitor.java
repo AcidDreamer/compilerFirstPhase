@@ -4,7 +4,6 @@
  */
 package ast.visitors;
 
-import ast.*;
 import ast.interfaces.*;
 import ast.specifics.*;
 import types.TypeException;
