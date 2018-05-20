@@ -36,18 +36,29 @@ public class Compiler {
                     LOGGER.info("Scanning file " + args[i]);
                     java.io.Reader reader = new java.io.InputStreamReader(stream, encodingName);
                     scanner = new Lexer(reader);
-                    
-                    // parse
-                    parser p = new parser(scanner);
-                    ASTNode compUnit = (ASTNode) p.parse().value;
-                    LOGGER.info("Constructed AST");
-                    
-                    // print program
-                    LOGGER.info("Input:");
-                    ASTVisitor printVisitor = new PrintASTVisitor();
-                    compUnit.accept(printVisitor);
-                    
-                    LOGGER.info("Compilation done");
+                  // parse
+                  parser p = new parser(scanner);
+                  ASTNode compUnit = (ASTNode) p.parse().value;
+                  LOGGER.debug("Constructed AST");
+
+                  // keep global instance of program
+                  Registry.getInstance().setRoot(compUnit);
+
+                  // build symbol table
+                  LOGGER.debug("Building system table");
+                  compUnit.accept(new SymTableBuilderASTVisitor());
+
+                  // construct types
+                  LOGGER.debug("Semantic check");
+                //   compUnit.accept(new CollectSymbolsASTVisitor());
+                //   compUnit.accept(new CollectTypesASTVisitor());
+
+                  // print program
+                  LOGGER.info("Input:");
+                  ASTVisitor printVisitor = new PrintASTVisitor();
+                  compUnit.accept(printVisitor);
+
+                  LOGGER.info("Compilation done");
                 } catch (java.io.FileNotFoundException e) {
                     LOGGER.error("File not found : \"" + args[i] + "\"");
                 } catch (java.io.IOException e) {
