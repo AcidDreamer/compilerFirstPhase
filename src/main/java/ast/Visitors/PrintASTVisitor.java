@@ -2,11 +2,12 @@
  * This code is part of the lab exercises for the Compilers course at Harokopio
  * University of Athens, Dept. of Informatics and Telematics.
  */
-package ast.Visitors;
+package ast.visitors;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
-import ast.*;
+import ast.interfaces.*;
+import ast.specifics.*;
 
 public class PrintASTVisitor implements ASTVisitor {
 

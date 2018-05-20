@@ -6,7 +6,7 @@ import org.objectweb.asm.Type;
 
 import symbol.SymTable;
 import symbol.SymTableEntry;
-
+import ast.specifics.*;
 /**
  * Class with static helper methods for AST handling
  */

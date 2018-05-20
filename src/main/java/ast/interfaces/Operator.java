@@ -3,7 +3,8 @@
  * University of Athens, Dept. of Informatics and Telematics.
  */
 package ast.interfaces;
-import ast.specifics.*;
+
+
 
 public enum Operator {
 
@@ -37,5 +38,15 @@ public enum Operator {
     public String toString() {
         return type;
     }
+    public boolean isUnary() {
+        return this.equals(Operator.MINUS);
+    }
+
+    public boolean isRelational() {
+        return this.equals(Operator.EQUAL) || this.equals(Operator.NOT_EQUAL)
+                || this.equals(Operator.GREATER) || this.equals(Operator.GREATER_EQ)
+                || this.equals(Operator.LESS) || this.equals(Operator.LESS_EQ);
+    }
+
 
 }

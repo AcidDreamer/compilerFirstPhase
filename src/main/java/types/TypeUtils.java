@@ -1,6 +1,6 @@
-package org.hua.types;
+package types;
 
-import org.hua.ast.Operator;
+import ast.interfaces.*;
 import java.util.Set;
 import org.objectweb.asm.Type;
 
@@ -85,7 +85,7 @@ public class TypeUtils {
         return min;
     }
 
-    public static boolean isUnaryComparible(Operator op, Type type) {
+    public static boolean isUnaryComparible(ast.interfaces.Operator op, Type type) {
         switch (op) {
             case MINUS:
                 return isNumber(type);
