@@ -1,4 +1,4 @@
-package org.hua;
+package ast.Visitors;
 
 /**
  * This code is part of the lab exercises for the Compilers course at Harokopio
@@ -7,31 +7,8 @@ package org.hua;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-import org.hua.symbol.HashSymTable;
-import org.hua.symbol.SymTable;
-import org.hua.symbol.SymTableEntry;
-import org.hua.ast.ASTUtils;
-import org.hua.ast.ASTVisitor;
-import org.hua.ast.ASTVisitorException;
-import org.hua.ast.AssignmentStatement;
-import org.hua.ast.BinaryExpression;
-import org.hua.ast.BreakStatement;
-import org.hua.ast.CompUnit;
-import org.hua.ast.CompoundStatement;
-import org.hua.ast.ContinueStatement;
-import org.hua.ast.DoWhileStatement;
-import org.hua.ast.DoubleLiteralExpression;
-import org.hua.ast.IdentifierExpression;
-import org.hua.ast.IfElseStatement;
-import org.hua.ast.IfStatement;
-import org.hua.ast.IntegerLiteralExpression;
-import org.hua.ast.ParenthesisExpression;
-import org.hua.ast.PrintStatement;
-import org.hua.ast.Statement;
-import org.hua.ast.StringLiteralExpression;
-import org.hua.ast.UnaryExpression;
-import org.hua.ast.VarDeclarationStatement;
-import org.hua.ast.WhileStatement;
+import ast.*;
+
 
 /**
  * Build symbol tables for each node of the AST.

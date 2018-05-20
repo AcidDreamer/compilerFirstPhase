@@ -2,7 +2,7 @@
  * This code is part of the lab exercises for the Compilers course at Harokopio
  * University of Athens, Dept. of Informatics and Telematics.
  */
-package org.hua;
+package ast.Visitors;
 
 import org.hua.symbol.SymTable;
 import org.hua.symbol.SymTableEntry;
