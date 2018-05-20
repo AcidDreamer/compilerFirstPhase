@@ -1,4 +1,4 @@
-package org.hua.symbol;
+package symbol;
 
 import org.objectweb.asm.Type;
 

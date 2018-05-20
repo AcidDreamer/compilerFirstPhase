@@ -1,11 +1,11 @@
-package org.hua.ast;
+package ast.interfaces;
 
 import java.util.HashSet;
 import java.util.Set;
 import org.objectweb.asm.Type;
 
-import org.hua.symbol.SymTable;
-import org.hua.symbol.SymTableEntry;
+import symbol.SymTable;
+import symbol.SymTableEntry;
 
 /**
  * Class with static helper methods for AST handling
