@@ -5,14 +5,34 @@
 package ast.specifics;
 import ast.interfaces.*;
 
+import org.objectweb.asm.Type;
+
 public class TypeSpecifierExpression extends Expression {
 
     private String typeSpecifier;
+    private Type type;
 
     public TypeSpecifierExpression(String typeSpecifier) {
         this.typeSpecifier = typeSpecifier;
+        if (typeSpecifier == "char"){
+            type = Type.CHAR_TYPE;
+        }else if (typeSpecifier == "float"){
+            type = Type.FLOAT_TYPE;
+        }else if (typeSpecifier == "int"){
+            type = Type.INT_TYPE;
+        }else if (typeSpecifier == "void"){
+            type = Type.VOID_TYPE;
+        }else if (typeSpecifier == "String"){
+            type = Type.getType(String.class);
+        }else{
+        
+        }
+
     }
 
+    public Type getType(){
+        return type;
+    }
     public String getTypeSpecifier() {
         return typeSpecifier;
     }

@@ -45,12 +45,12 @@ public class Compiler {
                   Registry.getInstance().setRoot(compUnit);
 
                   // build symbol table
-                  LOGGER.debug("Building system table");
+                  LOGGER.info("Building system table");
                   compUnit.accept(new SymTableBuilderASTVisitor());
 
                   // construct types
-                  LOGGER.debug("Semantic check");
-                //   compUnit.accept(new CollectSymbolsASTVisitor());
+                  LOGGER.info("Semantic check");
+                  compUnit.accept(new CollectSymbolsASTVisitor());
                 //   compUnit.accept(new CollectTypesASTVisitor());
 
                   // print program
