@@ -155,6 +155,7 @@ public class SymTableBuilderASTVisitor implements ASTVisitor {
 
     @Override
     public void visit(VariableDefinition node) throws ASTVisitorException {
+        System.out.println("Was here , trying to set:" + node  );
         ASTUtils.setEnv(node, env.element());
         node.getTypeSpecifier().accept(this);
     }

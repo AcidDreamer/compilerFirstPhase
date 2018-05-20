@@ -128,6 +128,7 @@ public class CollectSymbolsASTVisitor implements ASTVisitor  {
 
     @Override
     public void visit(VariableDefinition node) throws ASTVisitorException{
+        System.out.println("Edw?" + node.getTypeSpecifier().getType());
         SymTable<SymTableEntry> env = ASTUtils.getEnv(node);
         SymTableEntry entry = env.lookupOnlyInTop(node.getIdentifier());
         if ( entry != null ){
@@ -135,7 +136,7 @@ public class CollectSymbolsASTVisitor implements ASTVisitor  {
         }else{
             env.put(node.getIdentifier(), new SymTableEntry(node.getIdentifier(),node.getTypeSpecifier().getType() ) );
         }
-        }
+    }
 
     @Override
     public void visit(FloatLiteralExpression node) throws ASTVisitorException{

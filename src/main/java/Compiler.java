@@ -36,21 +36,21 @@ public class Compiler {
                     LOGGER.info("Scanning file " + args[i]);
                     java.io.Reader reader = new java.io.InputStreamReader(stream, encodingName);
                     scanner = new Lexer(reader);
-                  // parse
-                  parser p = new parser(scanner);
-                  ASTNode compUnit = (ASTNode) p.parse().value;
-                  LOGGER.debug("Constructed AST");
+                    // parse
+                    parser p = new parser(scanner);
+                    ASTNode compUnit = (ASTNode) p.parse().value;
+                    LOGGER.debug("Constructed AST");
 
-                  // keep global instance of program
-                  Registry.getInstance().setRoot(compUnit);
+                    // keep global instance of program
+                    Registry.getInstance().setRoot(compUnit);
 
-                  // build symbol table
-                  LOGGER.info("Building system table");
-                  compUnit.accept(new SymTableBuilderASTVisitor());
+                    // build symbol table
+                    LOGGER.info("Building system table");
+                    compUnit.accept(new SymTableBuilderASTVisitor());
 
-                  // construct types
-                  LOGGER.info("Semantic check");
-                  compUnit.accept(new CollectSymbolsASTVisitor());
+                    // construct types
+                    LOGGER.info("Semantic check");
+                    compUnit.accept(new CollectSymbolsASTVisitor());
                 //   compUnit.accept(new CollectTypesASTVisitor());
 
                   // print program
