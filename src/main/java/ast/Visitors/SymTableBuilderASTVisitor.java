@@ -7,6 +7,8 @@ package ast.Visitors;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
+import symbol.*;
+
 import ast.*;
 
 

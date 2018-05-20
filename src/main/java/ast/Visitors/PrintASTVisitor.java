@@ -6,7 +6,7 @@ package ast.Visitors;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
-import ast.specifics.*;
+import ast.*;
 
 public class PrintASTVisitor implements ASTVisitor {
 
