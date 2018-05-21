@@ -1,4 +1,3 @@
-
 float x ;
 
 int kati(float y){
