@@ -6,11 +6,11 @@ int kati(float y){
 
 char AAA;
 
-float katiAllo(String kati ){
+float katiAllo(String kati1){
     AAA = 'a';
 }
 
-void checkIf(int kati){
+void checkIf(int kati2){
     if ( bool == kati ){
         x = 2;
         print(x);

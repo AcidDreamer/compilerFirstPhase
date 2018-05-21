@@ -51,7 +51,7 @@ public class Compiler {
                     // construct types
                     LOGGER.info("Semantic check");
                     compUnit.accept(new CollectSymbolsASTVisitor());
-                //   compUnit.accept(new CollectTypesASTVisitor());
+                    compUnit.accept(new CollectTypesASTVisitor());
 
                   // print program
                   LOGGER.info("Input:");

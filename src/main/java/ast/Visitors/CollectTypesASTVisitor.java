@@ -184,57 +184,58 @@ public class CollectTypesASTVisitor implements ASTVisitor {
 
     @Override
     public void visit(FunVarList node) throws ASTVisitorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ASTUtils.setType(node, Type.VOID_TYPE);
     }
 
     @Override
     public void visit(FunctionDefinition node) throws ASTVisitorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ASTUtils.setType(node, Type.VOID_TYPE);
     }
 
     @Override
     public void visit(VariableDefinition node) throws ASTVisitorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ASTUtils.setType(node, Type.VOID_TYPE);
     }
 
     @Override
     public void visit(TypeSpecifierExpression node) throws ASTVisitorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ASTUtils.setType(node, node.getType());
     }
 
     @Override
     public void visit(CurlyStatement node) throws ASTVisitorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ASTUtils.setType(node, Type.VOID_TYPE);
     }
 
     @Override
     public void visit(ParameterDeclaration node) throws ASTVisitorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ASTUtils.setType(node, Type.VOID_TYPE);
     }
 
     @Override
     public void visit(BracketExpression node) throws ASTVisitorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ASTUtils.setType(node, Type.VOID_TYPE);
     }
 
     @Override
     public void visit(KeywordLiteral node) throws ASTVisitorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ASTUtils.setType(node, Type.VOID_TYPE);
     }
 
     @Override
     public void visit(KeywordExpression node) throws ASTVisitorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ASTUtils.setType(node, Type.VOID_TYPE);
     }
 
     @Override
     public void visit(NewArraySpecifier node) throws ASTVisitorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        ASTUtils.setType(node, Type.VOID_TYPE);
     }
 
     @Override
     public void visit(CharacterLiteralExpression node) throws ASTVisitorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ASTUtils.setType(node, Type.CHAR_TYPE);
     }
 
 }

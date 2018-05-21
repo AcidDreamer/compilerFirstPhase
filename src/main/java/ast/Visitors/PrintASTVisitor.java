@@ -165,7 +165,7 @@ public class PrintASTVisitor implements ASTVisitor {
     
     @Override
     public void visit(TypeSpecifierExpression node) throws ASTVisitorException{
-        System.out.print(node.getTypeSpecifier());
+        System.out.print(node.getType());
     }
 
     @Override

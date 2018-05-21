@@ -46,7 +46,9 @@ public class CollectSymbolsASTVisitor implements ASTVisitor  {
     }
     @Override
     public void visit(ParameterDeclaration node) throws ASTVisitorException{
+        System.out.println("Done with + " + ASTUtils.getEnv(node) + ASTUtils.getType(node));
         SymTable<SymTableEntry> env = ASTUtils.getEnv(node);
+        System.out.println("Done with + " + node.getIdentifier() + ". Enviroment : " + env + " symbols " + env.getSymbols());
         SymTableEntry entry = env.lookupOnlyInTop(node.getIdentifier());
         if ( entry != null ){
             ASTUtils.error(node, "ERROR : Variable " + node.getIdentifier() + " has been redeclared");
@@ -131,12 +133,14 @@ public class CollectSymbolsASTVisitor implements ASTVisitor  {
     @Override
     public void visit(VariableDefinition node) throws ASTVisitorException{
         SymTable<SymTableEntry> env = ASTUtils.getEnv(node);
+        System.out.println("Printing variable definition:" + env + ".Symbol table " + env.getSymbols() );
         SymTableEntry entry = env.lookupOnlyInTop(node.getIdentifier());
         if ( entry != null ){
             ASTUtils.error(node, "ERROR : Variable " + node.getIdentifier() + " has been redeclared");
         }else{
             env.put(node.getIdentifier(), new SymTableEntry(node.getIdentifier(),node.getTypeSpecifier().getType() ) );
         }
+
     }
 
     @Override
