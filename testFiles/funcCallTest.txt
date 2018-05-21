@@ -1,0 +1,8 @@
+void main(){
+    String kati;
+    kati = "5";
+}
+
+void oxiMain(){
+    main();
+}

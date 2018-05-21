@@ -1,0 +1,3 @@
+void main(String kati){
+    kati = 5;
+}
