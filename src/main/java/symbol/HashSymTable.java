@@ -43,6 +43,7 @@ public class HashSymTable<E> implements SymTable<E> {
     @Override
     public void put(String s, E symbol) {
         table.put(s, symbol);
+        System.out.println(symbol + "    "  + s);
     }
 
     @Override
