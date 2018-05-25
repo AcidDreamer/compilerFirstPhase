@@ -31,14 +31,18 @@ public class CollectTypesASTVisitor implements ASTVisitor {
     public void visit(AssignmentStatement node) throws ASTVisitorException {
         SymTable<SymTableEntry> env = ASTUtils.getEnv(node);
         SymTableEntry entry = env.lookup(node.getIdentifier());
-        System.out.println("Visiting assignment :" + entry);
-        if (entry == null){
+        System.out.println("Visiting assignment :" + entry.getType());
+        if (entry == null) {
             ASTUtils.error(node, "Variable has not been declared");
         }
+
         node.getExpression().accept(this);
         Type type = ASTUtils.getSafeType(node.getExpression());
+        System.out.println(entry.getType() +  " - " + type + "  RESULT : " + TypeUtils.isAssignable(entry.getType(), type));
         if (TypeUtils.isAssignable(entry.getType(), type)){
             ASTUtils.setType(node, Type.VOID_TYPE);
+        }else{
+            ASTUtils.error(node, "Type missmatch on line ");
         }
 
         
@@ -186,11 +190,24 @@ public class CollectTypesASTVisitor implements ASTVisitor {
     @Override
     public void visit(FunVarList node) throws ASTVisitorException {
         ASTUtils.setType(node, Type.VOID_TYPE);
+        for ( VariableDefinition varDef : node.getVariableDefinition()){
+            varDef.accept(this);
+        }
+
+        for ( FunctionDefinition funDef : node.getFunctionDefinition()){
+            funDef.accept(this);
+        }
     }
 
     @Override
     public void visit(FunctionDefinition node) throws ASTVisitorException {
         ASTUtils.setType(node, Type.VOID_TYPE);
+        System.out.println("PASSED THOUGHT FUNCTION DEFINITION");
+        if (node.getStatementList() != null ){
+            for (Statement s : node.getStatementList()){
+                s.accept(this);
+            }
+        }
     }
 
     @Override

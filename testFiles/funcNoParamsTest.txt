@@ -1,6 +1,3 @@
 void kati( ){
-    x = 4;
-    if ( 5 == psari){
-        break;
-    }
+    print("");
 }

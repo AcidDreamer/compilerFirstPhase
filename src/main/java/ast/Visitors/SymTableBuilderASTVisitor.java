@@ -138,7 +138,6 @@ public class SymTableBuilderASTVisitor implements ASTVisitor {
     @Override
     public void visit(FunVarList node) throws ASTVisitorException {
         ASTUtils.setEnv(node, env.element());
-        System.out.println("Was here , trying to set:(  " + node + " ) " + node.getColumn() + " " + node.getLine() + "  " + env );
 
         for (ASTNode stmt : node.getVariableDefinition()){
             stmt.accept(this);
