@@ -138,14 +138,20 @@ public class PrintASTVisitor implements ASTVisitor {
     public void visit(FunctionDefinition node) throws ASTVisitorException{
         node.getTypeSpecifier().accept(this);
         System.out.print(" " + node.getIdentifier());
-        for (ParameterDeclaration s : node.getParameterList()){
-            s.accept(this);
+        if( node.getParameterList() == null ){
+            System.out.print("()");
+
+        }else{
+            for (ParameterDeclaration s : node.getParameterList()){
+                s.accept(this);
+            }
         }
         System.out.println("{");
         for (Statement s : node.getStatementList()){
             s.accept(this);
         }
         System.out.println("}");
+        
 
     }
     

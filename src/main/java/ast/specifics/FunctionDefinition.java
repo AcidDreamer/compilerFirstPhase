@@ -19,7 +19,12 @@ public class FunctionDefinition extends ASTNode {
         this.identifier = identifier;
         this.statements = statements;
         this.parameters = parameters;
-        
+        if (parameters == null){
+            parameters = new ArrayList<ParameterDeclaration>();
+        }
+        if (statements == null){
+            statements = new ArrayList<Statement>();
+        }
     }
 
 

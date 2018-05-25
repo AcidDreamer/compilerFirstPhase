@@ -152,11 +152,15 @@ public class SymTableBuilderASTVisitor implements ASTVisitor {
     @Override
     public void visit(FunctionDefinition node) throws ASTVisitorException {
         ASTUtils.setEnv(node, env.element());
-        for (ParameterDeclaration s : node.getParameterList()){
-            s.accept(this);
+        if (node.getParameterList() != null ){
+            for (ParameterDeclaration s : node.getParameterList()){
+                s.accept(this);
+            }
         }
-        for (Statement s : node.getStatementList()) {
-            s.accept(this);
+        if (node.getStatementList() != null ){
+            for (Statement s : node.getStatementList()) {
+                s.accept(this);
+            }
         }
     }
 
@@ -184,7 +188,7 @@ public class SymTableBuilderASTVisitor implements ASTVisitor {
     @Override
     public void visit(ParameterDeclaration node) throws ASTVisitorException {
         ASTUtils.setEnv(node, env.element());
-        System.out.println("Here" + env);
+        System.out.println("Declaring Parameters , Sym table" + env);
     }
 
     @Override

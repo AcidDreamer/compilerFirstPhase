@@ -31,6 +31,7 @@ public class CollectTypesASTVisitor implements ASTVisitor {
     public void visit(AssignmentStatement node) throws ASTVisitorException {
         SymTable<SymTableEntry> env = ASTUtils.getEnv(node);
         SymTableEntry entry = env.lookup(node.getIdentifier());
+        System.out.println("Visiting assignment :" + entry);
         if (entry == null){
             ASTUtils.error(node, "Variable has not been declared");
         }

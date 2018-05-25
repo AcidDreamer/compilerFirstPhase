@@ -1,8 +1,8 @@
-void main(){
+void main(String kati ){
     String kati;
     kati = "5";
 }
 
-void oxiMain(){
+void oxiMain(int giati){
     main();
 }

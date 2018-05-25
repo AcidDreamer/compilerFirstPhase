@@ -27,7 +27,6 @@ public class CollectSymbolsASTVisitor implements ASTVisitor  {
     @Override
     public void visit(FunVarList node) throws ASTVisitorException{
         SymTable<SymTableEntry> env = ASTUtils.getEnv(node);
-        System.out.println("FunVar found with env :" + env + ".Symbols on env " + env.getSymbols());
         for (VariableDefinition s : node.getVariableDefinition()){
             s.accept(this);
         }
@@ -37,11 +36,15 @@ public class CollectSymbolsASTVisitor implements ASTVisitor  {
     }
     @Override
     public void visit(FunctionDefinition node) throws ASTVisitorException{
-        for (ParameterDeclaration s : node.getParameterList()){
-            s.accept(this);
+        if (node.getParameterList() != null ){
+            for (ParameterDeclaration s : node.getParameterList()){
+                s.accept(this);
+            }    
         }
-        for (Statement s : node.getStatementList()){
-            s.accept(this);
+        if (node.getStatementList() != null ){
+            for (Statement s : node.getStatementList()){
+                s.accept(this);
+            }
         }
     }
     @Override

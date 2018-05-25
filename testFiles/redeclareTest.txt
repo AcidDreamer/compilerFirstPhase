@@ -1,4 +1,4 @@
-float x ;
+float x;
 float x;
 void kati(float y,char a){
     x = 4;
