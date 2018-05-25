@@ -1,0 +1,5 @@
+int [] msg; 
+int [] x;
+void main(){
+    x = new String [14];
+}

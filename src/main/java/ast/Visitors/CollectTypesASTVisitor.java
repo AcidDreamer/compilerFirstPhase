@@ -38,7 +38,7 @@ public class CollectTypesASTVisitor implements ASTVisitor {
 
         node.getExpression().accept(this);
         Type type = ASTUtils.getSafeType(node.getExpression());
-        System.out.println(entry.getType() +  " - " + type + "  RESULT : " + TypeUtils.isAssignable(entry.getType(), type));
+        System.out.println("Variable type on assignement : \n" + entry.getType() + "-" + type);
         if (TypeUtils.isAssignable(entry.getType(), type)){
             ASTUtils.setType(node, Type.VOID_TYPE);
         }else{
@@ -247,8 +247,8 @@ public class CollectTypesASTVisitor implements ASTVisitor {
 
     @Override
     public void visit(NewArraySpecifier node) throws ASTVisitorException {
-        
-        ASTUtils.setType(node, Type.VOID_TYPE);
+        System.out.println("Was I called");
+        ASTUtils.setType(node, node.getIdentifier().getType());
     }
 
     @Override
