@@ -61,4 +61,9 @@ public class SymTableEntry {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "Entry with ID: " + id + " and type : " + type;
+    }
+    
 }

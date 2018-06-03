@@ -56,6 +56,24 @@ public class HashSymTable<E> implements SymTable<E> {
         return symbols;
     }
 
+    public void printSymbolDetails(){
+        List<E> symbols = new ArrayList<E>();
+        symbols.addAll(table.values());
+        if (nextSymTable != null) {
+            symbols.addAll(nextSymTable.getSymbols());
+        }
+        System.out.println("<++++++++Starting Symbol Logging++++++++>");
+        for (int i = 0; i < symbols.size() ;i++){
+
+            if ( symbols.get(i) instanceof  SymTableEntry){
+                SymTableEntry asda =  (SymTableEntry)symbols.get(i);
+                System.out.println("ID :" + asda.getId());
+            }
+        }
+        return;
+
+    }
+
     @Override
     public Collection<E> getSymbolsOnlyInTop() {
         List<E> symbols = new ArrayList<E>();

@@ -85,6 +85,7 @@ non terminal Statement Statement;
 non terminal List<Statement> StmtList;
 non terminal CompUnit CompilationUnit;
 non terminal FunctionDefinition FunctionDefinition;
+non terminal FunctionExpression FunctionExpression;
 non terminal VariableDefinition VariableDefinition;
 non terminal TypeSpecifierExpression TypeSpecifier;
 non terminal ParameterDeclaration ParameterDeclaration;
@@ -131,6 +132,7 @@ FunVarList ::= VariableDefinition:vd {:
                 RESULT.getFunctionDefinition().add(fd);
                 RESULT.setLine(fdleft);
                 RESULT.setColumn(fdright);
+
             :}
            | FunVarList:fvl FunctionDefinition:fd{:
                 fvl.getFunctionDefinition().add(fd);
@@ -199,7 +201,7 @@ ParameterList ::= ParameterDeclaration:pd{:
         RESULT.setLine(kwleft);
         RESULT.setColumn(kwright);
      :}
-    ;
+     ;
  VariableDefinition  ::=  TypeSpecifier:ts IDENTIFIER:iden  SEMICOLON{:
         RESULT = new VariableDefinition(ts,iden);
         RESULT.setLine(tsleft);
@@ -237,12 +239,6 @@ ParameterList ::= ParameterDeclaration:pd{:
              RESULT.setLine(pleft);
              RESULT.setColumn(pright);
          :}
-       | IDENTIFIER:id EQUAL Expr:e SEMICOLON
-         {:
-             RESULT = new AssignmentStatement(id, e);
-             RESULT.setLine(idleft);
-             RESULT.setColumn(idright);
-         :}
        | WHILE_KEYWORD:w LPAREN Expr:e RPAREN CurlyStmt:c 
          {:
             RESULT = new WhileStatement(e,c);
@@ -273,6 +269,11 @@ ParameterList ::= ParameterDeclaration:pd{:
              RESULT.setLine(ifsleft);
              RESULT.setColumn(ifsright);
         :}
+      | VariableDefinition:vd {:
+            RESULT = vd;
+            RESULT.setLine(vdleft);
+            RESULT.setColumn(vdright);
+      :}
       |BREAK_KEYWORD:b SEMICOLON
         {:
             RESULT = new KeywordLiteral("break");
@@ -286,21 +287,31 @@ ParameterList ::= ParameterDeclaration:pd{:
             RESULT.setLine(rleft);
             RESULT.setColumn(rright);
         :}
+              
+      |RETURN_KEYWORD:r SEMICOLON
+        {:
+            RESULT=new KeywordExpression("return",null);
+            RESULT.setLine(rleft);
+            RESULT.setColumn(rright);
+        :}
+
        |CONTINUE_KEYWORD:c SEMICOLON
         {:
             RESULT =new KeywordLiteral("continue");
             RESULT.setLine(cleft);
             RESULT.setColumn(cright);
         :}
-        |IDENTIFIER:id ASSIGN Expr:e SEMICOLON
-            {:
-                RESULT= new AssignmentStatement(id,e);
-                RESULT.setLine(idleft);
-                RESULT.setColumn(idright);
-            :}
-        // |Expr
-        |VariableDefinition
-        |CurlyStmt
+        | IDENTIFIER:id ASSIGN Expr:e SEMICOLON
+         {:
+             RESULT = new AssignmentStatement(id, e);
+             RESULT.setLine(idleft);
+             RESULT.setColumn(idright);
+         :}
+        |CurlyStmt:cs{:
+            RESULT = cs;
+             RESULT.setLine(csleft);
+             RESULT.setColumn(csright);
+        :}
        ;
 
 
@@ -366,12 +377,17 @@ ParameterList ::= ParameterDeclaration:pd{:
                 RESULT.setLine(eleft);
                 RESULT.setColumn(eright);
           :}
-    //    | LPAREN:lp Expr:e RPAREN
-    //      {:
-    //          RESULT = new ParenthesisExpression(e);
-    //          RESULT.setLine(lpleft);
-    //          RESULT.setColumn(lpright);
-    //      :}
+       | IDENTIFIER:id LPAREN RPAREN {:
+            RESULT = new FunctionExpression(id , null);
+            RESULT.setLine(idleft);
+            RESULT.setColumn(idright);
+       :}
+       | IDENTIFIER:id LPAREN ExprList:exList RPAREN {:
+            RESULT = new FunctionExpression(id , exList);
+            RESULT.setLine(idleft);
+            RESULT.setColumn(idright);
+       :}
+
        | Expr:e1 PLUS Expr:e2
          {:
              RESULT = new BinaryExpression(Operator.PLUS, e1, e2);

@@ -37,6 +37,7 @@ public class SymTableBuilderASTVisitor implements ASTVisitor {
     public void visit(AssignmentStatement node) throws ASTVisitorException {
         ASTUtils.setEnv(node, env.element());
         node.getExpression().accept(this);
+
     }
 
     @Override
@@ -70,6 +71,16 @@ public class SymTableBuilderASTVisitor implements ASTVisitor {
     }
 
     @Override
+    public void visit(FunctionExpression node) throws ASTVisitorException {
+        ASTUtils.setEnv(node, env.element());
+        if (node.getParameters() != null){
+            for(Expression expr : node.getParameters()){
+                expr.accept(this);
+            }
+        }
+    }
+
+    @Override
     public void visit(IntegerLiteralExpression node) throws ASTVisitorException {
         ASTUtils.setEnv(node, env.element());
     }
@@ -82,6 +93,7 @@ public class SymTableBuilderASTVisitor implements ASTVisitor {
     @Override
     public void visit(ParenthesisExpression node) throws ASTVisitorException {
         ASTUtils.setEnv(node, env.element());
+
         for (Expression s : node.getExpressions()) {
             s.accept(this);
         }
@@ -187,7 +199,6 @@ public class SymTableBuilderASTVisitor implements ASTVisitor {
     @Override
     public void visit(ParameterDeclaration node) throws ASTVisitorException {
         ASTUtils.setEnv(node, env.element());
-        System.out.println("Declaring Parameters , Sym table" + env);
     }
 
     @Override
@@ -204,7 +215,8 @@ public class SymTableBuilderASTVisitor implements ASTVisitor {
     @Override
     public void visit(KeywordExpression node) throws ASTVisitorException {
         ASTUtils.setEnv(node, env.element());
-        node.getExpression().accept(this);
+        if (node.getExpression() != null)
+            node.getExpression().accept(this);
     }
 
     @Override

@@ -14,6 +14,7 @@ public class TypeSpecifierExpression extends Expression {
 
     public TypeSpecifierExpression(String typeSpecifier) {
         this.typeSpecifier = typeSpecifier;
+        System.out.println("TypeSpecifierExpression Reached here with " + typeSpecifier);
         if (typeSpecifier == "char"){
             type = Type.CHAR_TYPE;
         }else if (typeSpecifier == "float"){
@@ -46,4 +47,8 @@ public class TypeSpecifierExpression extends Expression {
         visitor.visit(this);
     }
 
+    @Override 
+    public String toString(){
+        return "TypeSpecifierExpression with type : " + type;
+    }
 }

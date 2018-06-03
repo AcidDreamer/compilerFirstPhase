@@ -8,10 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class VariableDefinition extends ASTNode {
+public class VariableDefinition extends Statement {
+    
     private TypeSpecifierExpression typeSpecifier;
     private String identifier;
     private Boolean  isTable ;
+
     public VariableDefinition(TypeSpecifierExpression typeSpecifier,String identifier ) {
         this.identifier = identifier;
         this.typeSpecifier = typeSpecifier;

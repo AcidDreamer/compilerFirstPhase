@@ -31,14 +31,12 @@ public class CollectTypesASTVisitor implements ASTVisitor {
     public void visit(AssignmentStatement node) throws ASTVisitorException {
         SymTable<SymTableEntry> env = ASTUtils.getEnv(node);
         SymTableEntry entry = env.lookup(node.getIdentifier());
-        System.out.println("Visiting assignment :" + entry.getType());
         if (entry == null) {
             ASTUtils.error(node, "Variable has not been declared");
         }
 
         node.getExpression().accept(this);
         Type type = ASTUtils.getSafeType(node.getExpression());
-        System.out.println("Variable type on assignement : \n" + entry.getType() + "-" + type);
         if (TypeUtils.isAssignable(entry.getType(), type)){
             ASTUtils.setType(node, Type.VOID_TYPE);
         }else{
@@ -106,6 +104,20 @@ public class CollectTypesASTVisitor implements ASTVisitor {
     public void visit(IntegerLiteralExpression node) throws ASTVisitorException {
         ASTUtils.setType(node, Type.INT_TYPE);
         
+    }
+
+    @Override
+    public void visit(FunctionExpression node) throws ASTVisitorException {
+        SymTable<SymTableEntry> env = ASTUtils.getEnv(node);
+        SymTableEntry entry = env.lookup(node.getIdentifier());
+        if (entry == null){
+            ASTUtils.error(node, "Undeclared function named: " + node.getIdentifier());
+        }
+        ASTUtils.setType(node, entry.getType());  
+        node.setType(entry.getType());      
+        if (node.getType() == null)
+            ASTUtils.error(node, "Parser error : Function " + node.getIdentifier() + " doesn't have a type.");
+        System.out.println("Func Expres node : " + node);
     }
 
     @Override
@@ -202,7 +214,6 @@ public class CollectTypesASTVisitor implements ASTVisitor {
     @Override
     public void visit(FunctionDefinition node) throws ASTVisitorException {
         ASTUtils.setType(node, Type.VOID_TYPE);
-        System.out.println("PASSED THOUGHT FUNCTION DEFINITION");
         if (node.getStatementList() != null ){
             for (Statement s : node.getStatementList()){
                 s.accept(this);
@@ -247,7 +258,6 @@ public class CollectTypesASTVisitor implements ASTVisitor {
 
     @Override
     public void visit(NewArraySpecifier node) throws ASTVisitorException {
-        System.out.println("Was I called");
         ASTUtils.setType(node, node.getIdentifier().getType());
     }
 

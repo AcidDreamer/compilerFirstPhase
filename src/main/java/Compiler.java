@@ -45,16 +45,17 @@ public class Compiler {
                     Registry.getInstance().setRoot(compUnit);
 
                     // build symbol table
-                    LOGGER.info("Building system table");
+                    LOGGER.info("\n<=========Building system table=========>\n");
                     compUnit.accept(new SymTableBuilderASTVisitor());
 
                     // construct types
-                    LOGGER.info("Semantic check");
+                    LOGGER.info("\n<=========Semantic check=========>\n");
                     compUnit.accept(new CollectSymbolsASTVisitor());
+                    LOGGER.info("\n<=========Type Collector =========>\n");
                     compUnit.accept(new CollectTypesASTVisitor());
 
                   // print program
-                  LOGGER.info("Input:");
+                  LOGGER.info("\n<=========Input=========>\n");
                   ASTVisitor printVisitor = new PrintASTVisitor();
                   compUnit.accept(printVisitor);
 
@@ -65,7 +66,8 @@ public class Compiler {
                     LOGGER.error("IO error scanning file \"" + args[i] + "\"");
                     LOGGER.error(e.toString());
                 } catch (Exception e) {
-                    LOGGER.error(e.getMessage());
+                    LOGGER.error(e.getMessage() + "\n");
+                    e.printStackTrace();
                     //e.printStackTrace();
                 }
             }

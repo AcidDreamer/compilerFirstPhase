@@ -5,9 +5,11 @@
 package ast.visitors;
 
 import org.apache.commons.lang3.StringEscapeUtils;
+import symbol.*;
 
 import ast.interfaces.*;
 import ast.specifics.*;
+import symbol.SymTable;
 
 public class PrintASTVisitor implements ASTVisitor {
 
@@ -173,6 +175,14 @@ public class PrintASTVisitor implements ASTVisitor {
     public void visit(TypeSpecifierExpression node) throws ASTVisitorException{
         System.out.print(node.getType());
     }
+    @Override
+    public void visit(FunctionExpression node) throws ASTVisitorException{
+        SymTable<SymTableEntry> env = ASTUtils.getEnv(node);
+        SymTableEntry entry = env.lookup(node.getIdentifier());
+        node.setType(entry.getType());
+        System.out.print(node.getType()+"("+")");
+    }
+
 
     @Override
     public void visit(CurlyStatement node) throws ASTVisitorException{
@@ -205,7 +215,8 @@ public class PrintASTVisitor implements ASTVisitor {
     @Override
     public void visit(KeywordExpression node) throws ASTVisitorException{
         System.out.print(node.getIdentifier() + " ");
-        node.getExpression().accept(this);
+        if (node.getExpression() != null )
+            node.getExpression().accept(this);
         System.out.println(";");
 
     }
