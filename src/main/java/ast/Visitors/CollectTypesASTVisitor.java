@@ -2,6 +2,7 @@
  * This code is part of the lab exercises for the Compilers course at Harokopio
  * University of Athens, Dept. of Informatics and Telematics.
  */
+
 package ast.visitors;
 
 import ast.interfaces.*;
@@ -41,18 +42,7 @@ public class CollectTypesASTVisitor implements ASTVisitor {
             ASTUtils.setType(node, Type.VOID_TYPE);
         }else{
             ASTUtils.error(node, "Type missmatch on line ");
-        }
-
-        
-        // FIXME
-        // 1. find symbol table
-        // 2. lookup identifier in symbol table
-        // 3. error if not found
-        // 4. get expression type
-        // 5. Error if types are not assignable 
-        //    Use TypeUtils class with helper functions
-        // 6. set type of statement to VOID_TYPE
-        
+        }        
     }
 
     @Override
