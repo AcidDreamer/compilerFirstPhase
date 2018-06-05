@@ -412,9 +412,8 @@
  
      @Override
      public void visit(FunctionExpression node) throws ASTVisitorException {
-         for (Expression s : node.getParameters()) {
-             s.accept(this);
-         }
+         FunctionCallInstr f = new FunctionCallInstr(node.getIdentifier());
+         program.add(f);
          
      }
  
