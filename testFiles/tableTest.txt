@@ -1,5 +1,5 @@
 int [] msg; 
 int [] x;
 void main(){
-    x = new String [14];
+    x = new int[14];
 }

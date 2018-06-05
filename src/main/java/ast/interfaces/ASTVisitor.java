@@ -69,4 +69,8 @@ public interface ASTVisitor {
     void visit(NewArraySpecifier node) throws ASTVisitorException;
 
     void visit(CharacterLiteralExpression node) throws ASTVisitorException;
+
+    public void visit(BreakStatement node) throws ASTVisitorException;
+
+    public void visit(ContinueStatement node) throws ASTVisitorException;
 }

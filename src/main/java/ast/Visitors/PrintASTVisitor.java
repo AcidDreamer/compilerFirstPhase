@@ -221,4 +221,14 @@ public class PrintASTVisitor implements ASTVisitor {
         System.out.println(" [" + node.getExpression() + "]");
     }
 
+    @Override
+    public void visit(BreakStatement node) {
+        System.out.println("break;");
+    }
+
+    @Override
+    public void visit(ContinueStatement node) {
+        System.out.println("continue;");
+    }
+
 }
