@@ -410,4 +410,9 @@ public class IntermediateCodeASTVisitor implements ASTVisitor {
         program.add(new AssignInstr(node.getLiteral().toString(), tmp));
     }
 
+	@Override
+	public void visit(FunctionExpression node) throws ASTVisitorException {
+		System.out.println("YOOOOOO");
+	}
+
 }
