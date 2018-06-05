@@ -197,4 +197,14 @@ public class CollectSymbolsASTVisitor implements ASTVisitor  {
     public void visit(NewArraySpecifier node) throws ASTVisitorException{
         node.getIdentifier().accept(this);
     }
+
+    @Override
+    public void visit(BreakStatement node) {
+       //nothing
+    }
+
+    @Override
+    public void visit(ContinueStatement node) {
+        //nothing
+}
 }

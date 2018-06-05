@@ -230,6 +230,16 @@ public class SymTableBuilderASTVisitor implements ASTVisitor {
         ASTUtils.setEnv(node, env.element());
     }
 
+    @Override
+    public void visit(BreakStatement node) {
+        ASTUtils.setEnv(node, env.element());
+    }
+
+    @Override
+    public void visit(ContinueStatement node) {
+        ASTUtils.setEnv(node, env.element());
+    }
+
     
 
 }

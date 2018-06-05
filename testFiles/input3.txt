@@ -17,7 +17,6 @@ int main() {
 	String aString;
 	aString = "aaaaa";
 	int [] kati;
-	kati[1] = 5;
 	char xP ;
 	xP = 'a';
 	int total;

@@ -256,4 +256,14 @@ public class CollectTypesASTVisitor implements ASTVisitor {
         ASTUtils.setType(node, Type.CHAR_TYPE);
     }
 
+    @Override
+    public void visit(BreakStatement node) {
+        ASTUtils.setType(node, Type.VOID_TYPE);
+    }
+
+    @Override
+    public void visit(ContinueStatement node) {
+       ASTUtils.setType(node, Type.VOID_TYPE);
+    }
+
 }

@@ -9,6 +9,7 @@ import symbol.*;
 
 import ast.interfaces.*;
 import ast.specifics.*;
+import ch.qos.logback.core.joran.conditional.ElseAction;
 import symbol.SymTable;
 
 public class PrintASTVisitor implements ASTVisitor {
@@ -180,7 +181,19 @@ public class PrintASTVisitor implements ASTVisitor {
         SymTable<SymTableEntry> env = ASTUtils.getEnv(node);
         SymTableEntry entry = env.lookup(node.getIdentifier());
         node.setType(entry.getType());
-        System.out.print(node.getType()+"("+")");
+        if ( node.getParameters() == null)
+            System.out.print(node.getType()+"("+")");
+        else{
+            int count = node.getParameters().size();
+            int counter = 0 ; 
+            System.out.print(node.getType() + "(");
+            for (Expression e : node.getParameters()){
+                e.accept(this);
+                if (counter != count - 1)
+                    System.out.print(",");
+            }
+            System.out.print(")");
+        }
     }
 
 
@@ -230,6 +243,16 @@ public class PrintASTVisitor implements ASTVisitor {
         System.out.print("new ");
         node.getIdentifier().accept(this);
         System.out.println(" [" + node.getExpression() + "]");
+    }
+
+    @Override
+    public void visit(BreakStatement node) {
+        System.out.println("break;");
+    }
+
+    @Override
+    public void visit(ContinueStatement node) {
+        System.out.println("continue;");
     }
 
 }

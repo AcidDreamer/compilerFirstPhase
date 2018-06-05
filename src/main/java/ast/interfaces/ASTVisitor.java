@@ -71,4 +71,8 @@ public interface ASTVisitor {
     void visit(CharacterLiteralExpression node) throws ASTVisitorException;
 
     void visit(FunctionExpression node) throws ASTVisitorException;
+    
+    public void visit(BreakStatement node) throws ASTVisitorException;
+
+    public void visit(ContinueStatement node) throws ASTVisitorException;
 }
