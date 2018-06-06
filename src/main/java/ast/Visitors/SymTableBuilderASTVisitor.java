@@ -37,6 +37,8 @@ public class SymTableBuilderASTVisitor implements ASTVisitor {
     public void visit(AssignmentStatement node) throws ASTVisitorException {
         ASTUtils.setEnv(node, env.element());
         node.getExpression().accept(this);
+        if ( node.getIsTable() )
+            node.getTablePosition().accept(this);
 
     }
 

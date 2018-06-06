@@ -307,6 +307,13 @@ ParameterList ::= ParameterDeclaration:pd{:
              RESULT.setLine(idleft);
              RESULT.setColumn(idright);
          :}
+        | IDENTIFIER:id LBRAC Expr:ie RBRAC ASSIGN Expr:e SEMICOLON
+         {:
+             RESULT = new AssignmentStatement(id, e,ie);
+             RESULT.setLine(idleft);
+             RESULT.setColumn(idright);
+         :}
+
         |CurlyStmt:cs{:
             RESULT = cs;
              RESULT.setLine(csleft);

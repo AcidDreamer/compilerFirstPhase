@@ -73,6 +73,8 @@ public class CollectSymbolsASTVisitor implements ASTVisitor  {
     }    
     @Override
     public void visit(AssignmentStatement node) throws ASTVisitorException {
+        if (node.getIsTable())
+            node.getTablePosition().accept(this);
         node.getExpression().accept(this);
     }
 

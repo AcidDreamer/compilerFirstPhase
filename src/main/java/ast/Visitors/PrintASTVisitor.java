@@ -22,6 +22,11 @@ public class PrintASTVisitor implements ASTVisitor {
     @Override
     public void visit(AssignmentStatement node) throws ASTVisitorException {
         System.out.print(node.getIdentifier());
+        if (node.getIsTable()){
+            System.out.print("[");
+            node.getTablePosition().accept(this);
+            System.out.print("]");
+        }
         System.out.print(" = ");
         node.getExpression().accept(this);
         System.out.println(";");

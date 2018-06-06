@@ -41,8 +41,15 @@ public class CollectTypesASTVisitor implements ASTVisitor {
         if (TypeUtils.isAssignable(entry.getType(), type)){
             ASTUtils.setType(node, Type.VOID_TYPE);
         }else{
-            ASTUtils.error(node, "Type missmatch on line ");
+            ASTUtils.error(node, "Type missmatch on line: " + node.getLine());
         }        
+        if ( node.getIsTable() ){
+            node.getTablePosition().accept(this);
+            Type typeTablePos = ASTUtils.getSafeType(node.getTablePosition());
+            if ( typeTablePos != Type.INT_TYPE){
+                ASTUtils.error(node, "Position should be dictated by int on line: " + node.getLine());
+            }
+        }
     }
 
     @Override
