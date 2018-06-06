@@ -342,6 +342,9 @@
          String t = node.getIdentifier();
          FunctionDefinitionInstr f = new FunctionDefinitionInstr(t);
          program.add(f);
+         for(Statement s : node.getStatementList()){
+             s.accept(this);
+         }
  
      }
  
