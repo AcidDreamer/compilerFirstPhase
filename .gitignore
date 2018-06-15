@@ -2,8 +2,10 @@
 # Project Ignores                       #
 #---------------------------------------#
 
-# Maven
+# Java Specific
 target/
+
+# Maven
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
