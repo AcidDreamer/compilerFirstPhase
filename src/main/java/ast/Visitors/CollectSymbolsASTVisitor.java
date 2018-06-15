@@ -208,5 +208,5 @@ public class CollectSymbolsASTVisitor implements ASTVisitor  {
     @Override
     public void visit(ContinueStatement node) {
         //nothing
-}
+    }
 }
