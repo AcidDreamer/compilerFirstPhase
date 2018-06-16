@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import org.objectweb.asm.Type;
 
+import symbol.LocalIndexPool;
 import symbol.SymTable;
 import symbol.SymTableEntry;
 import ast.specifics.*;
@@ -15,7 +16,8 @@ import threeaddr.GotoInstr;
  */
 public class ASTUtils {
 
-        public static final String SYMTABLE_PROPERTY = "SYMTABLE_PROPERTY";
+    public static final String SYMTABLE_PROPERTY = "SYMTABLE_PROPERTY";
+    public static final String LOCAL_INDEX_POOL_PROPERTY = "LOCAL_INDEX_POOL_PROPERTY";
     public static final String IS_BOOLEAN_EXPR_PROPERTY = "IS_BOOLEAN_EXPR_PROPERTY";
     public static final String TYPE_PROPERTY = "TYPE_PROPERTY";
     public static final String NEXT_LIST_PROPERTY = "NEXT_LIST_PROPERTY";
@@ -30,6 +32,10 @@ public class ASTUtils {
     @SuppressWarnings("unchecked")
     public static SymTable<SymTableEntry> getEnv(ASTNode node) {
         return (SymTable<SymTableEntry>) node.getProperty(SYMTABLE_PROPERTY);
+    }
+
+    public static void setLocalIndexPool(ASTNode node, LocalIndexPool pool) {
+        node.setProperty(LOCAL_INDEX_POOL_PROPERTY, pool);
     }
 
     @SuppressWarnings("unchecked")
