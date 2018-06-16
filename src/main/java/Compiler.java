@@ -47,6 +47,8 @@ public class Compiler {
                     // build symbol table
                     LOGGER.info("\n<=========Building system table=========>\n");
                     compUnit.accept(new SymTableBuilderASTVisitor());
+                    LOGGER.debug("\n<=========Building local variables index=========>\n");
+                    compUnit.accept(new LocalIndexBuilderASTVisitor());
 
                     // construct types
                     LOGGER.info("\n<=========Semantic check=========>\n");

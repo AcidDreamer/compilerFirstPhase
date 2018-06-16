@@ -3,19 +3,24 @@ package ast.interfaces;
 import java.util.HashSet;
 import java.util.Set;
 import org.objectweb.asm.Type;
+import org.objectweb.asm.tree.JumpInsnNode;
 
 import symbol.SymTable;
 import symbol.SymTableEntry;
+import symbol.LocalIndexPool;
 import ast.specifics.*;
 import java.util.ArrayList;
 import java.util.List;
 import threeaddr.GotoInstr;
+import threeaddr.*;
+
 /**
  * Class with static helper methods for AST handling
  */
 public class ASTUtils {
 
     public static final String SYMTABLE_PROPERTY = "SYMTABLE_PROPERTY";
+    public static final String LOCAL_INDEX_POOL_PROPERTY = "LOCAL_INDEX_POOL_PROPERTY";
     public static final String IS_BOOLEAN_EXPR_PROPERTY = "IS_BOOLEAN_EXPR_PROPERTY";
     public static final String TYPE_PROPERTY = "TYPE_PROPERTY";
     public static final String NEXT_LIST_PROPERTY = "NEXT_LIST_PROPERTY";
@@ -47,6 +52,20 @@ public class ASTUtils {
         node.setProperty(SYMTABLE_PROPERTY, env);
     }
 
+    public static void setLocalIndexPool(ASTNode node, LocalIndexPool pool) {
+        node.setProperty(LOCAL_INDEX_POOL_PROPERTY, pool);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static LocalIndexPool getSafeLocalIndexPool(ASTNode node)
+            throws ASTVisitorException {
+        LocalIndexPool lip = (LocalIndexPool) node.getProperty(LOCAL_INDEX_POOL_PROPERTY);
+        if (lip == null) {
+            ASTUtils.error(node, "Local index pool not found.");
+        }
+        return lip;
+    }
+
     public static boolean isBooleanExpression(Expression node) {
         Boolean b = (Boolean) node.getProperty(IS_BOOLEAN_EXPR_PROPERTY);
         if (b == null) {
@@ -76,72 +95,72 @@ public class ASTUtils {
     }
 
     @SuppressWarnings("unchecked")
-    public static List<GotoInstr> getTrueList(Expression node) {
-        List<GotoInstr> l = (List<GotoInstr>) node.getProperty(TRUE_LIST_PROPERTY);
+    public static List<JumpInsnNode> getTrueList(Expression node) {
+        List<JumpInsnNode> l = (List<JumpInsnNode>) node.getProperty(TRUE_LIST_PROPERTY);
         if (l == null) {
-            l = new ArrayList<GotoInstr>();
+            l = new ArrayList<JumpInsnNode>();
             node.setProperty(TRUE_LIST_PROPERTY, l);
         }
         return l;
     }
 
-    public static void setTrueList(Expression node, List<GotoInstr> list) {
+    public static void setTrueList(Expression node, List<JumpInsnNode> list) {
         node.setProperty(TRUE_LIST_PROPERTY, list);
     }
 
     @SuppressWarnings("unchecked")
-    public static List<GotoInstr> getFalseList(Expression node) {
-        List<GotoInstr> l = (List<GotoInstr>) node.getProperty(FALSE_LIST_PROPERTY);
+    public static List<JumpInsnNode> getFalseList(Expression node) {
+        List<JumpInsnNode> l = (List<JumpInsnNode>) node.getProperty(FALSE_LIST_PROPERTY);
         if (l == null) {
-            l = new ArrayList<GotoInstr>();
+            l = new ArrayList<JumpInsnNode>();
             node.setProperty(FALSE_LIST_PROPERTY, l);
         }
         return l;
     }
 
-    public static void setFalseList(Expression node, List<GotoInstr> list) {
+    public static void setFalseList(Expression node, List<JumpInsnNode> list) {
         node.setProperty(FALSE_LIST_PROPERTY, list);
     }
 
     @SuppressWarnings("unchecked")
-    public static List<GotoInstr> getNextList(Statement node) {
-        List<GotoInstr> l = (List<GotoInstr>) node.getProperty(NEXT_LIST_PROPERTY);
+    public static List<JumpInsnNode> getNextList(Statement node) {
+        List<JumpInsnNode> l = (List<JumpInsnNode>) node.getProperty(NEXT_LIST_PROPERTY);
         if (l == null) {
-            l = new ArrayList<GotoInstr>();
+            l = new ArrayList<JumpInsnNode>();
             node.setProperty(NEXT_LIST_PROPERTY, l);
         }
         return l;
     }
 
-    public static void setNextList(Statement node, List<GotoInstr> list) {
+    public static void setNextList(Statement node, List<JumpInsnNode> list) {
         node.setProperty(NEXT_LIST_PROPERTY, list);
     }
 
     @SuppressWarnings("unchecked")
-    public static List<GotoInstr> getBreakList(Statement node) {
-        List<GotoInstr> l = (List<GotoInstr>) node.getProperty(BREAK_LIST_PROPERTY);
+    public static List<JumpInsnNode> getBreakList(Statement node) {
+        List<JumpInsnNode> l = (List<JumpInsnNode>) node.getProperty(BREAK_LIST_PROPERTY);
         if (l == null) {
-            l = new ArrayList<GotoInstr>();
+            l = new ArrayList<JumpInsnNode>();
             node.setProperty(BREAK_LIST_PROPERTY, l);
         }
         return l;
     }
 
-    public static void setBreakList(Statement node, List<GotoInstr> list) {
+    public static void setBreakList(Statement node, List<JumpInsnNode> list) {
         node.setProperty(BREAK_LIST_PROPERTY, list);
     }
 
     @SuppressWarnings("unchecked")
-    public static List<GotoInstr> getContinueList(Statement node) {
-        List<GotoInstr> l = (List<GotoInstr>) node.getProperty(CONTINUE_LIST_PROPERTY);
+    public static List<JumpInsnNode> getContinueList(Statement node) {
+        List<JumpInsnNode> l = (List<JumpInsnNode>) node.getProperty(CONTINUE_LIST_PROPERTY);
         if (l == null) {
-            l = new ArrayList<GotoInstr>();
+            l = new ArrayList<JumpInsnNode>();
             node.setProperty(CONTINUE_LIST_PROPERTY, l);
         }
         return l;
     }
 
-    public static void setContinueList(Statement node, List<GotoInstr> list) {
+    public static void setContinueList(Statement node, List<JumpInsnNode> list) {
         node.setProperty(CONTINUE_LIST_PROPERTY, list);
     }
 
