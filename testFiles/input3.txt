@@ -14,6 +14,7 @@ int sum(int i) {
 int main() {
 	char [] message;
 	message  = new char[16];
+	message = "aaaaaa";
 	String aString;
 	aString = "aaaaa";
 	int [] kati;

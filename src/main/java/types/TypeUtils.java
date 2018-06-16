@@ -62,6 +62,12 @@ public class TypeUtils {
     public static boolean isAssignable(Type target, Type source) {
         return isLargerOrEqualType(target, source);
     }
+    public static boolean isCasted(Type target ,Type source){
+        if (target == Type.CHAR_TYPE && source.getClassName().equals("java.lang.String")){
+            return true;
+        }
+        return false;
+    }
 
     public static Type maxType(Set<Type> types) {
         Type max = null;

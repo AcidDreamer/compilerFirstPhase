@@ -38,7 +38,12 @@ public class CollectTypesASTVisitor implements ASTVisitor {
 
         node.getExpression().accept(this);
         Type type = ASTUtils.getSafeType(node.getExpression());
+        System.out.println(entry.getType() + " vs " + type);
+        System.out.println(TypeUtils.isCasted(entry.getType(), type));
+
         if (TypeUtils.isAssignable(entry.getType(), type)){
+            ASTUtils.setType(node, Type.VOID_TYPE);
+        }else if(TypeUtils.isCasted(entry.getType(), type)){
             ASTUtils.setType(node, Type.VOID_TYPE);
         }else{
             ASTUtils.error(node, "Type missmatch on line: " + node.getLine());
