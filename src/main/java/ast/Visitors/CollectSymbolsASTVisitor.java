@@ -41,7 +41,6 @@ public class CollectSymbolsASTVisitor implements ASTVisitor  {
         if ( entry != null ){
             ASTUtils.error(node, "ERROR : Function " + node.getIdentifier() + " has been redeclared");
         }else{
-            System.out.println("Function Definition : " + node.getIdentifier() + " Node : " + node.getTypeSpecifier().toString());
             env.put(node.getIdentifier(), new SymTableEntry(node.getIdentifier(),node.getTypeSpecifier().getType()) );
         }
 

@@ -43,7 +43,6 @@ public class HashSymTable<E> implements SymTable<E> {
     @Override
     public void put(String s, E symbol) {
         table.put(s, symbol);
-        System.out.println(symbol + "    "  + s);
     }
 
     @Override
@@ -62,12 +61,10 @@ public class HashSymTable<E> implements SymTable<E> {
         if (nextSymTable != null) {
             symbols.addAll(nextSymTable.getSymbols());
         }
-        System.out.println("<++++++++Starting Symbol Logging++++++++>");
         for (int i = 0; i < symbols.size() ;i++){
 
             if ( symbols.get(i) instanceof  SymTableEntry){
                 SymTableEntry asda =  (SymTableEntry)symbols.get(i);
-                System.out.println("ID :" + asda.getId());
             }
         }
         return;

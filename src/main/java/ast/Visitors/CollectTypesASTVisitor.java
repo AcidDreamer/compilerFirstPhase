@@ -38,9 +38,6 @@ public class CollectTypesASTVisitor implements ASTVisitor {
 
         node.getExpression().accept(this);
         Type type = ASTUtils.getSafeType(node.getExpression());
-        System.out.println(entry.getType() + " vs " + type);
-        System.out.println(TypeUtils.isCasted(entry.getType(), type));
-
         if (TypeUtils.isAssignable(entry.getType(), type)){
             ASTUtils.setType(node, Type.VOID_TYPE);
         }else if(TypeUtils.isCasted(entry.getType(), type)){
@@ -119,7 +116,6 @@ public class CollectTypesASTVisitor implements ASTVisitor {
         node.setType(entry.getType());      
         if (node.getType() == null)
             ASTUtils.error(node, "Parser error : Function " + node.getIdentifier() + " doesn't have a type.");
-        System.out.println("Func Expres node : " + node);
     }
 
     @Override
