@@ -11,6 +11,7 @@ import ast.interfaces.*;
 import ast.specifics.*;
 import ch.qos.logback.core.joran.conditional.ElseAction;
 import symbol.SymTable;
+import symbol.LocalIndexPool;
 /**
  * Build LocalIndexPool for each node of the AST.
  */
@@ -26,12 +27,22 @@ public class LocalIndexBuilderASTVisitor implements ASTVisitor {
     public void visit(CompUnit node) throws ASTVisitorException {
         env.push(new LocalIndexPool()); //push/pop ανά compound statement
         ASTUtils.setLocalIndexPool(node, env.element());
-        for (Statement s : node.getStatements()) {
-            s.accept(this);
-        }
+        node.getFunVarList().accept(this);
         env.pop();
     }
 
+    @Override
+    public void visit(FunVarList node) throws ASTVisitorException{
+        ASTUtils.setLocalIndexPool(node, env.element());
+
+        for (ASTNode stmt : node.getVariableDefinition()){
+            stmt.accept(this);
+        }
+        for(ASTNode stmt : node.getFunctionDefinition()){
+            stmt.accept(this);
+        }
+         
+    }
     @Override
     public void visit(AssignmentStatement node) throws ASTVisitorException {
         ASTUtils.setLocalIndexPool(node, env.element());
@@ -58,7 +69,7 @@ public class LocalIndexBuilderASTVisitor implements ASTVisitor {
     }
 
     @Override
-    public void visit(VarDeclarationStatement node) throws ASTVisitorException {
+    public void visit(VariableDefinition node) throws ASTVisitorException {
         ASTUtils.setLocalIndexPool(node, env.element());
     }
 
@@ -68,7 +79,7 @@ public class LocalIndexBuilderASTVisitor implements ASTVisitor {
     }
 
     @Override
-    public void visit(DoubleLiteralExpression node) throws ASTVisitorException {
+    public void visit(FloatLiteralExpression node) throws ASTVisitorException {
         ASTUtils.setLocalIndexPool(node, env.element());
     }
 
@@ -85,7 +96,9 @@ public class LocalIndexBuilderASTVisitor implements ASTVisitor {
     @Override
     public void visit(ParenthesisExpression node) throws ASTVisitorException {
         ASTUtils.setLocalIndexPool(node, env.element());
-        node.getExpression().accept(this);
+        for(Expression e : node.getExpressions()){
+            e.accept(this);
+        }
     }
 
     @Override
@@ -96,18 +109,9 @@ public class LocalIndexBuilderASTVisitor implements ASTVisitor {
     }
 
     @Override
-    public void visit(DoWhileStatement node) throws ASTVisitorException {
-        ASTUtils.setLocalIndexPool(node, env.element());
-        node.getExpression().accept(this);
-        node.getStatement().accept(this);
-    }
-
-    @Override
     public void visit(CompoundStatement node) throws ASTVisitorException {
         ASTUtils.setLocalIndexPool(node, env.element());
-        for (Statement s : node.getStatements()) {
-            s.accept(this);
-        }
+        node.getStatement().accept(this);
     }
 
     @Override
@@ -121,18 +125,75 @@ public class LocalIndexBuilderASTVisitor implements ASTVisitor {
     }
 
     @Override
-    public void visit(IfElseStatement node) throws ASTVisitorException {
-        ASTUtils.setLocalIndexPool(node, env.element());
-        node.getExpression().accept(this);
-        node.getStatement1().accept(this);
-        node.getStatement2().accept(this);
-    }
-
-    @Override
     public void visit(IfStatement node) throws ASTVisitorException {
         ASTUtils.setLocalIndexPool(node, env.element());
         node.getExpression().accept(this);
         node.getStatement().accept(this);
     }
+
+	@Override
+	public void visit(DoStatement node) throws ASTVisitorException {
+        ASTUtils.setLocalIndexPool(node, env.element());
+        node.getExpression().accept(this);
+        node.getStatement().accept(this);
+	}
+
+	@Override
+	public void visit(IfThenElseStatement node) throws ASTVisitorException {
+        ASTUtils.setLocalIndexPool(node, env.element());
+        node.getExpression().accept(this);
+        node.getStatement1().accept(this);
+        node.getStatement2().accept(this);
+	}
+
+	@Override
+	public void visit(FunctionDefinition node) throws ASTVisitorException {
+		
+	}
+
+	@Override
+	public void visit(TypeSpecifierExpression node) throws ASTVisitorException {
+		
+	}
+
+	@Override
+	public void visit(CurlyStatement node) throws ASTVisitorException {
+		
+	}
+
+	@Override
+	public void visit(ParameterDeclaration node) throws ASTVisitorException {
+		
+	}
+
+	@Override
+	public void visit(BracketExpression node) throws ASTVisitorException {
+		
+	}
+
+	@Override
+	public void visit(KeywordLiteral node) throws ASTVisitorException {
+		
+	}
+
+	@Override
+	public void visit(KeywordExpression node) throws ASTVisitorException {
+		
+	}
+
+	@Override
+	public void visit(NewArraySpecifier node) throws ASTVisitorException {
+		
+	}
+
+	@Override
+	public void visit(CharacterLiteralExpression node) throws ASTVisitorException {
+		
+	}
+
+	@Override
+	public void visit(FunctionExpression node) throws ASTVisitorException {
+		
+	}
 
 }
