@@ -15,7 +15,7 @@ import threeaddr.GotoInstr;
  */
 public class ASTUtils {
 
-        public static final String SYMTABLE_PROPERTY = "SYMTABLE_PROPERTY";
+    public static final String SYMTABLE_PROPERTY = "SYMTABLE_PROPERTY";
     public static final String IS_BOOLEAN_EXPR_PROPERTY = "IS_BOOLEAN_EXPR_PROPERTY";
     public static final String TYPE_PROPERTY = "TYPE_PROPERTY";
     public static final String NEXT_LIST_PROPERTY = "NEXT_LIST_PROPERTY";
