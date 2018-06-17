@@ -11,5 +11,7 @@ int main() {
 	}
 	if (i == 100) {
 		print("Done!\n");
+	}else{
+		print("Not Done!");
 	}
-}
+}

@@ -64,5 +64,15 @@ public class FunctionDefinition extends ASTNode {
     public void accept(ASTVisitor visitor) throws ASTVisitorException {
         visitor.visit(this);
     }
+    
+    public String getParametersAsString(){
+        String args = "";
+        for ( ParameterDeclaration pd : this.parameters){
+            String newParameter = pd.getIdentifier() + pd.getTypeSpecifier().getType().toString() + ",";
+            args = args + newParameter;
+        }
+        return args.substring(0, args.length() - 1);
+    }
+
 
 }

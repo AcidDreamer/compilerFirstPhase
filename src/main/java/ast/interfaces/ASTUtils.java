@@ -37,6 +37,16 @@ public class ASTUtils {
     public static void setLocalIndexPool(ASTNode node, LocalIndexPool pool) {
         node.setProperty(LOCAL_INDEX_POOL_PROPERTY, pool);
     }
+    
+    @SuppressWarnings("unchecked")
+    public static LocalIndexPool getSafeLocalIndexPool(ASTNode node)
+            throws ASTVisitorException {
+        LocalIndexPool lip = (LocalIndexPool) node.getProperty(LOCAL_INDEX_POOL_PROPERTY);
+        if (lip == null) {
+            ASTUtils.error(node, "Local index pool not found.");
+        }
+        return lip;
+    }
 
     @SuppressWarnings("unchecked")
     public static SymTable<SymTableEntry> getSafeEnv(ASTNode node)
@@ -119,6 +129,16 @@ public class ASTUtils {
         return l;
     }
 
+    @SuppressWarnings("unchecked")
+    public static List<GotoInstr> getNextListFunc(FunctionDefinition node) {
+        List<GotoInstr> l = (List<GotoInstr>) node.getProperty(NEXT_LIST_PROPERTY);
+        if (l == null) {
+            l = new ArrayList<GotoInstr>();
+            node.setProperty(NEXT_LIST_PROPERTY, l);
+        }
+        return l;
+    }
+
     public static void setNextList(Statement node, List<GotoInstr> list) {
         node.setProperty(NEXT_LIST_PROPERTY, list);
     }
@@ -132,6 +152,16 @@ public class ASTUtils {
         }
         return l;
     }
+    @SuppressWarnings("unchecked")
+    public static List<GotoInstr> getBreakListFunc(FunctionDefinition node) {
+        List<GotoInstr> l = (List<GotoInstr>) node.getProperty(BREAK_LIST_PROPERTY);
+        if (l == null) {
+            l = new ArrayList<GotoInstr>();
+            node.setProperty(BREAK_LIST_PROPERTY, l);
+        }
+        return l;
+    }
+
 
     public static void setBreakList(Statement node, List<GotoInstr> list) {
         node.setProperty(BREAK_LIST_PROPERTY, list);
@@ -156,5 +186,7 @@ public class ASTUtils {
         throw new ASTVisitorException(node.getLine() + ":" + node.getColumn()
                 + ": " + message);
     }
+
+    
 
 }

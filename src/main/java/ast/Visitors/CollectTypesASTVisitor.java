@@ -157,23 +157,6 @@ public class CollectTypesASTVisitor implements ASTVisitor {
         ASTUtils.setType(node, Type.VOID_TYPE);
     }
 
-    /*
-    @Override
-    public void visit(VarDeclarationStatement node) throws ASTVisitorException {
-        ASTUtils.setType(node, Type.VOID_TYPE);
-    }
-
-    @Override
-    public void visit(BreakStatement node) throws ASTVisitorException {
-        ASTUtils.setType(node, Type.VOID_TYPE);
-    }
-
-    @Override
-    public void visit(ContinueStatement node) throws ASTVisitorException {
-        ASTUtils.setType(node, Type.VOID_TYPE);
-    }
-*/
-
     @Override
     public void visit(IfThenElseStatement node) throws ASTVisitorException {
         node.getExpression().accept(this);

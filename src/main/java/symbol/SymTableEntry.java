@@ -6,6 +6,7 @@ public class SymTableEntry {
 
     private String id;
     private Type type;
+    private Integer index;
 
     public SymTableEntry(String id) {
         this(id, null);
@@ -30,6 +31,13 @@ public class SymTableEntry {
 
     public void setType(Type type) {
         this.type = type;
+    }
+    public Integer getIndex() {
+        return index;
+    }
+
+    public void setIndex(Integer index) {
+        this.index = index;
     }
 
     @Override

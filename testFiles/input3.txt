@@ -12,13 +12,13 @@ int sum(int i) {
 }
 
 int main() {
-	char [] message;
-	message  = new char[16];
-	message = "aaaaaa";
+	//char [] message;
+	//message  = new char[16];
+	//message = "aaaaaa";
 	String aString;
 	aString = "aaaaa";
-	int [] kati;
-	kati [6] = 5;
+	//int [] kati;
+	//kati [6] = 5;
 	char xP ;
 	xP = 'a';
 	int total;
