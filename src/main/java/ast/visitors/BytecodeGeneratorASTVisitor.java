@@ -70,11 +70,20 @@ public class BytecodeGeneratorASTVisitor implements ASTVisitor {
         FunctionDefinition mainFunc = null;
         SymTable<SymTableEntry> env = ASTUtils.getEnv(node);
         SymTableEntry entry = env.lookupOnlyInTop("main");
+        for ( FunctionDefinition fd : node.getFunctionDefinition()){
+            if (fd.getIdentifier().equals("main")) {
+                foundMain = true;
+                mainFunc = fd;
+                mn = new MethodNode(Opcodes.ACC_PUBLIC + Opcodes.ACC_STATIC, "main", "()V", null, null);
+            }
+        }
         if (!foundMain) {
             ASTUtils.error(node, "ERROR : Main function has not been declared!");
         }
-        if (mainFunc.getParameterList().size() != 0) {
-            ASTUtils.error(node, "ERROR : Main function should not take any arguments!");
+        if ( mainFunc.getParameterList() != null){
+            if (mainFunc.getParameterList().size() != 0) {
+                ASTUtils.error(node, "ERROR : Main function should not take any arguments!");
+            }
         }
         if (mainFunc.getTypeSpecifier().getType() != Type.VOID_TYPE) {
             ASTUtils.error(node, "ERROR : Main function should be of void type!");
