@@ -10,6 +10,7 @@ import symbol.SymTableEntry;
 import ast.specifics.*;
 import java.util.ArrayList;
 import java.util.List;
+import org.objectweb.asm.tree.JumpInsnNode;
 import threeaddr.GotoInstr;
 /**
  * Class with static helper methods for AST handling
@@ -181,6 +182,76 @@ public class ASTUtils {
         node.setProperty(CONTINUE_LIST_PROPERTY, list);
     }
 
+    //same methods for different use
+    @SuppressWarnings("unchecked")
+    public static List<JumpInsnNode> getTrueListB(Expression node) {
+        List<JumpInsnNode> l = (List<JumpInsnNode>) node.getProperty(TRUE_LIST_PROPERTY);
+        if (l == null) {
+            l = new ArrayList<JumpInsnNode>();
+            node.setProperty(TRUE_LIST_PROPERTY, l);
+        }
+        return l;
+    }
+
+    public static void setTrueListB(Expression node, List<JumpInsnNode> list) {
+        node.setProperty(TRUE_LIST_PROPERTY, list);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static List<JumpInsnNode> getFalseListB(Expression node) {
+        List<JumpInsnNode> l = (List<JumpInsnNode>) node.getProperty(FALSE_LIST_PROPERTY);
+        if (l == null) {
+            l = new ArrayList<JumpInsnNode>();
+            node.setProperty(FALSE_LIST_PROPERTY, l);
+        }
+        return l;
+    }
+
+    public static void setFalseListB(Expression node, List<JumpInsnNode> list) {
+        node.setProperty(FALSE_LIST_PROPERTY, list);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static List<JumpInsnNode> getNextListB(Statement node) {
+        List<JumpInsnNode> l = (List<JumpInsnNode>) node.getProperty(NEXT_LIST_PROPERTY);
+        if (l == null) {
+            l = new ArrayList<JumpInsnNode>();
+            node.setProperty(NEXT_LIST_PROPERTY, l);
+        }
+        return l;
+    }
+
+    public static void setNextListB(Statement node, List<JumpInsnNode> list) {
+        node.setProperty(NEXT_LIST_PROPERTY, list);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static List<JumpInsnNode> getBreakListB(Statement node) {
+        List<JumpInsnNode> l = (List<JumpInsnNode>) node.getProperty(BREAK_LIST_PROPERTY);
+        if (l == null) {
+            l = new ArrayList<JumpInsnNode>();
+            node.setProperty(BREAK_LIST_PROPERTY, l);
+        }
+        return l;
+    }
+
+    public static void setBreakListB(Statement node, List<JumpInsnNode> list) {
+        node.setProperty(BREAK_LIST_PROPERTY, list);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static List<JumpInsnNode> getContinueListB(Statement node) {
+        List<JumpInsnNode> l = (List<JumpInsnNode>) node.getProperty(CONTINUE_LIST_PROPERTY);
+        if (l == null) {
+            l = new ArrayList<JumpInsnNode>();
+            node.setProperty(CONTINUE_LIST_PROPERTY, l);
+        }
+        return l;
+    }
+
+    public static void setContinueListB(Statement node, List<JumpInsnNode> list) {
+        node.setProperty(CONTINUE_LIST_PROPERTY, list);
+    }
     public static void error(ASTNode node, String message)
             throws ASTVisitorException {
         throw new ASTVisitorException(node.getLine() + ":" + node.getColumn()
