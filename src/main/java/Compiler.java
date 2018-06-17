@@ -2,6 +2,13 @@
 import ast.interfaces.*;
 import ast.specifics.*;
 import ast.visitors.*;
+
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.tree.ClassNode;
+import org.objectweb.asm.util.TraceClassVisitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,11 +69,44 @@ public class Compiler {
                   compUnit.accept(printVisitor);
                   
                   // print 3-address code
-                    LOGGER.info("3-address code:");
+                    LOGGER.info("\n<=========3-address code:=========>\n");
                     IntermediateCodeASTVisitor threeAddrVisitor = new IntermediateCodeASTVisitor();
                     compUnit.accept(threeAddrVisitor);
                     String intermediateCode = threeAddrVisitor.getProgram().emit();
                     System.out.println(intermediateCode);
+
+                    // convert to java bytecode
+                    LOGGER.info("\n<=========Bytecode:=========>\n");
+                    BytecodeGeneratorASTVisitor bytecodeVisitor = new BytecodeGeneratorASTVisitor();
+                    LOGGER.info("WAS HERE!");
+
+                    compUnit.accept(bytecodeVisitor);
+                    LOGGER.info("WAS HERE!");
+                    ClassNode cn = bytecodeVisitor.getClassNode();
+                    ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_MAXS + ClassWriter.COMPUTE_FRAMES);
+                    TraceClassVisitor cv = new TraceClassVisitor(cw, new PrintWriter(System.out));
+                    cn.accept(cv);
+                    // get code
+                    byte code[] = cw.toByteArray();
+
+                    // update to file
+                    LOGGER.info("/n<=========Writing class to file NotACalculator.class:=========>\n");
+                    FileOutputStream fos = new FileOutputStream("NoACalculator.class");
+                    fos.write(code);
+                    fos.close();
+                    LOGGER.info("Compilation done");
+
+                    // instantiate class
+                    LOGGER.info("Loading class NoACalculator.class");
+                    ReloadingClassLoader rcl = new ReloadingClassLoader(ClassLoader.getSystemClassLoader());
+                    rcl.register("NoACalculator", code);
+                    Class<?> calculatorClass = rcl.loadClass("NoACalculator");
+
+                    // run main method
+                    // Method meth = calculatorClass.getMethod("main", String[].class);
+                    // String[] params = null;
+                    // LOGGER.info("Executing");
+                    // meth.invoke(null, (Object) params);
 
                   LOGGER.info("Compilation done");
                 } catch (java.io.FileNotFoundException e) {
