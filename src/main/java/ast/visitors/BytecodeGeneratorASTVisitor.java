@@ -226,11 +226,21 @@ public class BytecodeGeneratorASTVisitor implements ASTVisitor {
 
     @Override
     public void visit(PrintStatement node) throws ASTVisitorException {
-        Type expressionType = ASTUtils.getSafeType(node.getExpression());
-
-        mn.instructions.add(new FieldInsnNode(Opcodes.GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;"));
         node.getExpression().accept(this);
-        mn.instructions.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "java/io/PrintStream", "print", "(" + expressionType.getDescriptor() + ")V"));
+        System.out.println(node);
+
+        Type exprType = ASTUtils.getSafeType(node.getExpression());
+
+        LocalIndexPool lip = ASTUtils.getSafeLocalIndexPool(node);
+        int localIndex = lip.getLocalIndex(exprType);
+
+        mn.instructions.add(new VarInsnNode(exprType.getOpcode(Opcodes.ISTORE), localIndex));
+        mn.instructions.add(new FieldInsnNode(Opcodes.GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;"));
+        mn.instructions.add(new VarInsnNode(exprType.getOpcode(Opcodes.ILOAD), localIndex));
+        mn.instructions.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "java/io/PrintStream", "print", Type.getMethodDescriptor(
+                Type.VOID_TYPE, exprType)));
+
+        lip.freeLocalIndex(localIndex, exprType);
 
         //FIXME: run recursively for expression (result will be at the top
         //of the stack)
@@ -264,7 +274,9 @@ public class BytecodeGeneratorASTVisitor implements ASTVisitor {
         //!!!!!!!!!!!!!!!!
         SymTableEntry entry = ASTUtils.getSafeEnv(node).lookup(node.getIdentifier());
         Type identifierType = entry.getType();
+        System.out.println("REACHED HERE BEFORE THE CRASH");
         int identifierIndex = entry.getIndex(); //αν -1, GETSTATIC, διαφορετικά STORE/LOAD (?)
+        System.out.println("PASSED THIS POINT WITH " + identifierIndex);
 
         widen(identifierType, expressionType); //όχι widen() σε πίνακες
 
@@ -709,6 +721,7 @@ public class BytecodeGeneratorASTVisitor implements ASTVisitor {
 
     @Override
     public void visit(TypeSpecifierExpression node) throws ASTVisitorException {
+        //DO NOTHING HERE
 
     }
 
@@ -739,21 +752,25 @@ public class BytecodeGeneratorASTVisitor implements ASTVisitor {
 
     @Override
     public void visit(ParameterDeclaration node) throws ASTVisitorException {
+        //DO NOTHING HERE
 
     }
 
     @Override
     public void visit(BracketExpression node) throws ASTVisitorException {
+        //DO NOTHING HERE
 
     }
 
     @Override
     public void visit(KeywordLiteral node) throws ASTVisitorException {
+        //DO NOTHING HERE
 
     }
 
     @Override
     public void visit(KeywordExpression node) throws ASTVisitorException {
+        //DO NOTHING HERE
 
     }
 

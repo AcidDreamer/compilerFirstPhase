@@ -154,6 +154,9 @@ public class CollectSymbolsASTVisitor implements ASTVisitor  {
         }else{
             env.put(node.getIdentifier(), new SymTableEntry(node.getIdentifier(),node.getTypeSpecifier().getType() ) );
         }
+        LocalIndexPool localIndexPool = ASTUtils.getSafeLocalIndexPool(node);
+        int index = localIndexPool.getLocalIndex(node.getTypeSpecifier().getType());
+        env.put(node.getIdentifier(), new SymTableEntry(node.getIdentifier(), node.getTypeSpecifier().getType(), index));
 
     }
 

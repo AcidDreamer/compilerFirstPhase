@@ -17,6 +17,12 @@ public class SymTableEntry {
         this.type = type;
     }
 
+    public SymTableEntry(String id, Type type, Integer index) {
+        this.id = id;
+        this.type = type;
+        this.index = index;
+    }
+
     public String getId() {
         return id;
     }
