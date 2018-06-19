@@ -72,7 +72,6 @@
      @Override
      public void visit(AssignmentStatement node) throws ASTVisitorException {
         if (node.getIsTable()){
-            System.out.println("WAS FUCKING HERE");
             node.getTablePosition().accept(this);
         }
             
@@ -402,8 +401,8 @@
  
      @Override
      public void visit(KeywordExpression node) throws ASTVisitorException {
-         
-         node.getExpression().accept(this);
+        if (node.getExpression() != null)
+            node.getExpression().accept(this);
  
      }
  
