@@ -109,7 +109,8 @@ public class BytecodeGeneratorASTVisitor implements ASTVisitor {
 
     @Override
     public void visit(CompoundStatement node) throws ASTVisitorException {
-       /*
+        node.getStatement().accept(this);
+        /*
         List<JumpInsnNode> breakList = new ArrayList<JumpInsnNode>();
         List<JumpInsnNode> continueList = new ArrayList<JumpInsnNode>();
         Statement s = null, ps;
@@ -758,7 +759,7 @@ public class BytecodeGeneratorASTVisitor implements ASTVisitor {
 
     @Override
     public void visit(BracketExpression node) throws ASTVisitorException {
-        //DO NOTHING HERE
+       node.getExpression().accept(this);
 
     }
 
@@ -781,7 +782,7 @@ public class BytecodeGeneratorASTVisitor implements ASTVisitor {
 
     @Override
     public void visit(CharacterLiteralExpression node) throws ASTVisitorException {
-
+         mn.instructions.add(new LdcInsnNode(node.getLiteral()));
     }
 
     @Override
