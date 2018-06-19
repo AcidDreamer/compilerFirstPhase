@@ -29,19 +29,19 @@ public class LocalIndexPool {
     }
 
     public int getLocalIndex(Type type) {
-        if (type.equals(Type.DOUBLE_TYPE)) {
-            return getDoubleLocalIndex();
-        } else if (type.equals(Type.INT_TYPE) || type.equals(TypeUtils.STRING_TYPE)) {
+        if (type.equals(Type.FLOAT_TYPE)) {
+            return getFloatLocalIndex();
+        } else if (type.equals(Type.INT_TYPE) || type.equals(TypeUtils.STRING_TYPE) || type.equals(Type.CHAR_TYPE)) {
             return getLocalIndex();
         } else {
-            throw new IllegalArgumentException("Not supported type " + type);
+            throw new IllegalArgumentException("Not supported type " + type + " as opposed to " + Type.CHAR_TYPE);
         }
     }
 
     public void freeLocalIndex(int i, Type type) {
         if (type.equals(Type.DOUBLE_TYPE)) {
-            freeDoubleLocalIndex(i);
-        } else if (type.equals(Type.INT_TYPE) || type.equals(TypeUtils.STRING_TYPE)) {
+            freeFloatIndex(i);
+        } else if (type.equals(Type.INT_TYPE) || type.equals(TypeUtils.STRING_TYPE) || type.equals(Type.CHAR_TYPE)) {
             freeLocalIndex(i);
         } else {
             throw new IllegalArgumentException("Not supported type " + type);
@@ -65,7 +65,7 @@ public class LocalIndexPool {
         used.remove(t);
     }
 
-    public int getDoubleLocalIndex() {
+    public int getFloatLocalIndex() {
         for (int i = 0; i < max; i++) {
             if (!used.contains(i) && !used.contains(i + 1)) {
                 used.add(i);
@@ -79,7 +79,7 @@ public class LocalIndexPool {
         throw new RuntimeException("Pool cannot contain more temporaries.");
     }
 
-    public void freeDoubleLocalIndex(int t) {
+    public void freeFloatIndex(int t) {
         used.remove(t);
         used.remove(t + 1);
     }
