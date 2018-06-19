@@ -401,8 +401,10 @@
  
      @Override
      public void visit(KeywordExpression node) throws ASTVisitorException {
-        if (node.getExpression() != null)
+         if(node.getExpression() != null)
             node.getExpression().accept(this);
+         String temp = node.getIdentifier();
+         program.add(new KeywordInstr(temp));
  
      }
  

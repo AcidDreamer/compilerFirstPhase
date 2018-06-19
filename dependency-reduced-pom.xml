@@ -4,7 +4,7 @@
   <groupId>com.compilers.project</groupId>
   <artifactId>compiler</artifactId>
   <name>compiler</name>
-  <version>0.0.6</version>
+  <version>0.0.7</version>
   <url>https://github.com/AcidDreamer/compilerFirstPhase</url>
   <build>
     <resources>

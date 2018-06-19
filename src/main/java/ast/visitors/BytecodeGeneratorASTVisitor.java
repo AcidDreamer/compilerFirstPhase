@@ -85,8 +85,8 @@ public class BytecodeGeneratorASTVisitor implements ASTVisitor {
                 ASTUtils.error(node, "ERROR : Main function should not take any arguments!");
             }
         }
-        if (mainFunc.getTypeSpecifier().getType() != Type.VOID_TYPE) {
-            ASTUtils.error(node, "ERROR : Main function should be of void type!");
+        if (mainFunc.getTypeSpecifier().getType() != Type.INT_TYPE) {
+            ASTUtils.error(node, "ERROR : Main function should be of int type!");
         }
         for (FunctionDefinition df : node.getFunctionDefinition()) {
             df.accept(this);

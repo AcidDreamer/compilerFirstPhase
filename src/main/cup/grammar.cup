@@ -276,7 +276,7 @@ ParameterList ::= ParameterDeclaration:pd{:
       :}
       |BREAK_KEYWORD:b SEMICOLON
         {:
-            RESULT = new KeywordLiteral("break");
+            RESULT = new BreakStatement();
             RESULT.setLine(bleft);
             RESULT.setColumn(bright);
         :}
@@ -297,7 +297,7 @@ ParameterList ::= ParameterDeclaration:pd{:
 
        |CONTINUE_KEYWORD:c SEMICOLON
         {:
-            RESULT =new KeywordLiteral("continue");
+            RESULT =new ContinueStatement();
             RESULT.setLine(cleft);
             RESULT.setColumn(cright);
         :}
