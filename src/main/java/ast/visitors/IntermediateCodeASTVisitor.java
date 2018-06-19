@@ -404,6 +404,8 @@
      public void visit(KeywordExpression node) throws ASTVisitorException {
          
          node.getExpression().accept(this);
+         String temp = node.getIdentifier();
+         program.add(new KeywordInstr(temp));
  
      }
  
